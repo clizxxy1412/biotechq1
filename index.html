@@ -147,14 +147,73 @@ textarea{width:100%;font:inherit;font-size:16px;background:var(--bg);color:var(-
 .center{text-align:center}
 .mt{margin-top:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ===== rewards ===== */
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:70}
+#toasts{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:0;right:0;z-index:80;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;padding:0 14px}
+.toast{background:var(--navy);color:#fff;border:1.5px solid var(--amber);padding:10px 16px 10px 12px;border-radius:16px;display:flex;gap:12px;align-items:center;font-size:15px;line-height:1.25;
+  box-shadow:0 10px 30px rgba(0,0,0,.28);animation:toastin .4s cubic-bezier(.2,1.3,.3,1),toastout .3s 1.95s forwards;max-width:420px}
+@keyframes toastin{from{opacity:0;transform:translateY(-24px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes toastout{to{opacity:0;transform:translateY(-14px)}}
+.medal{flex:none;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:var(--amber);color:#1b1402;font-weight:800;font-size:15px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)}
+.medal.sm{width:38px;height:38px;font-size:14px}
+.xpfloat{position:fixed;z-index:75;pointer-events:none;font-weight:800;font-size:22px;color:var(--amber);text-shadow:0 2px 8px rgba(0,0,0,.35);animation:floatup .95s ease-out forwards}
+@keyframes floatup{0%{opacity:0;transform:translateY(8px) scale(.8)}18%{opacity:1;transform:translateY(-4px) scale(1.15)}100%{opacity:0;transform:translateY(-70px) scale(1)}}
+@keyframes pop{0%{transform:scale(.96)}45%{transform:scale(1.045)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes flipin{from{transform:rotateY(78deg);opacity:.2}to{transform:rotateY(0);opacity:1}}
+@keyframes tk{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+@keyframes starin{0%{opacity:0;transform:scale(.2) rotate(-30deg)}70%{transform:scale(1.25) rotate(8deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+.opt.pop{animation:pop .42s ease-out}
+.opt.shake{animation:shake .42s ease-out}
+.expl{animation:rise .3s ease-out}
+.face.flipin{animation:flipin .28s ease-out}
+.ring .tk{transform-box:fill-box;transform-origin:center}
+.ring.intro .tk{animation:tk .45s cubic-bezier(.2,1.4,.4,1) both;animation-delay:calc(var(--i) * 10ms)}
+.pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);color:#fff;padding:6px 12px;border-radius:99px;font-weight:700;font-size:15px}
+.pill svg{width:17px;height:17px;fill:var(--amber)}
+.pill.combo{margin-left:8px;background:var(--amber);color:#1b1402;animation:pop .35s ease-out}
+.pill.combo svg{fill:#1b1402}
+.iconbtn{border:0;background:rgba(255,255,255,.14);color:#fff;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
+.iconbtn svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lvl{display:flex;align-items:center;gap:14px;margin-top:18px}
+.hex{flex:none;position:relative;width:58px;height:64px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:25px;color:#1b1402}
+.hex svg{position:absolute;inset:0;width:100%;height:100%;fill:var(--amber)}
+.hex span{position:relative}
+.lvlname{font-weight:700;font-size:17px;margin-bottom:6px}
+.xpbar{height:10px;border-radius:99px;background:rgba(255,255,255,.2);overflow:hidden}
+.xpbar i{display:block;height:100%;background:var(--amber);border-radius:99px;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.goal .xpbar{background:var(--line)}
+.goal b{font-size:17px}
+.next{border:2px solid var(--amber)}
+.next .lbl{font-weight:700;font-size:17px;margin-bottom:2px}
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bd{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:3px;opacity:.55}
+.bd .medal{background:var(--line);color:var(--mute);box-shadow:none;margin-bottom:4px}
+.bd b{font-size:14.5px;line-height:1.2}
+.bd small{font-size:12.5px;color:var(--mute);line-height:1.3}
+.bd.on{opacity:1;border-color:var(--amber)}
+.bd.on .medal{background:var(--amber);color:#1b1402;box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)}
+.clr{display:inline-block;margin-left:8px;font-size:12px;font-weight:700;color:#1b1402;background:var(--amber);padding:1px 8px;border-radius:99px;vertical-align:1px}
+.stars{display:flex;justify-content:center;gap:10px;margin:14px 0 6px}
+.stars svg{width:44px;height:44px;fill:rgba(255,255,255,.18)}
+.stars svg.on{fill:var(--amber);animation:starin .55s cubic-bezier(.2,1.3,.4,1) both}
+.rstats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center}
+.rstats b{display:block;font-size:22px}
+.rstats span{font-size:12.5px;color:var(--mute)}
+@media (prefers-reduced-motion:reduce){.opt.pop,.opt.shake,.expl,.face.flipin,.ring.intro .tk,.stars svg.on,.toast,.xpfloat{animation:none!important}}
+
 </style>
 </head>
 <body>
 <div id="statusbar"></div>
 <div id="view"></div>
 <nav id="tabs"></nav>
+<canvas id="fx"></canvas>
+<div id="toasts"></div>
 <script>
-const APP_VERSION='20260930-2146';
+const APP_VERSION='20261006-054416';
+const CONTENT_V='2';
 const CLUSTERS=[
 {id:'A',name:'Intro to Biotechnology & Careers',from:1,to:6},
 {id:'B',name:'Lab Safety, MSDS/PPE, Equipment',from:7,to:15},
@@ -271,54 +330,256 @@ const CHECK_NOTES={
 const MCQ=[],CARDS=[];
 function Q(t,q,a,b,c,d,e){MCQ.push({id:'q'+(MCQ.length+1),t:[].concat(t),q:q,o:[a,b,c,d],e:e});}
 function C(t,f,b){CARDS.push({id:'c'+(CARDS.length+1),t:[].concat(t),f:f,b:b});}
-/* ===== A. Intro to Biotechnology & Careers (1-6) ===== */
-Q(1,"Which statement best defines biotechnology?","The use of living organisms, cells, or their molecules to make products or solve problems","The study of rocks, minerals, and how the Earth formed","The manufacture of synthetic plastics from petroleum","The surgical treatment of genetic disease","Biotechnology harnesses biology (microbes, cells, enzymes, DNA) for practical uses in medicine, food, agriculture, and industry.");
-Q(1,"Brewing beer, making bread, and producing insulin in bacteria are all biotechnology because each one...","uses living organisms or their products to make something useful","requires a fully sterile operating room","depends on editing human chromosomes","relies on synthetic chemicals instead of cells","The common thread is using living things (yeast, bacteria) or their molecules for a human purpose.");
-Q(2,"What do traditional and modern biotechnology have in common?","Both use living organisms or their products to make useful goods","Both directly cut and paste specific genes","Both were invented after DNA was sequenced","Both require recombinant plasmids","Similarity: both harness living things. The difference is how much control there is over the genes involved.");
-Q(2,"Which is the key DIFFERENCE between modern and traditional biotechnology?","Modern biotech deliberately manipulates specific genes or DNA; traditional uses natural processes or breeding without direct gene manipulation","Traditional biotech uses living cells; modern biotech does not","Modern biotech only works on bacteria","Traditional biotech always involves a laboratory","Traditional: fermentation, selective breeding (genes unknown/not directly edited). Modern: genetic engineering, recombinant DNA, PCR, etc.");
-Q(3,"Which is an example of TRADITIONAL biotechnology?","Making yogurt with bacterial cultures","Producing human insulin in E. coli","Making bacteria glow with the pGLO plasmid","Copying DNA with PCR","Yogurt, cheese, bread, beer, and wine use natural fermentation, which predates knowledge of DNA.");
-Q(3,"Which is an example of MODERN biotechnology?","Making human insulin in genetically engineered bacteria","Baking bread with yeast","Selective breeding of dairy cattle","Fermenting grapes into wine","Inserting the human insulin gene into bacteria is genetic engineering, a modern technique.");
-Q(3,"Selective breeding of crops over many generations is classified as...","traditional biotechnology","modern biotechnology because it edits DNA directly","not biotechnology because no lab is used","genetic engineering","Selective breeding changes organisms by choosing parents with desired traits. It is not direct gene manipulation, so it is traditional.");
-Q(4,"What is genetic engineering?","Directly altering an organism's DNA, often by inserting a gene from another organism","Crossing two plants to get offspring with better traits","Fermenting sugars with yeast","Observing chromosomes under a microscope","Genetic engineering = deliberate, direct change to an organism's genome (e.g., adding the GFP gene to bacteria).");
-Q(4,"Which activity is genetic engineering?","Transforming E. coli with pGLO so they make GFP","Making cheese with rennet","Growing bacteria on agar","Breeding two dogs for a desired coat color","Transformation with pGLO inserts a foreign gene (GFP) into a cell, which is genetic engineering.");
-Q(5,"A person who tests each batch of a biotech product to confirm it meets purity standards works as a...","quality control (QC) analyst","bioinformatician","genetic counselor","bioprocess engineer","QC analysts run assays on products to make sure they meet specifications before release.");
-Q(5,"A bioinformatician mainly...","uses computers and statistics to analyze biological data such as DNA sequences","runs large fermenters to produce protein drugs","advises families about inherited disease risk","tests the purity of each product batch","Bioinformatics = biology + computing, such as analyzing genomes and protein data.");
-Q(6,"Which job generally requires the most advanced degree?","Principal investigator leading a research lab (PhD)","Laboratory technician (certificate or associate degree)","Manufacturing technician","Lab assistant","Independent research leadership typically requires a doctorate (PhD/MD). Technician roles generally start at certificate/associate level.");
-Q(6,"Which degree-and-job pairing is the most typical?","Associate degree: laboratory or manufacturing technician","High school diploma: lead research scientist","Associate degree: director of R&D","Bachelor's degree: university professor","Technician roles fit certificates/associate degrees; bachelor's often leads to research associate or QC/QA; master's/PhD to senior scientist or lead roles.");
+/* ===== A (1-6) ===== */
+Q(1,"Which statement best defines biotechnology?","Using living organisms or their molecules to make products or solve problems","Using chemical reactions to manufacture synthetic medicines in sterile labs","Studying how traits are passed from one generation to the next","Using computer models to predict how living systems behave","Biotechnology puts living things (microbes, cells, enzymes, DNA) to work for medicine, food, agriculture, and industry.");
+Q(1,"Brewing beer, baking bread, and making insulin in bacteria all count as biotechnology because...","each puts living cells or their products to work for a human purpose","each changes the DNA sequence of the organism that is used","each requires sterile conditions and specialized lab equipment","each ends with a protein that could be used as a medicine","The shared idea is using living things for a purpose. Only the insulin example involves changing DNA.");
+Q(2,"Which statement is true of BOTH traditional and modern biotechnology?","They both use living organisms or their products to make something useful","They both insert specific genes into the organism being used","They both depend on knowing the organism's DNA sequence","They both need equipment such as a thermal cycler","Similarity: both harness living things. Direct gene manipulation is only part of modern biotech.");
+Q(2,"What most separates modern biotechnology from traditional biotechnology?","Modern methods change specific genes on purpose; traditional ones do not","Modern methods use living cells; traditional ones use only chemicals","Modern methods work on single cells; traditional ones on whole organisms","Modern methods are used in medicine; traditional ones only in food","Traditional: fermentation and breeding. Modern: genetic engineering, recombinant DNA, PCR.");
+Q(3,"Which is an example of TRADITIONAL biotechnology?","Making yogurt by letting bacteria ferment milk","Making human insulin in bacteria that carry the human gene","Making bacteria glow by adding a jellyfish gene","Copying a DNA fragment millions of times with PCR","Fermentation predates any knowledge of DNA. The other three directly manipulate DNA.");
+Q(3,"Which is an example of MODERN biotechnology?","Making human insulin in bacteria that carry the human gene","Making bread rise with baker's yeast","Making wine by fermenting grape juice","Breeding the highest-yielding cows over many generations","Moving a human gene into bacteria is genetic engineering.");
+Q(3,"Selective breeding of crops over many generations is...","traditional biotechnology","genetic engineering","modern biotechnology","not biotechnology","It uses living organisms to get a useful result, but genes are not directly manipulated, so it is traditional.");
+Q(4,"What is genetic engineering?","Directly changing an organism's DNA, often by adding a gene","Choosing parents with desirable traits to breed together","Using microbes to ferment raw materials into new products","Sequencing an organism's DNA to read its genes","Genetic engineering is deliberate, direct change to an organism's genome.");
+Q(4,"Which is an example of genetic engineering?","Adding the GFP gene to E. coli with the pGLO plasmid","Growing E. coli on LB agar to form colonies","Staining E. coli so it can be viewed under a microscope","Picking the E. coli colonies that grow fastest","Only pGLO transformation changes the genome (adds a gene).");
+Q(5,"A person who checks each batch of a product against purity specifications works as a...","quality control analyst","regulatory affairs specialist","bioprocess engineer","research associate","QC analysts run assays on batches before release. Regulatory affairs handles agency paperwork; bioprocess engineers scale up production.");
+Q(5,"Who uses computers and statistics to analyze DNA sequence data?","A bioinformatician","A genetic counselor","A bioprocess engineer","A quality control analyst","Bioinformatics combines biology with computing.");
+Q(6,"Which job typically requires the MOST advanced degree?","Principal investigator running an independent research lab","Research associate carrying out experiments","Quality control analyst testing products","Manufacturing technician running equipment","Leading independent research generally requires a doctorate (PhD/MD).");
+Q(6,"Which degree and job pairing is the most typical?","Master's degree: genetic counselor","Associate degree: genetic counselor","Bachelor's degree: principal investigator","Certificate: director of research","Genetic counseling is a master's-level career. Lead research roles need a doctorate.");
+
+/* ===== B (7-15) ===== */
+Q(7,"What does an SDS contain?","Hazards, handling, first aid, and disposal details for one chemical","Step-by-step instructions for running a lab procedure","Calibration and maintenance steps for lab equipment","A list of every chemical in the lab and where it is stored","The SDS (formerly MSDS) is the safety reference for a specific chemical.");
+Q(7,"Which document gives the first-aid, spill, and disposal steps for a specific chemical?","Its SDS","The lab protocol handout","The chemical inventory list","Your lab notebook","The SDS is chemical-specific. A protocol covers the procedure, not the chemical's hazards.");
+Q(8,"You are pouring a liquid that could splash toward your face. Which PPE protects your eyes best?","Splash goggles","Nitrile gloves","A lab coat","Closed-toe shoes","Goggles seal around the eyes. The other items protect other body parts.");
+Q(8,"You are viewing plates under a UV lamp. Which PPE do you need most?","UV-blocking goggles","Heat-resistant gloves","A splash apron","A respirator mask","UV light damages eyes and skin, so use UV-blocking eyewear (or a face shield). Heat gloves are for hot items.");
+Q(8,"Which of these is NOT personal protective equipment?","A fume hood","A face shield","A lab coat","Nitrile gloves","A fume hood is an engineering control that vents vapors. PPE is worn on the body.");
+Q(9,"Which would be an acceptable label on a prepared solution?","1 M NaCl, made 10/3, initials CL","Salt water, Period 3","NaCl, 10/3","1 M, initials CL","A good label has the contents, concentration, date made, and who made it. Each wrong option is missing at least one.");
+Q(10,"Which tool would you use to pull a precipitate to the bottom of a 1.5 mL tube?","Microcentrifuge","Vortex","Thermal cycler","Gel electrophoresis apparatus","A microcentrifuge spins small tubes to pellet material. A vortex mixes.");
+Q(10,"You need to move 7 µL of DNA into a tube. Which tool?","Micropipette","Serological pipette","Graduated cylinder","Dropper bottle","Micropipettes handle microliter volumes. Serological pipettes handle mL volumes.");
+Q(10,"You need to measure 10 mL of buffer accurately. Which is most appropriate?","A serological pipette","A P-1000 micropipette","A P-100 micropipette","A plastic transfer pipette","P-1000 tops out at 1 mL. Serological pipettes are graduated for mL volumes; transfer pipettes are not accurate.");
+Q(10,"What does a spectrophotometer measure?","How much light a sample absorbs or transmits","How fast molecules move through a gel","The hydrogen ion concentration of a sample","The mass of a sample per unit volume","Absorbance relates to concentration of DNA, protein, or cells.");
+Q(10,"A mixture of DNA fragments needs to be separated by size. Which setup do you use?","Gel electrophoresis apparatus","Thermal cycler","Microcentrifuge","Spectrophotometer","Electric current pulls DNA through a gel; smaller fragments travel farther.");
+Q(10,"Which tool mixes the contents of a tube by rapid shaking?","Vortex","Microcentrifuge","Picofuge","Thermal cycler","A vortex swirls the liquid. Centrifuges spin to separate.");
+Q(10,"Which instrument repeatedly heats and cools samples to copy a DNA sequence?","Thermal cycler (PCR machine)","Gel electrophoresis apparatus","Spectrophotometer","Vortex","PCR cycles denaturing, annealing, and extension temperatures.");
+Q(11,"How does a picofuge differ from a microcentrifuge?","It is a small quick-spin unit that mainly gathers liquid at the bottom of tubes","It reaches higher speeds so it can pellet cells and debris","It holds large tubes of 15 to 50 mL","It cools samples while they spin","A picofuge is a compact low-speed 'quick spin'. Where each is kept in your lab goes in your notes.");
+Q(11,"Which statement about micropipette tips is true?","A fresh tip is used for each sample","A tip can be reused if rinsed with water between samples","One tip size works for any micropipette","Tips are only needed for thick liquids","Reusing tips cross-contaminates samples, and each pipette needs the tip size made for it.");
+Q(12,"Where is the plunger when you lower the tip into the liquid to draw up a sample?","At the first stop","At the second stop","Fully released","Halfway between the two stops","Press to the first stop, submerge the tip, then release slowly.");
+Q(12,"What is the purpose of the second stop on a micropipette?","It pushes out the last bit of liquid when dispensing","It draws up extra volume to prevent air bubbles","It locks the volume setting","It ejects the tip","The second stop blows out the remaining drop. A separate button ejects the tip.");
+Q(12,"Which is correct micropipette technique?","Release the plunger slowly to draw liquid in smoothly","Release the plunger quickly to pull liquid in faster","Lay the pipette flat to keep the liquid from dripping","Dial slightly past the range to be safe","Fast release can create bubbles and inaccurate volumes. Never exceed the range or lay a loaded pipette down.");
+Q(13,"The dial of a P-10 reads 055. What volume is set?","5.5 µL","55 µL","550 µL","0.55 µL","P-10 digits read XX.X µL, so 055 is 05.5 µL.");
+Q(13,"The dial of a P-100 reads 055. What volume is set?","55 µL","5.5 µL","550 µL","0.55 µL","P-100 digits read whole microliters.");
+Q(13,"The dial of a P-1000 reads 055. What volume is set?","550 µL","55 µL","5.5 µL","5500 µL","On a P-1000 each unit on the last digit is 10 µL, so 055 = 550 µL = 0.55 mL.");
+Q(14,"A P-10 is set to 089. How much is pipetted?","8.9 µL (0.0089 mL)","89 µL (0.089 mL)","890 µL (0.89 mL)","0.89 µL (0.00089 mL)","P-10 reads XX.X, so 08.9 µL. Divide by 1000 for mL.");
+Q(14,"A P-100 is set to 089. How much is pipetted?","89 µL (0.089 mL)","8.9 µL (0.0089 mL)","890 µL (0.89 mL)","0.89 µL (0.00089 mL)","P-100 reads whole microliters: 89 µL = 0.089 mL.");
+Q(14,"A P-1000 is set to 089. How much is pipetted?","890 µL (0.89 mL)","89 µL (0.089 mL)","8.9 µL (0.0089 mL)","8900 µL (8.9 mL)","P-1000 digits are 10s of µL: 089 = 890 µL = 0.89 mL.");
+Q(15,"You have only one sample to spin in a microcentrifuge. What do you do?","Add a tube with an equal volume of water directly opposite","Place it in any slot and close the lid","Spin it at a lower speed to compensate","Place an empty tube opposite it","An unbalanced rotor can damage the machine. Use a balance tube of equal volume.");
+Q(15,"Which setup is balanced?","Two tubes with equal volumes in opposite slots","Two tubes with equal volumes in neighboring slots","Two tubes in opposite slots holding 1.5 mL and 0.5 mL","Two tubes with equal volumes, one slot apart","Equal mass has to be placed directly across the rotor from each other.");
+
+/* ===== C (16-21) ===== */
+Q(16,"Milk is curdled by adding lemon juice and warming it. Which cheese-making method is this?","Direct acid coagulation","Bacterial starter culture","Animal rennet","Recombinant chymosin","Acid lowers pH so casein clumps; no enzyme or microbe is needed.");
+Q(16,"Lactococcus bacteria are added to warm milk and left to ferment. Which method is this?","Bacterial starter culture","Direct acid coagulation","Animal rennet","Recombinant chymosin","The bacteria make lactic acid from lactose, which lowers the pH.");
+Q(16,"Chymosin is extracted from the stomach lining of young calves. Which method is this?","Animal rennet","Direct acid coagulation","Bacterial starter culture","Recombinant chymosin","Traditional rennet comes from calf stomachs.");
+Q(16,"How is recombinant chymosin produced?","Microbes carrying the calf chymosin gene make it in fermenters","The lining of a calf stomach is dried and extracted","Bacteria ferment lactose into it","Chemists synthesize it from milk sugar","The chymosin gene is cloned into bacteria, yeast, or mold; this is genetic engineering.");
+Q(16,"Which pair of methods clots milk using the enzyme chymosin?","Animal rennet and recombinant chymosin","Direct acid and starter culture","Animal rennet and starter culture","Direct acid and recombinant chymosin","Acid and starter culture work by lowering pH, not by an enzyme.");
+Q(16,"Why is recombinant chymosin more consistent than animal rennet?","It is a single purified enzyme, not a variable animal extract","It contains several enzymes that speed aging of the cheese","It clots milk by lowering pH instead of cutting casein","It is made from lactose rather than from protein","Microbes make identical enzyme every batch, with no calves needed.");
+Q(17,"Which milk component forms the curd?","Casein","Lactose","Lactic acid","Whey","Casein proteins clump into curd; lactose stays dissolved in whey.");
+Q(17,"Casein is best described as...","the main protein in milk","the main sugar in milk","an enzyme that clots milk","the liquid left after curdling","About 80% of milk protein is casein.");
+Q(18,"Which bonds does a protease cut?","Peptide bonds","Phosphodiester bonds","Hydrogen bonds between bases","Glycosidic bonds","Proteases break proteins apart at peptide bonds.");
+Q(18,"How does chymosin help form curds?","It cuts casein so the proteins clump together","It converts lactose into lactic acid","It raises the pH until casein precipitates","It digests the milk fat so casein separates","Chymosin is a protease that removes casein's stabilizing region.");
+Q(19,"What activity produces lactic acid in starter-culture cheese-making?","Bacteria fermenting lactose","Yeast fermenting glucose","Bacteria digesting casein","Enzymes cutting butterfat","Lactic acid bacteria ferment milk sugar into lactic acid.");
+Q(19,"What does lactic acid do to the milk?","Lowers the pH so casein clumps","Raises the pH so casein dissolves","Digests casein into amino acids","Cuts casein the way chymosin does","Acidity destabilizes casein; it is not an enzymatic cut.");
+Q(20,"After milk curdles, which statement is correct?","Curd is the solid casein; whey is the liquid that remains","Whey is the solid casein; curd is the liquid that remains","Curd and whey are both solids, made of different proteins","Curd and whey are both liquids that separate by density","The curd is pressed into cheese; the whey is drained off.");
+Q(20,"Which is found mostly in whey?","Water and dissolved lactose","Aggregated casein","Clumped milk fat","Insoluble starch","Whey is the watery liquid left after curds form.");
+Q(21,"Why use buffers of known pH when calibrating a pH meter?","They give the meter known reference points","They clean the probe before use","They keep the probe from drying out","They bring the meter to room temperature","The meter converts voltage to pH using the reference points.");
+Q(21,"Between calibration buffers, you should...","rinse the probe with distilled water","wipe the probe with ethanol","leave the probe in the first buffer","dry the probe with heat","Rinsing prevents one buffer from contaminating the next.");
+Q(21,"Before weighing a sample in a weigh boat on an electronic balance, you should...","tare the balance with the empty boat on it","calibrate the balance with the sample in the boat","open the draft shield fully","add the sample and then zero","Taring subtracts the boat's mass so only the sample is weighed.");
+
+/* ===== D (22-26) ===== */
+Q(22,"Which type of cell has its DNA in a nucleoid region?","Prokaryotic","Animal","Plant","Fungal","Prokaryotes lack a nucleus. Animal, plant, and fungal cells are all eukaryotic.");
+Q(22,"Which statement about eukaryotic cells is true?","Their DNA is enclosed in a membrane-bound nucleus","Their DNA is one circular chromosome","They have no ribosomes","They are always single-celled","Eukaryotes have a nucleus and membrane-bound organelles.");
+Q(22,"Which pairing is correct?","Prokaryote: circular chromosome; eukaryote: linear chromosomes","Prokaryote: linear chromosomes; eukaryote: circular chromosome","Prokaryote: no DNA; eukaryote: DNA in the nucleus","Both: circular chromosomes inside a nucleus","Prokaryotes usually have a single circular chromosome (plus plasmids).");
+Q(23,"Which organelle contains the chromosomes and is the site of transcription?","Nucleus","Golgi apparatus","Endoplasmic reticulum","Mitochondria","The nucleus houses DNA.");
+Q(23,"Which organelle has a surface covered with ribosomes and folds new proteins?","Rough endoplasmic reticulum","Smooth endoplasmic reticulum","Golgi apparatus","Lysosome","Rough ER is studded with ribosomes; smooth ER makes lipids.");
+Q(23,"Proteins leave the ER and are modified, sorted, and shipped by the...","Golgi apparatus","Lysosome","Vacuole","Nucleus","Think of the Golgi as the cell's post office.");
+Q(23,"Which structure is selectively permeable and surrounds every cell?","Plasma membrane","Cell wall","Nuclear envelope","Cytoskeleton","The plasma membrane controls what enters and leaves. Not every cell has a wall.");
+Q(23,"Which structure gives plant cells a rigid shape outside the plasma membrane?","Cell wall","Central vacuole","Cytoskeleton","Chloroplast","The wall is cellulose in plants (also present in bacteria and fungi).");
+Q(23,"Which organelle stores water, nutrients, and wastes and is very large in plant cells?","Vacuole","Lysosome","Golgi apparatus","Chloroplast","The central vacuole also helps keep plant cells firm.");
+Q(23,"Which organelle makes most of the cell's ATP?","Mitochondria","Chloroplast","Golgi apparatus","Smooth ER","Mitochondria carry out cellular respiration.");
+Q(23,"Which organelle converts light energy into sugar?","Chloroplast","Mitochondria","Vacuole","Lysosome","Chloroplasts perform photosynthesis in plants and algae.");
+Q(23,"Which organelle contains enzymes that digest worn-out organelles?","Lysosome","Golgi apparatus","Vacuole","Smooth ER","Lysosomes are the cell's recycling centers.");
+Q(24,"Which pair is found in plant cells but NOT in animal cells?","Cell wall and chloroplasts","Nucleus and plasma membrane","Mitochondria and chloroplasts","Lysosomes and cell wall","Plants also have a large central vacuole. Both cell types have mitochondria.");
+Q(24,"Which structure do BOTH plant and animal cells have?","Mitochondria","Chloroplasts","Cell wall","Large central vacuole","Plants have mitochondria too, because they respire as well as photosynthesize.");
+Q(25,"Which best describes a nucleosome?","DNA wrapped around a group of histone proteins","A single nucleotide with its three parts","A segment of DNA containing one gene","Two sister chromatids joined at a centromere","A nucleosome is about 147 base pairs wound around 8 histones.");
+Q(25,"Nucleosomes are the first level of...","DNA packaging","RNA processing","protein folding","DNA replication","They begin the compaction of DNA into chromatin and chromosomes.");
+Q(26,"What are histones?","Proteins that DNA wraps around","Enzymes that unwind DNA","Short RNAs that carry amino acids","Sugars in the DNA backbone","Histones package and help regulate DNA.");
+Q(26,"Why does DNA bind tightly to histones?","DNA is negatively charged and histones are positively charged","DNA and histones are both strongly hydrophobic","DNA is positively charged and histones are negatively charged","Histones contain thymine that pairs with DNA","Opposite charges attract: the phosphate backbone is negative; histones are rich in positively charged amino acids.");
+/* ===== E (27-34) ===== */
+Q(27,"Which order shows the central dogma?","DNA → RNA → protein","RNA → DNA → protein","DNA → protein → RNA","Protein → RNA → DNA","Information flows from DNA to RNA (transcription) to protein (translation).");
+Q(27,"Which process makes mRNA from a DNA template?","Transcription","Translation","Replication","Mitosis","Translation makes protein; replication makes DNA.");
+Q(28,"Which process happens before a cell divides?","DNA replication","Transcription","Translation","RNA splicing","Each daughter cell needs a full copy of the genome.");
+Q(28,"Which process uses mRNA codons to build a polypeptide?","Translation","Transcription","Replication","RNA splicing","Ribosomes read codons and assemble amino acids.");
+Q(28,"Which matches each process to its product?","Replication: DNA; transcription: RNA; translation: protein","Replication: RNA; transcription: DNA; translation: protein","Replication: DNA; transcription: protein; translation: RNA","Replication: protein; transcription: RNA; translation: DNA","Replication copies DNA, transcription makes RNA, translation makes protein.");
+Q(29,"Which three parts make up a nucleotide?","Phosphate group, 5-carbon sugar, nitrogenous base","Phosphate group, amino acid, nitrogenous base","Fatty acid, 5-carbon sugar, nitrogenous base","Phosphate group, 6-carbon sugar, amino group","Deoxyribose in DNA nucleotides, ribose in RNA nucleotides.");
+Q(29,"Which molecule is NOT part of a nucleotide?","Amino acid","Phosphate group","Deoxyribose","Nitrogenous base","Amino acids are the building blocks of proteins.");
+Q(30,"Which describes purines?","Double-ring bases","Single-ring bases","Bases found only in RNA","Bases found only in DNA","Purines (A, G) have two rings; pyrimidines have one.");
+Q(30,"Why does a purine always pair with a pyrimidine?","It keeps the helix a constant width","It keeps the two strands parallel","It lets the bases bond to each other covalently","It puts the bases on the outside of the helix","Two-ring with one-ring gives uniform spacing between strands.");
+Q(31,"Which two bases are purines?","Adenine and guanine","Cytosine and thymine","Adenine and thymine","Guanine and cytosine","Pure As Gold: Adenine and Guanine.");
+Q(31,"Which three bases are pyrimidines?","Cytosine, thymine, uracil","Adenine, thymine, uracil","Cytosine, guanine, uracil","Adenine, cytosine, thymine","CUT the Py: Cytosine, Uracil, Thymine.");
+Q(32,"The 5' end of a DNA strand has a free...","phosphate group","hydroxyl group","nitrogenous base","amino group","The 3' end has the free hydroxyl.");
+Q(32,"In the DNA double helix, where are the bases?","Paired in the middle, with the sugar-phosphate backbone outside","Stacked outside the helix, with the backbone inside","Alternating inside and outside along each strand","Linked end to end to form the backbone","The backbone is deoxyribose and phosphate; bases pair between the strands.");
+Q(33,"Which bond joins neighboring nucleotides in one strand?","Phosphodiester bond","Hydrogen bond","Peptide bond","Ionic bond","The phosphodiester bond links the 3' OH of one sugar to the 5' phosphate of the next.");
+Q(33,"Which bond holds the two DNA strands together?","Hydrogen bonds between base pairs","Phosphodiester bonds between sugars","Peptide bonds between bases","Disulfide bonds between strands","Hydrogen bonds are weak, so the strands can be unzipped.");
+Q(34,"Adenine pairs with ___ in DNA and with ___ in RNA.","thymine; uracil","uracil; thymine","cytosine; guanine","thymine; thymine","RNA has uracil in place of thymine.");
+Q(34,"How many hydrogen bonds join a G-C base pair?","3","2","1","4","A-T has 2; G-C has 3.");
+Q(34,"The complement of 5'-ATGC-3' is...","3'-TACG-5'","5'-TACG-3'","3'-ATGC-5'","3'-UACG-5'","Pair each base, then remember the strands are antiparallel (5' pairs with 3').");
+
+/* ===== F (35-41) ===== */
+Q(35,"Why must DNA be replicated before a cell divides?","So each daughter cell receives a complete genome","So the cell can make more mRNA","So the DNA can leave the nucleus","So the chromosomes can be translated","Replication copies the genome for the next cell.");
+Q(36,"Mitosis produces...","two genetically identical cells","four genetically different cells","two cells with half the chromosomes","one cell with doubled DNA","Meiosis produces gametes; mitosis is for growth and repair.");
+Q(36,"Before mitosis, each chromosome consists of...","two identical sister chromatids","two different homologous chromosomes","one chromatid with twice the genes","a single DNA strand","Replication makes two identical copies joined at the centromere.");
+Q(37,"What is a chromosome?","A long DNA molecule packaged with proteins","A short DNA sequence that codes for a protein","A protein that packages DNA","An RNA copy of a gene","Chromosomes are tightly coiled DNA and histones.");
+Q(37,"What is the centromere?","The region joining two sister chromatids","The end cap that protects a chromosome","The site where replication begins","The region that codes for histones","Spindle fibers attach at the centromere.");
+Q(37,"Sister chromatids are...","identical copies made by replication","matching chromosomes from mother and father","the two halves of a chromosome after mitosis","complementary strands of one DNA molecule","They are joined at the centromere until mitosis separates them.");
+Q(38,"DNA strands are 'complementary' because...","A pairs with T and G pairs with C across the strands","both strands have the same sequence","both strands run 5' to 3'","each strand contains only purines","One strand's sequence determines the other's.");
+Q(38,"'Antiparallel' means the two strands...","run in opposite 5' to 3' directions","run side by side in the same direction","are DNA and RNA","never pair","One runs 5'→3' while its partner runs 3'→5'.");
+Q(38,"'Semiconservative' means each new DNA molecule...","keeps one old strand and one new strand","is made of two new strands","keeps both old strands","is half DNA and half RNA","Shown by the Meselson-Stahl experiment.");
+Q(39,"Which enzyme breaks hydrogen bonds to separate the two parent strands?","Helicase","DNA polymerase","Ligase","Primase","Helicase unzips the double helix at the fork.");
+Q(39,"Ahead of the fork the DNA becomes overwound. Which enzyme relieves this strain?","Gyrase (topoisomerase)","Helicase","Ligase","Primase","Topoisomerases cut and rejoin DNA to release supercoils.");
+Q(39,"The replication fork is...","the Y-shaped region where parent strands are being separated","the origin where replication ends","the gap between Okazaki fragments","the enzyme that unwinds DNA","It moves along as helicase unwinds more DNA.");
+Q(39,"What keeps the separated strands from re-pairing?","Single-strand DNA binding proteins","Ligase","Primase","Topoisomerase","They coat the exposed single strands.");
+Q(39,"Why does replication need primase?","Polymerase can only extend an existing 3' end","Polymerase cannot read the template","Helicase needs an RNA to start unwinding","Ligase can only join RNA","Primase supplies a short RNA primer so polymerase has a 3' end to extend.");
+Q(39,"Which enzyme adds complementary nucleotides to the 3' end of the new strand?","DNA polymerase","Helicase","Ligase","Topoisomerase","Polymerase matches bases to the template and proofreads.");
+Q(39,"Which strand is made continuously, following the fork?","Leading strand","Lagging strand","Okazaki strand","Coding strand","One primer is enough for the leading strand.");
+Q(39,"Which strand is made in pieces, away from the fork?","Lagging strand","Leading strand","Template strand","Complementary strand","Each piece needs its own primer.");
+Q(39,"Okazaki fragments are...","short DNA pieces made on the lagging strand","RNA primers laid down by primase","segments removed by splicing","gaps left behind by helicase","They are later joined together by ligase.");
+Q(39,"Which enzyme seals the gaps between Okazaki fragments?","Ligase","DNA polymerase","Primase","Helicase","Ligase forms the final phosphodiester bonds.");
+Q(39,"Which order is correct for replication?","Helicase unwinds; primase adds primer; polymerase extends; ligase seals","Primase adds primer; helicase unwinds; ligase extends; polymerase seals","Helicase unwinds; polymerase extends; primase adds primer; ligase seals","Ligase seals; helicase unwinds; polymerase primes; primase extends","Unwind, prime, extend, seal.");
+Q(40,"DNA polymerase reads the template strand in the...","3' to 5' direction","5' to 3' direction","both directions","direction of the fork, whichever it is","Reading 3'→5' lets it build the new strand 5'→3'.");
+Q(41,"DNA polymerase attaches each new nucleotide to the...","3' OH end of the growing strand","5' phosphate end of the growing strand","5' end of the template","3' end of the template","Growth is always 5' to 3'.");
+Q(41,"Why is the lagging strand made in fragments?","Polymerase only builds 5' to 3', which runs away from the fork on that strand","Helicase can only unwind one of the two parent strands","Only one strand carries a template for polymerase","Ligase is not active until the fork has closed","The fork opens in one direction, so the strand built the other way has to be made piece by piece.");
+
+/* ===== G (42-54) ===== */
+Q(42,"A plasmid is...","a small circular DNA molecule separate from the chromosome","a circular chromosome found in the nucleus","a bacterial protein that cuts DNA","a short RNA that carries genes between cells","Plasmids often carry genes like antibiotic resistance.");
+Q(42,"Which describes plasmids?","They replicate independently of the bacterial chromosome","They are copied only when the chromosome is copied","They are made of RNA","They are found only in eukaryotes","Plasmids have their own origin of replication.");
+Q(43,"A vector in genetic engineering is...","a carrier that delivers DNA into a host cell","an enzyme that cuts DNA at specific sites","a sugar that switches on a gene","a cell that has taken up DNA","A plasmid is a common vector.");
+Q(43,"In the pGLO lab, what is the vector?","The pGLO plasmid","The E. coli cell","The GFP gene","The arabinose","The plasmid carries the GFP gene (cargo) into E. coli (host).");
+Q(44,"What does the ORI allow a plasmid to do?","Be copied inside the host cell","Make GFP protein","Survive on ampicillin","Enter the cell","ORI = origin of replication.");
+Q(44,"A plasmid with no ORI is put into bacteria. What happens as the cells divide?","The plasmid is not copied and is gradually lost","The plasmid is copied from the chromosome's origin","GFP is made at higher levels","The plasmid joins the chromosome","Without an ORI the plasmid cannot replicate.");
+Q(45,"A selective marker is...","a gene that lets you identify cells that took up the plasmid","a gene that lets the plasmid copy itself","a gene that turns on the gene of interest","a dye that stains transformed colonies","Often an antibiotic resistance gene.");
+Q(45,"What was the selective marker in the pGLO lab?","bla, which gives ampicillin resistance","GFP, which gives green fluorescence","araC, which regulates the promoter","ori, the origin of replication","bla codes for beta-lactamase, which breaks down ampicillin.");
+Q(46,"Competent cells are able to...","take up DNA from outside","resist ampicillin","make GFP","copy plasmids rapidly","Competence is the ability to accept foreign DNA.");
+Q(46,"Which are the two methods of making cells competent?","CaCl2 with heat shock, or electroporation","CaCl2 with ampicillin, or UV exposure","Lysozyme treatment, or electroporation","Arabinose, or heat shock","Chemical (CaCl2 + heat shock) or electrical (electroporation).");
+Q(46,"How does electroporation help DNA enter cells?","A brief electric pulse opens temporary pores in the membrane","Calcium ions neutralize the negative charges on DNA","Lysozyme digests the wall so DNA can slip in","Heat opens pores that plasmids diffuse through","Electroporation is electrical, not chemical.");
+Q(47,"Genetic transformation is...","uptake and expression of foreign DNA by a cell","copying DNA before cell division","conversion of RNA into protein","cell division that makes identical cells","In pGLO, bacteria gain ampicillin resistance and glow with arabinose.");
+Q(47,"Which observation shows the transformation worked?","Colonies grow on ampicillin and glow when arabinose is present","Colonies glow on plates without arabinose","Colonies grow on LB but not on LB/amp/ara","Cells turn green in the transformation solution","Both traits require the plasmid: resistance (bla) and fluorescence (GFP, when induced).");
+Q(48,"Which set lists the genes and elements on pGLO?","GFP, araC, bla, promoter, ori","GFP, lacZ, bla, promoter, ori","GFP, araC, insulin, promoter, ori","GFP, bla, ori, lysozyme, promoter","pGLO carries GFP, araC, bla, the pBAD promoter, and an ori.");
+Q(48,"The bla gene codes for...","beta-lactamase, which breaks down ampicillin","a protein that makes cells glow","a protein that binds arabinose","an enzyme that copies the plasmid","It is the selective marker.");
+Q(48,"The araC gene encodes...","a regulatory protein that binds the promoter region","an enzyme that digests ampicillin","the green fluorescent protein","the RNA polymerase","araC protein is the on/off switch for GFP.");
+Q(49,"Which is the correct order of the pGLO transformation steps?","CaCl2 + DNA on ice, heat shock, LB recovery, plate","Heat shock, add DNA, LB recovery, plate","CaCl2 + DNA on ice, LB recovery, heat shock, plate","Plate, CaCl2 + DNA, heat shock, LB recovery","Cold CaCl2 and DNA, heat shock, recovery in LB, then plating.");
+Q(49,"Why are cells moved from ice to 42°C and back to ice?","The sudden temperature change helps DNA enter the cells","It activates the araC protein","It kills cells that lack the plasmid","It melts the DNA into single strands","The temperature imbalance makes membranes temporarily permeable.");
+Q(50,"What is the function of the CaCl2 transformation solution?","Ca2+ ions shield the negative charges on DNA and the membrane","Ca2+ ions break open the cell wall","Ca2+ ions turn on the GFP gene","Ca2+ ions supply nutrients for recovery","DNA and membranes are both negative and would repel without calcium.");
+Q(50,"What does heat shock do in transformation?","The temperature change makes membranes permeable to DNA","Heat activates GFP","Heat selects for ampicillin-resistant cells","Heat copies the plasmid","It helps DNA enter, it does not select or induce.");
+Q(50,"Why is LB broth added after heat shock?","Cells recover and express bla before facing ampicillin","It selects for cells that took up the plasmid","It turns on the GFP gene","It neutralizes the CaCl2","LB provides nutrients so cells can make beta-lactamase before plating on amp.");
+Q(51,"Arabinose is...","a sugar that acts as the inducer for the GFP gene","an antibiotic that selects for transformed cells","a protein that blocks the promoter","an enzyme that cuts the plasmid","Arabinose is the signal that turns GFP on.");
+Q(51,"What does adding arabinose to a plate change?","It switches GFP expression on in transformed cells","It lets untransformed cells survive ampicillin","It lets the plasmid replicate","It kills cells without the plasmid","Arabinose does not affect selection or replication.");
+Q(52,"With NO arabinose, the araC protein...","blocks RNA polymerase at the promoter, so GFP is OFF","activates RNA polymerase, so GFP is ON","degrades the GFP mRNA","is not made at all","The araC protein acts as a repressor in the absence of arabinose.");
+Q(52,"When arabinose IS present, what happens?","Arabinose binds araC protein, so RNA polymerase can transcribe GFP","Arabinose binds RNA polymerase, which then transcribes GFP","Arabinose binds the promoter, blocking araC","araC protein digests arabinose, which turns GFP on","Arabinose changes araC so it no longer blocks transcription.");
+Q(52,"What does RNA polymerase do in the pGLO system?","Transcribes GFP into mRNA once the promoter is accessible","Translates GFP mRNA into protein","Binds arabinose to start the cascade","Copies the whole plasmid","Translation happens at the ribosome.");
+Q(52,"Which sequence produces glowing bacteria?","Arabinose binds araC, RNA polymerase binds the promoter, GFP mRNA is made, GFP is translated","RNA polymerase binds the promoter, arabinose binds GFP, araC makes mRNA, GFP is replicated","araC binds RNA polymerase, arabinose is transcribed, GFP mRNA is made, GFP is spliced","GFP is translated, arabinose binds the ribosome, araC is made, RNA polymerase glows","Regulation chain: inducer, regulator, promoter, transcription, translation.");
+Q(53,"Which three media were used in the pGLO lab?","LB, LB/amp, and LB/amp/ara","LB, LB/ara, and LB/amp/ara","LB, LB/amp, and LB/ara","LB/amp, LB/ara, and LB/amp/ara","Plain LB shows viability; LB/amp selects; LB/amp/ara selects and induces.");
+Q(54,"Which plate showed both growth AND green glow under UV?","+pGLO on LB/amp/ara","+pGLO on LB/amp","-pGLO on LB","-pGLO on LB/amp","Only transformed cells grown with arabinose are both resistant and induced.");
+Q(54,"+pGLO cells on LB/amp grew but did not glow because...","there was no arabinose, so GFP stayed off","the plasmid had been lost","ampicillin blocked GFP","there was too little heat shock","They kept the plasmid (they grew), but GFP was not induced.");
+Q(54,"-pGLO cells on LB/amp did not grow because...","they lacked bla, so ampicillin killed them","they lacked GFP","there was no arabinose","LB/amp lacks nutrients","Untransformed cells cannot break down ampicillin.");
+Q(54,"What is the purpose of the -pGLO plate on plain LB?","It shows the cells are alive and grow without selection","It shows that ampicillin works","It shows that GFP is off","It shows the plasmid is replicating","This growth control proves the cells themselves are viable.");
+
+/* ===== H (55-58) ===== */
+Q(55,"Chromatography separates molecules based on differences in...","size, charge, or hydrophobicity","DNA sequence","boiling point","color alone","Each column type uses a different property.");
+Q(55,"In biotechnology, chromatography is used to...","purify one molecule from a mixture","copy a DNA sequence","measure how much light a sample absorbs","break down cell walls","Proteins are commonly purified by column chromatography.");
+Q(56,"Which lists the types of column chromatography?","Size exclusion, ion exchange, affinity, hydrophobic interaction","Size exclusion, ion exchange, affinity, gel electrophoresis","Ion exchange, affinity, hydrophobic interaction, PCR","Size exclusion, spectrophotometry, affinity, hydrophobic interaction","Electrophoresis, PCR, and spectrophotometry are not column chromatography.");
+Q(56,"Which type of column chromatography purified GFP in class?","Hydrophobic interaction","Ion exchange","Size exclusion","Affinity","GFP's hydrophobic regions stick to the beads in high salt.");
+Q(57,"Lysozyme digests...","peptidoglycan in the bacterial cell wall","bacterial DNA","GFP","the column beads","Breaking the wall bursts the bacteria.");
+Q(57,"Why is lysozyme added before the column?","To break open bacteria so GFP is released","To bind GFP to the column","To make GFP fluoresce","To remove hydrophilic proteins","Without lysis, GFP stays inside the cells.");
+Q(58,"Why does the binding buffer contain high salt?","It promotes hydrophobic interactions so GFP sticks to the beads","It lyses the bacteria","It makes GFP glow","It unfolds all the proteins","Salt exposes hydrophobic regions, which stick to the hydrophobic beads.");
+Q(58,"What does the wash buffer do?","Removes weakly bound, more hydrophilic proteins while GFP stays","Releases GFP from the column","Breaks open the cells","Binds more GFP to the column","Intermediate salt washes away non-GFP proteins.");
+Q(58,"Why does the low-salt elution buffer release GFP?","Weaker hydrophobic interactions let GFP leave the beads","Low salt digests the beads","Low salt unfolds GFP","Low salt gives GFP a negative charge","Reducing salt weakens hydrophobic binding.");
+Q(58,"Which proteins flow through the column first?","Hydrophilic proteins","Hydrophobic proteins like GFP","DNA fragments","Lysozyme only","Hydrophilic proteins do not stick to hydrophobic beads.");
+Q(58,"Which order is correct for GFP purification?","Lyse, spin, bind in high salt, wash, elute","Lyse, bind in low salt, elute, wash","Elute, wash, bind, lyse","Spin, elute, lyse, wash","Lyse cells, clear debris, bind GFP, wash away others, elute GFP.");
+/* ===== I (59-68) ===== */
+Q(59,"What does transcription produce?","An RNA copy of a gene","A copy of the whole genome","A protein from mRNA","Two identical DNA molecules","Transcription copies one gene's sequence into RNA.");
+Q(59,"Where does transcription occur in eukaryotic cells?","Nucleus","Ribosome","Rough ER","Cytoplasm","DNA stays in the nucleus, so that is where mRNA is made.");
+Q(60,"Which statement correctly compares RNA and DNA?","RNA is usually single-stranded with ribose; DNA is double-stranded with deoxyribose","RNA is double-stranded with ribose; DNA is single-stranded with deoxyribose","RNA uses thymine with ribose; DNA uses uracil with deoxyribose","RNA is single-stranded with deoxyribose; DNA is double-stranded with ribose","RNA: one strand, ribose, uracil. DNA: two strands, deoxyribose, thymine.");
+Q(60,"Which base is found in RNA but NOT in DNA?","Uracil","Thymine","Cytosine","Adenine","RNA uses uracil in place of thymine.");
+Q(60,"In RNA, which base pairs with adenine?","Uracil","Thymine","Cytosine","Guanine","A-U in RNA; A-T in DNA.");
+Q(61,"Uracil is a...","pyrimidine found only in RNA","purine found only in RNA","pyrimidine found in both DNA and RNA","purine found in both DNA and RNA","One ring means pyrimidine, and DNA uses thymine instead.");
+Q(61,"Which DNA base does uracil replace in RNA?","Thymine","Adenine","Cytosine","Guanine","Uracil pairs with adenine just as thymine does.");
+Q(62,"What is on the 2' carbon of ribose?","An OH group","Only an H","A phosphate group","A nitrogenous base","Deoxyribose has H at that position.");
+Q(62,"Deoxyribose is 'deoxy' because it lacks...","an oxygen on the 2' carbon","a carbon in the ring","the site for the phosphate","the site for the base","One less oxygen makes DNA more stable than RNA.");
+Q(63,"The abbreviations tRNA, mRNA, and rRNA stand for...","transfer, messenger, and ribosomal RNA","transcription, messenger, and ribosomal RNA","transfer, modified, and ribosomal RNA","template, message, and ribonuclear RNA","Three RNA types, each with a different role in making protein.");
+Q(64,"Which RNA carries the genetic message from the nucleus to the ribosome?","mRNA","tRNA","rRNA","snRNA","mRNA carries codons.");
+Q(64,"Which RNA has an anticodon and brings an amino acid to the ribosome?","tRNA","mRNA","rRNA","The ribosome itself","tRNA is the adapter that matches codons to amino acids.");
+Q(64,"Which RNA is a structural and catalytic part of the ribosome?","rRNA","mRNA","tRNA","The 5' cap","rRNA plus proteins form ribosomes and help make peptide bonds.");
+Q(65,"RNA polymerase builds an RNA strand...","using the template strand, 5' to 3'","using the coding strand, 5' to 3'","using the template strand, 3' to 5'","using both strands at once","It reads the template 3'→5' and adds RNA nucleotides 5'→3'.");
+Q(65,"Where does RNA polymerase bind to begin transcription?","The promoter","The start codon","The enhancer","The origin of replication","The promoter marks where a gene begins.");
+Q(65,"Which strand does RNA polymerase read?","Template strand","Coding strand","The mRNA","A primer","The coding strand is not read.");
+Q(65,"Which DNA strand has the same sequence as the mRNA (with T in place of U)?","Coding strand","Template strand","The tRNA","A primer","The coding strand is the non-template strand.");
+Q(65,"The template strand reads 3'-TACGGA-5'. What is the mRNA?","5'-AUGCCU-3'","5'-UCCGUA-3'","5'-UACGGA-3'","5'-AUGGCU-3'","Pair each base (A-U, T-A, C-G, G-C), then write 5' to 3'. UCCGUA is the same sequence written backwards.");
+Q(66,"Which statement about introns and exons is correct?","Introns are removed; exons stay in the mature mRNA","Exons are removed; introns stay in the mature mRNA","Both stay, but introns are not translated","Both are removed and replaced with a cap and tail","Exons are expressed; introns are intervening sequences.");
+Q(66,"Which part of the gene ends up translated into protein?","Exons","Introns","The promoter","The poly-A tail","The poly-A tail and promoter are not translated.");
+Q(67,"What removes introns from pre-mRNA?","The spliceosome","DNA ligase","The ribosome","RNA polymerase","The spliceosome cuts introns out and joins exons.");
+Q(67,"Where does splicing occur?","Nucleus","Ribosome","Cytoplasm","Golgi apparatus","Splicing finishes before mRNA leaves the nucleus.");
+Q(68,"The 5' methyl guanosine cap is...","a modified guanine that protects mRNA and helps ribosome binding","a run of adenines that protects mRNA and aids export","a modified guanine that signals the end of transcription","a sequence that marks where an intron begins","The cap protects the 5' end from degradation.");
+Q(68,"The poly-A tail is...","a run of adenines at the 3' end that protects the mRNA","a run of adenines at the 5' end that starts translation","a modified guanine at the 3' end","a run of uracils at the 3' end","The tail adds stability and helps export.");
+Q(68,"Which three steps process eukaryotic pre-mRNA?","Capping, splicing, adding a poly-A tail","Capping, splicing, adding an anticodon","Splicing, adding a promoter, adding a tail","Capping, replication, adding a tail","These make mature mRNA.");
+
+/* ===== J (69-76) ===== */
+Q(69,"What is the product of translation?","A polypeptide","A strand of mRNA","A copy of DNA","A tRNA","Translation builds a chain of amino acids.");
+Q(70,"Where does translation occur?","Ribosomes","Nucleus","Golgi apparatus","Lysosome","Ribosomes read mRNA and make protein.");
+Q(70,"Where are ribosomes found?","Free in the cytoplasm or on the rough ER","Only in the nucleus","Only on the smooth ER","Inside lysosomes","Both kinds make protein.");
+Q(71,"A codon is...","three nucleotides on mRNA that specify an amino acid or a stop","three nucleotides on tRNA that pair with mRNA","three amino acids joined by peptide bonds","the start signal of a gene","Codons are read in groups of three.");
+Q(71,"An anticodon is...","three nucleotides on tRNA that pair with an mRNA codon","three nucleotides on mRNA that specify an amino acid","three nucleotides on DNA that mark a gene's start","three amino acids carried by tRNA","Anticodons let tRNA match codons.");
+Q(71,"Which tRNA anticodon pairs with the mRNA codon 5'-GAU-3'?","3'-CUA-5'","3'-GAU-5'","3'-CTA-5'","5'-CUA-3'","G-C, A-U, U-A, and antiparallel gives 3'-CUA-5'. No T in RNA.");
+Q(72,"What is the first codon in almost every mRNA, and what does it code for?","AUG; methionine","AUG; leucine","UAC; methionine","UAA; methionine","AUG is the start codon and codes for Met.");
+Q(72,"Translation begins when the ribosome...","finds the first AUG in the mRNA","reaches the poly-A tail","binds the promoter","finds the TATA box","The start codon sets the reading frame.");
+Q(73,"An ORF is...","a stretch of codons from a start codon to a stop codon","a promoter region upstream of a gene","a stretch of introns removed by splicing","a gap between Okazaki fragments","It can be translated into a protein.");
+Q(73,"Which mRNA contains a complete ORF?","5'-AUGGCUUAA-3'","5'-UAAGCUAUG-3'","5'-GCUGCUGCU-3'","5'-AUGGCUGCU-3'","It needs an AUG start followed by in-frame codons and a stop (UAA).");
+Q(74,"What happens at INITIATION?","The small subunit binds mRNA at the start codon, then the large subunit joins","A release factor binds the stop codon","tRNAs add amino acids one by one","The polypeptide folds","Initiation assembles the ribosome at AUG.");
+Q(74,"What happens during ELONGATION?","tRNAs deliver amino acids and peptide bonds form","The small subunit scans for AUG","A release factor enters the ribosome","The ribosome splits into subunits","The ribosome moves codon by codon.");
+Q(74,"What triggers TERMINATION?","A stop codon with a release factor","A start codon with an initiator tRNA","The poly-A tail leaving the ribosome","The last tRNA leaving","No tRNA matches a stop codon.");
+Q(75,"What is the ribosome's job?","Read codons and join amino acids","Carry amino acids to the mRNA","Unwind DNA","Splice mRNA","Ribosomes read mRNA and make peptide bonds.");
+Q(75,"What does the small ribosomal subunit do?","Binds the mRNA and positions the start codon","Catalyzes peptide bonds","Releases the finished polypeptide","Carries the anticodon","The large subunit catalyzes peptide bonds.");
+Q(75,"A peptide bond joins...","two amino acids","two nucleotides","a base to a sugar","two DNA strands","Peptide bonds form the polypeptide backbone.");
+Q(75,"At a stop codon, no tRNA matches, so ___ enters the ribosome.","a release factor","a second initiator tRNA","DNA polymerase","a ligase","The release factor ends translation.");
+Q(75,"A polypeptide becomes a functional protein by...","folding into its 3D shape","being spliced","being capped","being transcribed","Folding gives the protein its function.");
+Q(76,"For the Q76 strands, which is the TEMPLATE strand? Top: 5'-ATGGATCTGAATTGA-3', Bottom: 3'-TACCTAGACTTAACT-5'","The bottom strand","The top strand","Either strand gives the same mRNA","Both strands are read in turn","The top strand reads ATG...TGA, so it is the coding strand. The bottom strand is the template.");
+Q(76,"What mRNA is made from the template 3'-TACCTAGACTTAACT-5'?","5'-AUGGAUCUGAAUUGA-3'","5'-UACCUAGACUUAACU-3'","5'-AGUUAAGUCUAGGUA-3'","5'-ATGGATCTGAATTGA-3'","Complement each base (A-U, T-A, C-G, G-C) and write 5' to 3'.");
+Q(76,"What are the codons of the Q76 mRNA, 5'-AUGGAUCUGAAUUGA-3'?","AUG, GAU, CUG, AAU, UGA","AUG, GAU, CUG, AAU, UAA","UAC, CUA, GAC, UUA, ACU","AUGG, AUC, UGA, AUU, GA","Read in groups of three from the start.");
+Q(76,"Which tRNA anticodons match the first four codons (AUG, GAU, CUG, AAU)?","3'-UAC-5', 3'-CUA-5', 3'-GAC-5', 3'-UUA-5'","3'-TAC-5', 3'-CTA-5', 3'-GAC-5', 3'-TTA-5'","3'-AUG-5', 3'-GAU-5', 3'-CUG-5', 3'-AAU-5'","5'-UAC-3', 5'-CUA-3', 5'-GAC-3', 5'-UUA-3'","Anticodons are complementary, RNA (U not T), and antiparallel. Written 5'→3' they would be CAU, AUC, CAG, AUU.");
+Q(76,"Which amino acids does the Q76 mRNA code for, in order?","Met - Asp - Leu - Asn","Met - Glu - Leu - Asn","Met - Asp - Val - Asn","Met - Asp - Leu - Asn - Trp","AUG Met, GAU Asp, CUG Leu, AAU Asn, UGA stop. Trp is UGG, not UGA.");
+Q(76,"In Q76, what is the last codon, UGA?","A stop codon; a release factor binds and no amino acid is added","A codon for tryptophan; tRNA-Trp binds","A second start codon; translation begins again","A codon for leucine; a tRNA adds Leu","UGA does not code for an amino acid.");
+
+/* ===== K (77-78) ===== */
+Q(77,"Activators are...","proteins that bind enhancers and increase transcription","proteins that bind promoters and block RNA polymerase","enzymes that splice introns","RNAs that carry amino acids","Activators help recruit RNA polymerase. Proteins that block it are repressors.");
+Q(77,"Enhancers are...","DNA sequences, often far from the gene, that bind activators","DNA sequences at the start codon that bind ribosomes","proteins that open the DNA","short RNAs that boost translation","Enhancers act through activators.");
+Q(77,"How can an enhancer far from a gene still affect it?","DNA loops so bound activators contact the promoter machinery","Activators travel through the cytoplasm to the ribosome","The enhancer is copied into the mRNA first","Ligase moves the enhancer next to the gene","Looping brings distant DNA close together.");
+Q(78,"The TATA box is...","a promoter element about 25-30 bp upstream that helps position RNA polymerase","a sequence at the end of a gene that stops transcription","a splice site in pre-mRNA","a start codon for translation","It helps transcription start at the right place.");
+Q(78,"The CAAT box is...","a promoter element farther upstream that boosts transcription efficiency","a sequence at the end of a gene that stops transcription","a ribosome-binding site on mRNA","an element that adds the poly-A tail","CAAT boxes affect how often a gene is transcribed.");
+Q(78,"Where are TATA and CAAT boxes found?","The promoter region of eukaryotic genes","The 3' end of mRNA","Inside introns","On the ribosome","They are bound by transcription factors.");
+
+/* ===== L (79-82) ===== */
+Q(79,"Chromatin is...","DNA wrapped around histones in uncondensed form","a gene's coding region","RNA bound to ribosomes","the fully condensed form seen in mitosis","Chromatin condenses further to form chromosomes.");
+Q(79,"Which statement correctly relates DNA, chromatin, chromosomes, and genes?","Genes are DNA segments; DNA plus histones is chromatin; chromatin condenses into chromosomes","Chromosomes are segments of genes; genes are made of chromatin","DNA is a segment of a gene packaged inside chromatin","Chromatin is made of genes; chromosomes are chromatin plus RNA","Genes are functional segments of DNA located on chromosomes.");
+Q(79,"A gene is...","a DNA segment coding for a protein or functional RNA","a protein that packages DNA","a fully condensed DNA-protein structure","one complete set of chromosomes","Genes are units of heredity.");
+Q(80,"Does a liver cell contain the same chromosomes as a cheek cell?","Yes; both came from one zygote by mitosis","No; liver cells lose the genes they do not use","Yes; but only the active genes are present","No; each tissue has chromosomes suited to its function","Cells differ in which genes are expressed, not which genes they have.");
+Q(80,"Why do liver and cheek cells function differently?","They express different genes","They contain different genes","They use different DNA bases","They have different numbers of chromosomes","Differential gene expression.");
+Q(81,"In the crude DNA extraction lab, what makes DNA insoluble?","Cold alcohol","Detergent","Protease","Hot water","DNA dissolves in water but precipitates in cold ethanol or isopropanol.");
+Q(81,"What does salt do in DNA extraction?","Neutralizes DNA's negative charge so strands clump in alcohol","Breaks down the cell membrane","Digests histones","Keeps DNA dissolved so it can be pipetted","Salt helps DNA precipitate.");
+Q(82,"What does the lysis buffer (soap) do?","Breaks down cell and nuclear membranes","Digests proteins bound to DNA","Makes DNA insoluble","Neutralizes DNA's charge","Detergent dissolves lipids in membranes.");
+Q(82,"What does the protease do?","Digests proteins such as histones so DNA is freed","Dissolves lipid membranes","Precipitates DNA","Cuts DNA into smaller pieces","Removing protein gives cleaner DNA.");
+Q(82,"Which order is correct for the crude DNA extraction?","Lyse cells, add protease, add cold alcohol","Add cold alcohol, lyse cells, add protease","Add protease, add cold alcohol, lyse cells","Add cold alcohol, add protease, lyse cells","Release the DNA, clean away proteins, then precipitate.");
 C(1,"What is biotechnology?","The use of living organisms, cells, or their molecules (DNA, proteins, enzymes) to make products or solve problems, in areas like medicine, food, agriculture, and industry.");
 C(2,"Traditional vs modern biotechnology: similar and different?","SIMILAR: both use living things to make useful products.\nDIFFERENT: traditional = natural processes/breeding, genes not directly manipulated. Modern = directly manipulates DNA/genes (genetic engineering, recombinant DNA).");
 C(3,"Examples: traditional vs modern biotech","TRADITIONAL: bread, beer, wine, yogurt, cheese, selective breeding.\nMODERN: genetically engineered insulin, pGLO/GFP bacteria, PCR, GMO crops, gene therapy.");
 C(4,"What is genetic engineering?","Directly changing an organism's DNA, often by inserting a gene (from the same or another species) so the organism makes a new protein or trait.");
 C(5,"Biotech career options","Research scientist, lab technician, QC/QA analyst, manufacturing/bioprocess technician, bioinformatician, genetic counselor, forensic scientist, regulatory affairs, biomedical engineer.");
 C(6,"Biotech jobs by degree","Certificate/associate: lab or manufacturing technician.\nBachelor's: research associate, QC/QA analyst.\nMaster's: senior scientist, genetic counselor.\nPhD/MD: principal investigator, R&D director, professor.");
-
-/* ===== B. Lab Safety, MSDS/PPE, Equipment (7-15) ===== */
-Q(7,"What information does an SDS (formerly MSDS) provide?","Hazards, safe handling, storage, first aid, and spill/disposal information for a chemical","Only the price and supplier of a chemical","The recipe for making a chemical","The lab's attendance rules","An SDS is the chemical's safety reference: hazards, PPE, first aid, fire, spill, storage, and disposal.");
-Q(7,"A classmate gets a chemical on their skin. Where do you look for first-aid instructions for that chemical?","Its SDS","Its expiration date","The micropipette manual","The balance calibration log","The SDS has a first-aid measures section for each chemical.");
-Q(8,"Which PPE protects your eyes from a chemical splash?","Splash goggles","Nitrile gloves","Closed-toe shoes","A lab coat","Chemical splash goggles seal around the eyes. Glasses alone do not protect well.");
-Q(8,"Which hazard/PPE pairing is correct?","Hot glassware: heat-resistant gloves","UV light: nitrile gloves only","Chemical splash: closed-toe shoes","Sharp broken glass: safety goggles only","Match PPE to the hazard: heat gloves for hot items, UV-blocking eyewear/face shield for UV, goggles for splashes, gloves for skin contact.");
-Q(8,"Which of the following is NOT personal protective equipment?","A fume hood","Safety goggles","A lab coat","Nitrile gloves","A fume hood is an engineering control that removes vapors. PPE is worn by the person.");
-Q(9,"Which information belongs on a lab solution label?","Name/contents, concentration, date prepared, preparer's initials (plus hazards)","Only the color of the solution","Only the teacher's name","Only the room number","Unlabeled or poorly labeled solutions are a safety hazard. Include what it is, how strong it is, when it was made, and by whom.");
-Q(10,"A microcentrifuge is used to...","spin small tubes at high speed to pellet material or collect liquid at the bottom","measure microliter volumes of liquid","amplify DNA by cycling temperature","separate DNA by size using electricity","Microcentrifuges spin microtubes (about 1.5-2 mL) so dense material forms a pellet.");
-Q(10,"Which tool is used to transfer volumes of about 0.5 to 1000 µL?","Micropipette","Serological pipette","Vortex","Spectrophotometer","Micropipettes handle microliter volumes. Serological pipettes handle larger volumes (mL).");
-Q(10,"Which tool measures and transfers larger liquid volumes (roughly 1-25 mL) using a pipette aid?","Serological pipette","Micropipette","Picofuge","Thermal cycler","Serological pipettes are graduated, used with a pipette controller for mL-scale volumes.");
-Q(10,"A spectrophotometer is used to...","measure how much light a sample absorbs or transmits (e.g., to find concentration)","spin tubes quickly","mix a tube by vibrating it","copy DNA","It passes light through a sample; absorbance relates to concentration (DNA, protein, bacterial culture).");
-Q(10,"What does gel electrophoresis apparatus do?","Separates DNA, RNA, or proteins by size using an electric current through a gel","Heats and cools DNA for PCR","Spins cells into a pellet","Measures pH","Negatively charged DNA moves toward the positive electrode; smaller fragments travel farther through the gel.");
-Q(10,"A vortex is used to...","mix liquids in a tube by rapid vibration","amplify DNA","measure absorbance","separate proteins by charge","A vortex swirls the tube contents to mix them quickly.");
-Q(10,"A thermal cycler (PCR machine) is used to...","cycle temperatures so a DNA sequence is copied (amplified)","separate DNA by size","measure DNA concentration","spin liquids to the bottom of a tube","PCR repeats denaturing, annealing, and extending to exponentially copy target DNA.");
-Q(11,"A picofuge differs from a microcentrifuge mainly because it is...","a small, quick-spin centrifuge that briefly brings liquid to the tube bottom","a device that cycles temperatures","a tool for measuring volumes","a balance for weighing","A picofuge is a compact, low-speed 'quick spin'. Microcentrifuges reach higher speeds for pelleting.");
-Q(11,"Micropipette tips and microtubes are best described as...","disposable supplies used with micropipettes and for holding small samples","electronic instruments","measuring devices for pH","safety equipment","Tips attach to micropipettors (one new tip per sample). Microtubes hold small volumes of sample or reagent. Where they are stored in your lab is something to write in your own notes.");
-Q(12,"When using a micropipette, how far do you press the plunger before inserting the tip into the liquid to draw up a sample?","To the first stop","To the second stop","Not at all","Halfway between stops","Press to the first stop, submerge the tip, release slowly to draw up the exact volume.");
-Q(12,"To dispense liquid from a micropipette you should...","press to the first stop, then the second stop to expel the last drop, then eject the tip","release the plunger quickly into the tube","press only to the first stop","remove the tip by hand","The second stop pushes out the remaining liquid. Eject the tip into waste without touching it.");
-Q(12,"Which is a correct micropipette practice?","Use a new tip for each sample and never set the volume outside the pipette's range","Reuse a tip to save supplies","Lay the pipette on its side with liquid in the tip","Dial past the maximum volume to be safe","Reusing tips contaminates samples. Keep the pipette upright with liquid in the tip; never exceed the range.");
-Q(13,"On a P-10, a dial reading of 055 means...","5.5 µL","55 µL","550 µL","0.55 µL","P-10 reads XX.X µL, so 055 is 05.5 = 5.5 µL.");
-Q(13,"On a P-100, a dial reading of 055 means...","55 µL","5.5 µL","550 µL","0.55 mL","P-100 reads whole microliters: 055 = 55 µL.");
-Q(13,"On a P-1000, a dial reading of 055 means...","550 µL","55 µL","5.5 µL","55 mL","P-1000 digits read thousands/hundreds/tens of µL: 055 = 0.55 mL = 550 µL.");
-Q(14,"A P-10 is set to 089. What volume will it pipette?","8.9 µL (0.0089 mL)","89 µL (0.089 mL)","890 µL (0.89 mL)","0.89 µL (0.00089 mL)","On a P-10 the last digit is tenths: 08.9 µL. Divide by 1000 to get mL: 0.0089 mL.");
-Q(14,"A P-100 is set to 089. What volume will it pipette?","89 µL (0.089 mL)","8.9 µL (0.0089 mL)","890 µL (0.89 mL)","0.89 µL","P-100 reads whole µL: 89 µL. 89 µL / 1000 = 0.089 mL.");
-Q(14,"A P-1000 is set to 089. What volume will it pipette?","890 µL (0.89 mL)","89 µL (0.089 mL)","8.9 µL (0.0089 mL)","8900 µL","On a P-1000 the digits are hundreds, tens, ones of 10 µL, so 089 = 890 µL = 0.89 mL.");
-Q(15,"To balance a microcentrifuge correctly, you should...","place tubes directly opposite each other with equal volume/weight","put all tubes on one side","spin one tube alone","use different volumes in opposite tubes","An unbalanced rotor vibrates and can damage the machine or break tubes.");
-Q(15,"You have an odd number of samples to spin. What do you do?","Add a balance tube with the same volume of water opposite the extra sample","Spin it alone","Overfill the tube","Skip the lid","A 'blank' balance tube filled to the same volume keeps the rotor balanced.");
 C(7,"What is an MSDS/SDS?","Material Safety Data Sheet (now Safety Data Sheet). A document for each chemical listing hazards, safe handling and storage, PPE, first aid, spill and disposal procedures.");
 C(8,"PPE: what it is + examples by hazard","Personal Protective Equipment, worn to protect you.\nChemical splash: goggles. Skin contact: gloves. Clothing/body: lab coat. Hot items: heat gloves. UV: UV-blocking goggles/face shield. Always: closed-toe shoes, long hair tied back.");
 C(9,"How to label a solution","Name/contents, concentration, date prepared, your initials, and hazard warnings if any.");
@@ -329,77 +590,18 @@ C(12,"Steps to use a micropipette","1) Choose the right pipette and set volume w
 C(13,"How to read P-10 / P-100 / P-1000","Three-digit dial, read top to bottom.\nP-10 (about 0.5-10 µL): XX.X µL (last digit = tenths)\nP-100 (10-100 µL): XXX µL\nP-1000 (100-1000 µL): X.XX mL, i.e., each last digit is 10 µL.");
 C(14,"Dial 089 on each pipette","P-10: 8.9 µL = 0.0089 mL\nP-100: 89 µL = 0.089 mL\nP-1000: 890 µL = 0.89 mL\n(1000 µL = 1 mL)");
 C(15,"How to balance a microcentrifuge","Put tubes directly across from each other (opposite positions) with equal volumes/weights. Odd number of samples? Use a balance tube with the same volume of water. Close the lid before spinning.");
-
-/* ===== C. Cheese-Making (16-21) ===== */
-Q(16,"Milk is curdled by adding vinegar or lemon juice. Which cheese-making method is this?","Direct acid coagulation","Animal rennet","Bacterial starter culture","Recombinant chymosin","Acid lowers the pH, so casein proteins clump into curds without any enzyme.");
-Q(16,"Bacteria such as Lactococcus are added to warm milk and allowed to ferment. This is the...","starter culture (lactic acid fermentation) method","animal rennet method","direct acid method","recombinant chymosin method","The bacteria eat lactose and make lactic acid, which lowers the pH and curdles the milk.");
-Q(16,"Chymosin extracted from the stomach lining of young calves is used in which method?","Traditional animal rennet","Direct acid coagulation","Starter culture only","Recombinant chymosin","Rennet from calf stomach contains chymosin, a protease that clots milk.");
-Q(16,"Which cheese method uses the chymosin gene inserted into bacteria, yeast, or mold that then mass-produce the enzyme?","Recombinant (fermentation-produced) chymosin","Animal rennet","Direct acid","Starter culture","The chymosin gene is cloned into a microbe, which makes pure chymosin in a fermenter.");
-Q(16,"Which cheese-making method is an example of MODERN biotechnology?","Recombinant chymosin","Direct acid coagulation","Animal rennet","Starter culture fermentation","It depends on genetic engineering. The other methods use natural organisms or substances.");
-Q(16,"Which pair of methods clots milk using the protease chymosin?","Animal rennet and recombinant chymosin","Acid and starter culture","Acid and animal rennet","Starter culture and recombinant chymosin","Both rennet types supply chymosin. Acid and starter cultures work by lowering pH.");
-Q(16,"What is a main advantage of recombinant chymosin over animal rennet?","It is pure, consistent, cheaper, and does not require calves","It works without any milk proteins","It needs no enzyme","It makes lactic acid","Recombinant chymosin gives a reliable supply without slaughtering calves.");
-Q(17,"What is casein?","The main protein in milk, which clumps to form curds","The sugar in milk","The fat in milk","The liquid left after cheese-making","Casein makes up about 80% of milk protein and forms the solid curd.");
-Q(17,"Which substance in milk clots to form cheese curds?","Casein","Lactose","Whey","Lactic acid","Casein proteins clump together; lactose stays dissolved in the whey.");
-Q(18,"What are proteases?","Enzymes that break down proteins","Enzymes that copy DNA","Sugars in milk","Bacteria used for yogurt","Proteases cut peptide bonds in proteins. Chymosin is a protease that clots milk casein.");
-Q(18,"How does the protease chymosin help make cheese?","It cuts casein so the milk proteins clump into curds","It digests lactose into lactic acid","It kills bacteria","It lowers the pH by itself","Chymosin cleaves a stabilizing casein region, letting the casein aggregate into curd.");
-Q(19,"How is lactic acid produced in starter-culture cheese production?","Bacteria ferment lactose (milk sugar) into lactic acid","Proteases digest casein into lactic acid","Heat converts whey to lactic acid","Yeast turns fat into lactic acid","Lactic acid bacteria ferment lactose. The acid lowers the pH, and casein clumps.");
-Q(19,"What does the lactic acid do to milk during cheese-making?","Lowers the pH so casein clumps into curds","Raises the pH","Breaks down fat","Kills all microbes instantly","Acidity destabilizes casein so it precipitates.");
-Q(20,"What are curd and whey?","Curd is the solid casein clumps; whey is the liquid that remains","Curd is the liquid; whey is the solid","Curd is lactose; whey is casein","Curd is fat; whey is salt","Curds are pressed to make cheese; whey contains water, lactose, and some proteins.");
-Q(20,"After milk curdles, the liquid that is drained away is called...","whey","curd","casein","rennet","Whey is drained off the solid curd.");
-Q(21,"When calibrating a pH meter, you should...","rinse the probe and use standard buffer solutions of known pH (e.g., 4, 7, 10)","dip it only in distilled water","use tap water as the standard","skip rinsing between buffers","Standard buffers with known pH set the meter's scale. Rinse with distilled water between solutions.");
-Q(21,"Which is part of calibrating an electronic balance?","Level it, tare with a weigh boat or container, and check with a known calibration weight","Place the sample directly on the pan","Weigh with the draft shield open","Skip zeroing","Zero (tare) the container so you only weigh the sample. Calibration weights verify accuracy.");
-Q(21,"Why do we rinse a pH probe with distilled water between buffers?","To prevent cross-contamination that would give inaccurate readings","To make the buffers more acidic","To heat the probe","To sterilize the buffer","Carrying one solution into another changes its pH and ruins calibration.");
 C(16,"Four ways cheese can be made (check against class notes)","1) Direct ACID (vinegar/lemon juice + heat): low pH clumps casein.\n2) STARTER CULTURE: bacteria ferment lactose to lactic acid.\n3) Animal RENNET: chymosin (a protease) from calf stomach cuts casein.\n4) RECOMBINANT chymosin: gene put in microbes that mass-produce chymosin (modern biotech).");
 C(17,"Casein","The main protein in milk. Clumps into curds when acidified or cut by chymosin.");
 C(18,"Proteases","Enzymes that break down proteins by cutting peptide bonds. Chymosin (rennet) is a protease used for cheese.");
 C(19,"How lactic acid forms in cheese-making","Lactic acid bacteria (starter culture) ferment lactose into lactic acid. The pH drops and casein clumps into curds.");
 C(20,"Curd and whey","CURD: solid clumps of casein (become cheese).\nWHEY: liquid left behind (water, lactose, some proteins).");
 C(21,"Calibrating a pH meter and an electronic balance","pH meter: rinse probe, place in standard buffers of known pH (e.g., 4, 7, 10), calibrate, rinse with distilled water between buffers.\nBalance: level it, clean pan, tare container, check with calibration weight.");
-
-/* ===== D. Cell Structure (22-26) ===== */
-Q(22,"Which feature is found in prokaryotic cells?","DNA in a nucleoid region with no nucleus","A membrane-bound nucleus","Mitochondria","An endoplasmic reticulum","Prokaryotes lack a nucleus and membrane-bound organelles. Their DNA sits in the nucleoid.");
-Q(22,"Compared to prokaryotes, eukaryotic cells are generally...","larger, with a nucleus and membrane-bound organelles","smaller, with no organelles at all","always unicellular","lacking DNA","Eukaryotes (plants, animals, fungi, protists) have a nucleus and membrane-bound organelles.");
-Q(22,"Which pair is correct?","Prokaryote: circular DNA; Eukaryote: linear chromosomes in a nucleus","Prokaryote: linear chromosomes; Eukaryote: no DNA","Prokaryote: nucleus; Eukaryote: nucleoid","Prokaryote: mitochondria; Eukaryote: none","Prokaryotes usually have a single circular chromosome (plus plasmids). Eukaryotes have multiple linear chromosomes.");
-Q(23,"Which organelle houses the cell's DNA and controls cell activities?","Nucleus","Lysosome","Vacuole","Golgi apparatus","The nucleus stores DNA and is the site of transcription.");
-Q(23,"What is the role of the endoplasmic reticulum (ER)?","Makes and transports proteins (rough ER) and lipids (smooth ER)","Produces ATP","Digests waste","Photosynthesis","Rough ER has ribosomes and makes proteins; smooth ER makes lipids and detoxifies.");
-Q(23,"The Golgi apparatus...","modifies, sorts, and packages proteins for delivery","makes ATP","stores DNA","carries out photosynthesis","Think of it as the cell's post office: it tags and ships proteins.");
-Q(23,"The plasma membrane...","controls what enters and leaves the cell","provides rigid support outside the cell","stores water","digests old organelles","It is a selectively permeable phospholipid barrier around every cell.");
-Q(23,"The cell wall...","provides rigid support and protection (plants, bacteria, fungi)","makes ATP","digests waste","holds the nucleus","Plant cell walls contain cellulose. Animal cells do not have cell walls.");
-Q(23,"The vacuole...","stores water, nutrients, and wastes","makes proteins","produces ATP","copies DNA","Plant cells have a large central vacuole that also helps keep the cell firm.");
-Q(23,"Which organelle produces most of the cell's ATP?","Mitochondria","Chloroplast","Nucleus","Golgi apparatus","Mitochondria perform cellular respiration.");
-Q(23,"Which organelle carries out photosynthesis?","Chloroplast","Mitochondria","Lysosome","Vacuole","Chloroplasts capture light energy to make sugar (plants and algae).");
-Q(23,"Lysosomes...","contain enzymes that digest waste, old organelles, and invaders","make ATP","store genetic material","package proteins","Lysosomes are the cell's recycling/digestive centers.");
-Q(24,"Which structure is found in plant cells but NOT animal cells?","Chloroplasts and a cell wall","Mitochondria","Nucleus","Plasma membrane","Plants also have a large central vacuole. Animal cells have lysosomes and small vacuoles, and no cell wall.");
-Q(24,"Which statement about plant versus animal cells is true?","Both have mitochondria and a nucleus","Only animal cells have mitochondria","Only plant cells have a nucleus","Animal cells have cell walls","Both are eukaryotic cells with nuclei and mitochondria.");
-Q(25,"What is a nucleosome?","DNA wrapped around a core of histone proteins","A type of ribosome","A single nucleotide","A chromosome arm","A nucleosome is about 147 base pairs of DNA wound around 8 histones, like beads on a string.");
-Q(25,"Nucleosomes are important because they...","help package long DNA into the nucleus","make proteins","copy DNA","carry amino acids","Nucleosomes start the compaction of DNA into chromatin and chromosomes.");
-Q(26,"What are histones?","Proteins that DNA wraps around","Enzymes that copy DNA","RNA molecules","Sugars in DNA","Histones are positively charged proteins that bind negatively charged DNA.");
-Q(26,"Why do histones bind DNA tightly?","They are positively charged and DNA is negatively charged","They are hydrophobic","They contain thymine","They are made of RNA","Opposite charges attract: histones (positive) attract the phosphate backbone (negative).");
 C(22,"Prokaryotic vs eukaryotic cells","PROKARYOTE: no nucleus (DNA in nucleoid), no membrane-bound organelles, small, circular DNA, plasmids, unicellular (bacteria).\nEUKARYOTE: nucleus, membrane-bound organelles, larger, linear chromosomes, uni- or multicellular.");
 C(23,"Organelle functions (1/2)","Nucleus: stores DNA, controls cell.\nER: makes/transports proteins (rough) and lipids (smooth).\nGolgi: modifies, sorts, packages proteins.\nPlasma membrane: controls what enters/leaves.\nCell wall: rigid support/protection.");
 C(23,"Organelle functions (2/2)","Vacuole: stores water, nutrients, waste.\nMitochondria: makes ATP (cell respiration).\nChloroplast: photosynthesis.\nLysosome: digests waste and worn-out organelles.");
 C(24,"Animal vs plant cells","PLANT only: cell wall, chloroplasts, large central vacuole.\nANIMAL: lysosomes, small vacuoles, no cell wall or chloroplasts. Both have nucleus, mitochondria, ER, Golgi, plasma membrane.");
 C(25,"Nucleosome","DNA wrapped around a core of histone proteins ('beads on a string'). The first level of DNA packaging.");
 C(26,"Histones","Positively charged proteins that DNA wraps around to form nucleosomes. They package DNA and help regulate gene access.");
-/* ===== E. Central Dogma & Nucleotide/DNA Structure (27-34) ===== */
-Q(27,"What is the central dogma of molecular biology?","DNA is transcribed to RNA, which is translated into protein","Protein is translated into RNA, then DNA","RNA is replicated into DNA, then protein","DNA is translated into RNA, then transcribed into protein","Flow of genetic information: DNA to RNA (transcription), RNA to protein (translation). DNA also copies itself (replication).");
-Q(27,"In the central dogma, which step makes mRNA?","Transcription","Translation","Replication","Mitosis","Transcription: DNA template to mRNA. Translation: mRNA to protein.");
-Q(28,"What is the purpose of DNA replication?","To copy DNA before a cell divides","To make mRNA","To make protein","To digest DNA","Each daughter cell needs a full copy of the genome.");
-Q(28,"What is the purpose of translation?","To build a protein (polypeptide) using the mRNA code","To copy DNA","To make mRNA from DNA","To split cells","Ribosomes read mRNA codons and assemble amino acids.");
-Q(28,"Match each process with its product.","Replication: DNA; transcription: RNA; translation: protein","Replication: RNA; transcription: protein; translation: DNA","Replication: protein; transcription: DNA; translation: RNA","Replication: RNA; transcription: DNA; translation: DNA","Replication makes DNA, transcription makes RNA, translation makes protein.");
-Q(29,"What are the three components of a nucleotide?","A phosphate group, a 5-carbon sugar, and a nitrogenous base","An amino acid, a sugar, and a lipid","A phosphate, a protein, and a base","A sugar, a fatty acid, and a base","DNA nucleotides contain deoxyribose; RNA nucleotides contain ribose.");
-Q(29,"Which is NOT a part of a nucleotide?","Amino acid","Phosphate group","Sugar","Nitrogenous base","Amino acids build proteins, not nucleotides.");
-Q(30,"How do purines differ from pyrimidines?","Purines have two rings; pyrimidines have one ring","Purines have one ring; pyrimidines have two rings","Purines are in DNA only; pyrimidines are in RNA only","Purines contain sulfur","Purines (A, G) are double-ringed and larger. Pyrimidines (C, T, U) are single-ringed.");
-Q(30,"A purine always pairs with a pyrimidine so that...","the width of the DNA helix stays constant","the strands stay parallel","hydrogen bonds are avoided","the sugar changes","Large (2-ring) with small (1-ring) keeps a uniform width.");
-Q(31,"Which bases are purines?","Adenine and guanine","Cytosine and thymine","Thymine and uracil","Adenine and cytosine","Purines: A, G ('Pure As Gold'). Pyrimidines: C, T, U ('CUT the Py').");
-Q(31,"Which bases are pyrimidines?","Cytosine, thymine, and uracil","Adenine, guanine, and thymine","Adenine and cytosine","Guanine and uracil","C, T, and U have single rings.");
-Q(32,"In a DNA strand, the 5' end has...","a free phosphate group","a free hydroxyl (-OH) on the 3' carbon","a free base","a free amino group","5' end = phosphate on the 5' carbon. 3' end = free OH on the 3' carbon.");
-Q(32,"Which statement about the structure of DNA is correct?","A double helix with a sugar-phosphate backbone and bases paired in the middle","A single strand with bases outside","A double helix with bases on the outside","Two parallel strands with uracil","Backbone (deoxyribose + phosphate) on the outside, base pairs inside.");
-Q(33,"How are nucleotides linked together in one DNA strand?","Phosphodiester bonds between the sugar of one and the phosphate of the next","Hydrogen bonds between bases","Peptide bonds","Ionic bonds between strands","Phosphodiester bonds form the backbone (3' OH to 5' phosphate).");
-Q(33,"What holds the two DNA strands together?","Hydrogen bonds between base pairs","Phosphodiester bonds","Peptide bonds","Covalent bonds between sugars","Hydrogen bonds are weak individually, so the strands can be unzipped.");
-Q(34,"According to base pairing rules, adenine pairs with...","thymine in DNA (uracil in RNA)","guanine","cytosine","adenine","A pairs with T (2 H-bonds); G pairs with C (3 H-bonds).");
-Q(34,"How many hydrogen bonds join G and C?","3","2","1","4","G-C has 3; A-T has 2.");
-Q(34,"If one DNA strand is 5'-ATGC-3', the complementary strand is...","3'-TACG-5'","3'-ATGC-5'","5'-TACG-3'","3'-UACG-5'","Pair A-T, T-A, G-C, C-G and flip the direction (antiparallel).");
 C(27,"Central dogma","DNA → RNA → protein.\nTranscription: DNA → mRNA. Translation: mRNA → protein. (DNA also copies itself: replication.)");
 C(28,"Purpose of replication, transcription, translation","Replication: copy DNA before cell division.\nTranscription: make RNA copy of a gene.\nTranslation: make a protein from mRNA.");
 C(29,"Three components of a nucleotide","Phosphate group + 5-carbon sugar (deoxyribose in DNA, ribose in RNA) + nitrogenous base.");
@@ -408,31 +610,6 @@ C(31,"Which bases are which?","Purines: Adenine, Guanine ('Pure As Gold').\nPyri
 C(32,"Structure of DNA (what to draw)","Two strands forming a double helix. Each nucleotide: deoxyribose (sugar) + phosphate + nitrogenous base. Backbone = sugar-phosphate. Bases pair in the middle (A=T, G≡C). One strand runs 5' to 3', the other 3' to 5'. 5' end: free phosphate. 3' end: free OH.");
 C(33,"How nucleotides are linked","Along a strand: phosphodiester bonds (covalent, sugar to phosphate).\nBetween strands: hydrogen bonds between bases.");
 C(34,"Base pairing rules","A pairs with T (2 H-bonds). G pairs with C (3 H-bonds). In RNA, A pairs with U.");
-
-/* ===== F. DNA Replication (35-41) ===== */
-Q(35,"Why does a cell replicate its DNA?","So each new cell receives a complete copy of the genome","To make proteins","To make mRNA","To produce energy","Replication happens before cell division.");
-Q(36,"What is the purpose of mitosis?","To produce two genetically identical cells for growth and repair","To produce gametes","To make proteins","To copy RNA","Mitosis makes identical diploid daughter cells. Meiosis makes gametes.");
-Q(36,"Before mitosis, the DNA is...","replicated so each chromosome has two sister chromatids","destroyed","translated","split into RNA","DNA replication (S phase) makes each chromosome a pair of identical chromatids.");
-Q(37,"What is a chromosome?","A long DNA molecule packaged with proteins","A protein that copies DNA","A single nucleotide","A type of RNA","Chromosomes are tightly coiled DNA plus histones.");
-Q(37,"What is the centromere?","The region where two sister chromatids are joined","The end of a chromosome","A gene that codes for protein","A type of histone","The centromere holds sister chromatids together and attaches to spindle fibers.");
-Q(37,"What are sister chromatids?","Two identical copies of a replicated chromosome","Two different chromosomes from each parent","Pieces of RNA","Two histone proteins","Sister chromatids are identical copies made by replication.");
-Q(38,"DNA strands are 'complementary,' meaning...","the bases on one strand pair with the bases on the other (A-T, G-C)","both strands have identical sequences","both strands run 5' to 3'","they contain different sugars","Each strand's sequence determines its partner's sequence.");
-Q(38,"DNA strands are 'antiparallel,' meaning...","they run in opposite directions (5' to 3' and 3' to 5')","they run the same direction","they are made of RNA","they never pair","One strand runs 5' to 3' while the other runs 3' to 5'.");
-Q(38,"Semiconservative replication means each new DNA molecule...","has one old strand and one newly synthesized strand","has two new strands","has two old strands","is made of RNA","Shown by the Meselson-Stahl experiment.");
-Q(39,"What does helicase do?","Unwinds and separates the DNA strands by breaking hydrogen bonds","Seals DNA fragments","Makes the RNA primer","Adds nucleotides","Helicase unzips the double helix to form the replication fork.");
-Q(39,"What is the function of gyrase/topoisomerase in replication?","Relieves twisting strain (supercoiling) ahead of the replication fork","Seals gaps between Okazaki fragments","Adds RNA primer","Reads mRNA","Unwinding causes tension ahead of the fork. Topoisomerases (gyrase is one in bacteria) cut and rejoin DNA to relax it.");
-Q(39,"What is the replication fork?","The Y-shaped region where the DNA is being unwound and copied","The end of a chromosome","A type of polymerase","The start codon","The fork moves along as the helix is unzipped.");
-Q(39,"What do single-strand DNA binding proteins do?","Keep the separated strands apart so they do not re-pair","Seal nicks","Make primers","Make RNA","They coat single-stranded DNA and prevent it from snapping back.");
-Q(39,"What does primase do?","Makes a short RNA primer that gives DNA polymerase a starting point","Unwinds DNA","Joins Okazaki fragments","Relieves supercoiling","DNA polymerase can only add to an existing 3' end, so primase supplies the primer.");
-Q(39,"What does DNA polymerase do?","Adds complementary nucleotides to the 3' end, building the new strand","Unwinds the helix","Makes the RNA primer","Seals nicks","Polymerase matches bases to the template strand and proofreads.");
-Q(39,"The leading strand is...","synthesized continuously toward the replication fork","synthesized in fragments","synthesized away from the fork only","made of RNA","Its template lets polymerase follow the fork, so one primer is enough.");
-Q(39,"The lagging strand is...","synthesized discontinuously as Okazaki fragments away from the fork","synthesized continuously","synthesized 3' to 5'","made without primers","It is built in short pieces, each needing a primer.");
-Q(39,"Okazaki fragments are...","short DNA fragments on the lagging strand","RNA primers","proteins","the origin of replication","They are later joined into one continuous strand.");
-Q(39,"What does DNA ligase do?","Joins (seals) Okazaki fragments and nicks in the sugar-phosphate backbone","Unwinds DNA","Makes primers","Reads DNA","Ligase forms phosphodiester bonds to complete the lagging strand.");
-Q(39,"Which correctly orders replication events?","Helicase unwinds, binding proteins stabilize, primase adds primer, polymerase extends, ligase seals","Ligase seals, helicase unwinds, primase extends, polymerase unwinds","Polymerase primes, helicase seals, ligase unwinds, primase extends","Primase unwinds, ligase primes, helicase extends, polymerase seals","Unwind, stabilize, prime, extend, seal.");
-Q(40,"In what direction does DNA polymerase read the template strand?","3' to 5'","5' to 3'","Both directions","Randomly","Polymerase reads the template 3' to 5'.");
-Q(41,"In what direction does DNA polymerase build the new strand?","5' to 3'","3' to 5'","Both directions","Only toward the end","Nucleotides are added to the 3' OH, so growth is 5' to 3'.");
-Q(41,"Why is the lagging strand made in fragments?","Polymerase can only build 5' to 3', which is away from the fork on that strand","Helicase cannot unwind it","It has no template","It is made of RNA","The fork opens in one direction, so the strand built away from it must be made piece by piece.");
 C(35,"Purpose of DNA replication","Copy the genome so each new cell gets a complete set of DNA (occurs before cell division).");
 C(36,"Purpose of mitosis","Produces two genetically identical daughter cells for growth, repair, and replacement of cells.");
 C(37,"Chromosome, centromere, chromatid","CHROMOSOME: long DNA molecule packaged with proteins.\nCHROMATIDS: two identical copies of a replicated chromosome.\nCENTROMERE: region joining sister chromatids.");
@@ -441,40 +618,6 @@ C(39,"Replication proteins (1/2)","Helicase: unwinds/unzips DNA (breaks H-bonds)
 C(39,"Replication proteins (2/2)","Primase: makes RNA primer.\nDNA polymerase: adds nucleotides to 3' end.\nLeading strand: continuous.\nLagging strand: Okazaki fragments (discontinuous).\nLigase: seals fragments together.");
 C(40,"Direction DNA polymerase READS","Reads the template strand 3' to 5'.");
 C(41,"Direction DNA polymerase BUILDS","Builds the new strand 5' to 3' (adds to the 3' end).");
-
-/* ===== G. Plasmids, Competency & pGLO (42-54) ===== */
-Q(42,"What is a plasmid?","A small, circular piece of DNA separate from the main chromosome in bacteria","A type of RNA","A protein that cuts DNA","The nucleus of a bacterium","Plasmids replicate independently and often carry useful genes such as antibiotic resistance.");
-Q(42,"Which is true about plasmids?","They are extra-chromosomal, circular DNA that can be copied independently","They are linear chromosomes","They are made of protein","They are found only in humans","Plasmids are used as vehicles for moving genes.");
-Q(43,"Why is a plasmid considered a vector?","It carries a gene into a host cell","It cuts DNA","It makes protein","It digests DNA","A vector is a vehicle for transferring DNA into cells.");
-Q(43,"In the pGLO lab, the plasmid acts as a vector by...","carrying the GFP gene into E. coli","producing ampicillin","killing bacteria","digesting agar","pGLO delivers GFP, araC, and bla genes into the bacteria.");
-Q(44,"What is the role of the ORI (origin of replication) in a plasmid?","It lets the plasmid be copied inside the host cell","It codes for GFP","It gives antibiotic resistance","It turns genes on","Without an ORI, the plasmid would not replicate and would be lost as the cells divide.");
-Q(44,"If a plasmid had no ORI, what would happen?","It would not replicate and would be lost as bacteria divide","It would replicate faster","GFP would be brighter","It would become RNA","The ORI is the starting point for plasmid replication.");
-Q(45,"What is a selective marker?","A gene that lets you select for cells that took up the plasmid, such as antibiotic resistance","A gene that makes DNA","A promoter","A sugar","Only transformed cells can survive on selective media.");
-Q(45,"What was the selective marker in the pGLO lab?","The bla gene (beta-lactamase) giving ampicillin resistance","GFP","araC","Arabinose","Beta-lactamase breaks down ampicillin, so transformed cells survive on LB/amp plates.");
-Q(46,"What does it mean for bacterial cells to be competent?","They are able to take up foreign DNA","They can make antibiotics","They are dead","They are resistant to heat","Competent cells can accept DNA from their environment.");
-Q(46,"Which are two methods to make bacteria competent?","Chemical treatment (CaCl2 + heat shock) and electroporation","Autoclaving and freezing","UV light and vortexing","Centrifugation and filtration","Chemical (calcium chloride with heat shock) or electrical (electroporation) creates openings for DNA.");
-Q(46,"Electroporation makes cells competent by...","using a brief electric pulse to create temporary pores","heating with CaCl2","adding antibiotics","adding arabinose","The electric pulse opens pores in the membrane so DNA can enter.");
-Q(47,"What does genetic transformation mean?","A cell takes up foreign DNA and expresses the new gene(s), changing its traits","A cell divides in two","RNA is turned into protein","DNA is copied","In pGLO, bacteria acquire the ability to glow green and resist ampicillin.");
-Q(47,"Which change shows successful transformation in the pGLO lab?","Bacteria growing on ampicillin and glowing under UV with arabinose","Bacteria dying on LB/amp","Bacteria glowing without arabinose","Bacteria changing shape","Successful transformation gives resistance and fluorescence when induced.");
-Q(48,"Which genes/elements are on the pGLO plasmid?","GFP gene, araC gene, bla gene (amp resistance), promoter, and ORI","Insulin gene, lac gene, ORI","GFP only","Casein gene, GFP, pH gene","pGLO has GFP, bla (ampR), araC, pBAD promoter, and ori.");
-Q(48,"What is the function of the bla gene on pGLO?","Codes for beta-lactamase, which destroys ampicillin","Codes for GFP","Codes for the araC protein","Is the origin of replication","It is the selective marker.");
-Q(48,"What is the function of the GFP gene?","Codes for green fluorescent protein, which glows under UV light","Codes for araC","Gives ampicillin resistance","Replicates the plasmid","GFP originally came from a jellyfish.");
-Q(49,"Which is the correct order of steps in the pGLO transformation?","CaCl2 + DNA on ice, heat shock, add LB and recover, plate, incubate","Plate, heat shock, add LB, add DNA","Heat shock, add DNA, add CaCl2, plate","Add LB, plate, add DNA, heat shock","Cold CaCl2 and DNA, then quick heat shock, then LB recovery, then plating and incubation.");
-Q(49,"Why are the cells kept on ice before and after heat shock?","The cold helps DNA stick to cells and the temperature change makes the membrane permeable","To kill bacteria","To activate GFP","To make arabinose","Ice/heat/ice creates a temperature imbalance that helps DNA enter.");
-Q(50,"What is the function of the CaCl2 transformation solution?","Calcium ions neutralize the negative charges on DNA and the cell membrane so DNA can approach the cell","Kills bacteria","Activates GFP","Feeds the cells","Both DNA and membranes are negatively charged, so they repel. Ca2+ shields the charges.");
-Q(50,"What does heat shock do in transformation?","Creates a temperature imbalance that helps DNA move into the cell","Turns on the GFP gene","Kills the cells","Makes ampicillin","Sudden heat (42°C about 50 s) makes the membrane more permeable.");
-Q(50,"Why is LB broth added after heat shock?","It provides nutrients so the cells can recover and start expressing the new genes","It kills untransformed cells","It turns on GFP","It adds CaCl2","Cells need time and food to make beta-lactamase before seeing ampicillin.");
-Q(51,"What is arabinose?","A sugar that turns on the GFP gene in pGLO","An antibiotic","A protein","A nucleotide","Arabinose is the inducer that controls the pBAD promoter.");
-Q(51,"Arabinose in the pGLO lab is used to...","switch on GFP expression","kill bacteria","provide ampicillin resistance","replicate DNA","Without arabinose, GFP stays off.");
-Q(52,"In the pGLO system, what does the araC protein do when arabinose is ABSENT?","Binds the promoter region and blocks RNA polymerase (gene OFF)","Activates GFP","Copies DNA","Cuts DNA","Without arabinose the araC protein blocks transcription.");
-Q(52,"What happens when arabinose is PRESENT?","Arabinose binds araC protein, changing its shape so RNA polymerase can bind the promoter and transcribe GFP (ON)","araC destroys arabinose","GFP is cut","RNA polymerase is destroyed","The araC-arabinose complex allows RNA polymerase to start transcription.");
-Q(52,"What is the role of RNA polymerase in the pGLO system?","Transcribes the GFP gene into mRNA once the promoter is available","Makes the GFP protein","Makes arabinose","Copies the plasmid","mRNA is then translated into GFP.");
-Q(52,"Which correctly describes the order that produces glowing bacteria?","Arabinose binds araC protein, RNA polymerase binds the promoter, GFP gene is transcribed and translated, GFP glows","GFP glows, then araC is made","RNA polymerase makes arabinose","araC makes GFP directly","Regulatory chain: arabinose to araC to promoter to transcription to translation.");
-Q(53,"Which media were used in the pGLO lab?","LB, LB/amp, and LB/amp/ara","Only LB","Only LB/amp","Saline and water","The plates compare growth and fluorescence with and without plasmid, antibiotic, and sugar.");
-Q(54,"Which plate showed growth AND green glow under UV?","+pGLO on LB/amp/ara","+pGLO on LB/amp","-pGLO on LB/amp","-pGLO on LB","Only transformed cells with arabinose express GFP.");
-Q(54,"Why did +pGLO cells on LB/amp NOT glow?","No arabinose, so the GFP gene stayed OFF","They were dead","No plasmid was present","No ampicillin","They grew (amp resistance) but GFP was not induced.");
-Q(54,"Why did -pGLO cells on LB/amp not grow?","They lacked the bla gene and could not resist ampicillin","No nutrients were present","GFP killed them","Arabinose killed them","Untransformed cells are killed by ampicillin.");
-Q(54,"What is the purpose of -pGLO on plain LB?","Control showing the cells are viable and grow without selection","To test arabinose","To show glow","To test ampicillin","Shows that the bacteria can grow normally (lawn).");
 C(42,"Plasmid","Small circular extra-chromosomal DNA in bacteria that replicates independently and often carries useful genes.");
 C(43,"Why a plasmid is a vector","A vector carries foreign DNA into a host cell. Plasmids can carry a gene (like GFP) into bacteria.");
 C(44,"ORI (origin of replication)","Starting point for copying the plasmid, so it can replicate in the host cell.");
@@ -488,49 +631,10 @@ C(51,"Arabinose","A sugar that acts as the inducer of the GFP gene in pGLO. It t
 C(52,"How GFP is turned ON or OFF (pGLO)","OFF (no arabinose): araC protein binds the promoter/operon and blocks RNA polymerase.\nON (arabinose present): arabinose binds araC protein, it lets go, RNA polymerase binds the promoter and transcribes the GFP gene, mRNA is translated to GFP.");
 C(53,"Media used in pGLO lab","LB (no antibiotic), LB/amp (ampicillin), LB/amp/ara (ampicillin plus arabinose).");
 C(54,"Plate results and why","+pGLO LB/amp/ara: growth and glows (amp resistance, GFP ON).\n+pGLO LB/amp: growth, no glow (GFP OFF).\n-pGLO LB/amp: no growth (no resistance).\n-pGLO LB: lawn, no glow (no plasmid, no selection).");
-
-/* ===== H. Chromatography & GFP Purification (55-58) ===== */
-Q(55,"What is chromatography used for in biotechnology?","To separate and purify molecules in a mixture, such as proteins","To copy DNA","To measure pH","To sterilize equipment","Different molecules move differently through a matrix based on size, charge, or hydrophobicity.");
-Q(55,"Chromatography separates molecules based on differences in...","physical/chemical properties such as size, charge, or hydrophobicity","color only","the number of cells","temperature only","Each column type uses a different property.");
-Q(56,"Which are types of column chromatography?","Size exclusion, ion exchange, affinity, and hydrophobic interaction","Only size exclusion","PCR and electrophoresis","Gram staining and plating","Each method separates based on a different property.");
-Q(56,"Which type of column chromatography was used to purify GFP in class?","Hydrophobic interaction chromatography","Size exclusion","Ion exchange","Affinity with antibodies","Salt concentration controls whether GFP binds the hydrophobic beads.");
-Q(57,"What is the function of lysozyme in the GFP lab?","Breaks down the bacterial cell wall so GFP is released","Binds GFP to the column","Makes GFP glow","Digests DNA","Lysozyme digests peptidoglycan in the wall, allowing lysis.");
-Q(57,"Lysozyme is used in the purification to...","lyse (burst) the bacteria to release proteins","feed the bacteria","add antibiotics","bind GFP","Without lysis, GFP would stay inside the cells.");
-Q(58,"In the GFP purification, why is high salt added to the sample/column?","High salt promotes hydrophobic interactions so GFP sticks to the column","Salt digests proteins","Salt makes GFP glow","Salt removes the column","High salt exposes hydrophobic regions, which bind the hydrophobic beads.");
-Q(58,"What is the purpose of the wash buffer?","Removes hydrophilic proteins while GFP stays bound","Elutes GFP","Lyses cells","Binds DNA","Intermediate salt washes off weakly bound proteins.");
-Q(58,"What is the purpose of the elution (low-salt) buffer?","Releases GFP from the column so it can be collected","Binds more GFP","Digests the cell wall","Denatures DNA","Low salt reduces hydrophobic interaction, so GFP comes off.");
-Q(58,"Which proteins pass through the column first?","Hydrophilic proteins","Hydrophobic proteins like GFP","DNA only","Lysozyme only","Hydrophilic proteins do not stick to hydrophobic beads.");
-Q(58,"Which correctly orders GFP purification?","Lyse with lysozyme, spin and collect supernatant, add high-salt binding, load column, wash, elute","Elute, load, wash, lyse","Wash, elute, lyse, load","Load, lyse, elute, wash","Lyse cells, clear debris, bind GFP to column, wash, elute.");
 C(55,"Chromatography in biotech","Separates and purifies molecules (e.g., proteins) from a mixture based on properties such as size, charge, or hydrophobicity.");
 C(56,"Types of column chromatography","Size exclusion (gel filtration), ion exchange, affinity, hydrophobic interaction (HIC).\nClass used: HYDROPHOBIC INTERACTION chromatography.");
 C(57,"Lysozyme","Enzyme that digests the peptidoglycan cell wall of bacteria, bursting them open so GFP is released.");
 C(58,"GFP purification steps and buffers","1) Lyse bacteria with lysozyme.\n2) Spin to remove debris, keep supernatant.\n3) Add high-salt binding/equilibration buffer: GFP (hydrophobic) binds hydrophobic beads.\n4) Wash buffer (medium salt): removes hydrophilic proteins.\n5) Elution buffer (low salt): releases GFP.\nHydrophobic regions stick in high salt; hydrophilic proteins flow through.");
-/* ===== I. Transcription (59-68) ===== */
-Q(59,"What is the purpose of transcription?","To make an RNA (mRNA) copy of a gene from the DNA","To copy the whole genome","To build a protein","To divide the cell","Transcription copies a gene's DNA sequence into RNA so the information can leave the nucleus.");
-Q(59,"Transcription takes place...","in the nucleus of eukaryotic cells","at the ribosome","in the Golgi apparatus","in the lysosome","In eukaryotes, DNA stays in the nucleus, so transcription happens there.");
-Q(60,"Which is a difference between RNA and DNA?","RNA is usually single-stranded and has ribose; DNA is double-stranded and has deoxyribose","RNA is double-stranded; DNA is single-stranded","RNA has thymine; DNA has uracil","RNA has deoxyribose; DNA has ribose","RNA: single strand, ribose, uracil. DNA: double strand, deoxyribose, thymine.");
-Q(60,"Which base is found in RNA but not in DNA?","Uracil","Thymine","Cytosine","Guanine","RNA uses uracil in place of thymine.");
-Q(60,"Which base pairs with adenine in RNA?","Uracil","Thymine","Cytosine","Guanine","In RNA, A pairs with U.");
-Q(61,"Is uracil a purine or a pyrimidine, and is it in DNA?","Pyrimidine; it is not found in DNA","Purine; it is found in DNA","Pyrimidine; it is found in DNA","Purine; it is not found in DNA","Uracil has one ring (pyrimidine) and is found only in RNA.");
-Q(61,"Which nucleotide base is a pyrimidine found only in RNA?","Uracil","Thymine","Adenine","Guanine","Thymine is the pyrimidine used in DNA.");
-Q(62,"What is the difference between deoxyribose and ribose?","Ribose has an -OH on the 2' carbon; deoxyribose has only an H","Deoxyribose has an extra OH","Ribose has a phosphate","Deoxyribose has six carbons","'Deoxy' means one oxygen less, making DNA more stable.");
-Q(62,"Which sugar is found in DNA nucleotides?","Deoxyribose","Ribose","Glucose","Fructose","DNA = deoxyribonucleic acid.");
-Q(63,"What are mRNA, tRNA, and rRNA?","Three types of RNA: messenger, transfer, and ribosomal","Three types of DNA","Three kinds of amino acids","Three kinds of histones","Each type of RNA has a different role in protein synthesis.");
-Q(64,"What does mRNA do?","Carries the genetic code from DNA to the ribosome","Brings amino acids to the ribosome","Is a structural/catalytic part of the ribosome","Copies DNA","mRNA is the message (codons) that is read during translation.");
-Q(64,"What does tRNA do?","Brings the correct amino acid to the ribosome, matching its anticodon to an mRNA codon","Carries the DNA code","Forms the ribosome","Splices introns","tRNA is the adapter that translates codons into amino acids.");
-Q(64,"What does rRNA do?","Forms the ribosome, helping read mRNA and form peptide bonds","Brings amino acids","Copies DNA","Carries codons","rRNA plus proteins make up ribosomes.");
-Q(65,"What does RNA polymerase do in transcription?","Builds an RNA strand complementary to the DNA template","Seals DNA","Unwinds the entire chromosome","Translates mRNA","It unwinds DNA locally and adds RNA nucleotides 5' to 3'.");
-Q(65,"What is a promoter?","A DNA sequence where RNA polymerase binds to begin transcription","The stop codon","An amino acid","The end of the mRNA","The promoter marks where a gene starts and is transcribed.");
-Q(65,"What is the template strand?","The DNA strand that RNA polymerase reads to make RNA","The strand with the same sequence as the mRNA","The mRNA","The primer","Read 3' to 5' to build RNA 5' to 3'.");
-Q(65,"What is the coding strand?","The DNA strand whose sequence matches the mRNA (with T instead of U)","The strand RNA polymerase reads","The tRNA","The promoter","The coding strand is the non-template strand.");
-Q(65,"Template DNA reads 3'-TACGGA-5'. What is the mRNA?","5'-AUGCCU-3'","5'-TACGGA-3'","5'-UACGGU-3'","3'-AUGCCU-5'","Pair A-U, T-A, C-G, G-C and the mRNA runs 5' to 3'.");
-Q(66,"What are introns and exons?","Introns are non-coding segments removed; exons are coding segments that stay in the mRNA","Introns are coding; exons are removed","Both stay in mRNA","Both are removed","Exons are expressed; introns are intervening sequences.");
-Q(66,"Which stays in the mature mRNA?","Exons","Introns","Promoter","Template strand","Exons are joined together after introns are cut out.");
-Q(67,"What removes introns and splices exons together?","The spliceosome, in the nucleus","Ribosomes in the cytoplasm","Ligase in the Golgi","Helicase","Splicing happens in the nucleus before mRNA exits.");
-Q(67,"Where does RNA splicing occur?","Nucleus","Ribosome","Lysosome","Mitochondria","Splicing happens in the nucleus of eukaryotes.");
-Q(68,"What is the 5' methyl guanosine cap?","A modified guanine added to the 5' end of mRNA; it protects the mRNA and helps the ribosome bind","A string of adenines at the 3' end","A stop codon","An intron","Cap: protects from degradation, aids export and ribosome recognition.");
-Q(68,"What is the poly-A tail?","A string of adenine nucleotides added to the 3' end that protects mRNA and helps its export","A cap on the 5' end","A promoter","An amino acid","Poly-A tail: stability and export, delaying degradation.");
-Q(68,"Which modifications are made to eukaryotic pre-mRNA?","5' cap, poly-A tail, and splicing","Only splicing","Only a poly-A tail","DNA replication","These three processing steps produce mature mRNA.");
 C(59,"Purpose of transcription","Make an RNA copy (mRNA) of a gene from DNA. Occurs in the nucleus (eukaryotes).");
 C(60,"RNA vs DNA","RNA: single-stranded, ribose sugar, uracil (no thymine), several types.\nDNA: double-stranded, deoxyribose sugar, thymine.");
 C(61,"Uracil","A pyrimidine (one ring). Found in RNA, NOT in DNA (pairs with adenine).");
@@ -541,32 +645,6 @@ C(65,"Transcription terms","RNA polymerase: builds RNA from template.\nPromoter:
 C(66,"Introns and exons","INTRONS: intervening non-coding regions, removed.\nEXONS: expressed coding regions, kept and joined.");
 C(67,"Splicing","The spliceosome removes introns and joins exons. It happens in the nucleus.");
 C(68,"5' cap and poly-A tail","5' methyl guanosine cap: protects mRNA, helps export and ribosome binding.\nPoly-A tail (3' end): protects mRNA from degradation, helps export.");
-
-/* ===== J. Translation (69-76) ===== */
-Q(69,"What is the purpose of translation?","To synthesize a polypeptide/protein using the code in mRNA","To make mRNA","To copy DNA","To splice introns","mRNA codons are decoded into a chain of amino acids.");
-Q(70,"Where does translation take place?","At ribosomes in the cytoplasm","In the nucleus","In the Golgi","In the lysosome","Ribosomes (free or on rough ER) carry out translation.");
-Q(70,"Ribosomes are found...","free in the cytoplasm or attached to the rough ER","only in the nucleus","inside lysosomes","only in mitochondria","Both free and ER-bound ribosomes make protein.");
-Q(71,"What is a codon?","A three-nucleotide sequence on mRNA that codes for an amino acid or a stop","A three-nucleotide sequence on tRNA","A gene","An amino acid","Codons are read in groups of three.");
-Q(71,"What is an anticodon?","A three-nucleotide sequence on tRNA complementary to an mRNA codon","A three-nucleotide sequence on DNA","A stop signal","An enzyme","The anticodon pairs with the codon to bring in the right amino acid.");
-Q(71,"mRNA codon 5'-GAU-3' pairs with which tRNA anticodon?","3'-CUA-5'","3'-GAU-5'","3'-CTA-5'","5'-CUA-3'","Anticodon is complementary and antiparallel: G-C, A-U, U-A reads 3'-CUA-5'.");
-Q(72,"What is the first codon in almost every mRNA, and what does it code for?","AUG; methionine","UAA; stop","GGG; glycine","UUU; phenylalanine","AUG is the start codon and codes for Met.");
-Q(72,"A ribosome begins translation at...","the start codon AUG","any codon","the poly-A tail","the promoter","The start codon sets the reading frame.");
-Q(73,"What is an ORF (open reading frame)?","A stretch of codons from a start codon to a stop codon that can be translated","A promoter","An intron","A ribosome","The reading frame is uninterrupted by stop codons.");
-Q(73,"Which is most likely an ORF?","AUG ... codons ... UAA with no stop in between","UAA at the start","Only introns","A poly-A tail","ORF = start codon, then in-frame codons, then stop.");
-Q(74,"What happens in INITIATION?","The small subunit binds mRNA and the start codon with the initiator tRNA; the large subunit joins","Release factor binds","tRNAs add many amino acids","mRNA is spliced","Initiation assembles the ribosome at AUG.");
-Q(74,"What happens in ELONGATION?","tRNAs bring amino acids, peptide bonds form, and the ribosome moves along the mRNA","The ribosome falls apart","The mRNA is made","Introns are removed","Codon recognition, peptide bond formation, and translocation repeat.");
-Q(74,"What happens in TERMINATION?","A stop codon is reached, release factor binds, and the polypeptide is released","A start codon is found","tRNA adds an amino acid","mRNA is spliced","Stop codons UAA, UAG, UGA have no tRNA.");
-Q(75,"What is the function of the ribosome?","Reads mRNA codons and links amino acids into a polypeptide","Brings amino acids","Carries DNA code","Splices RNA","It has a large and a small subunit.");
-Q(75,"What does the small ribosomal subunit do?","Binds the mRNA (and initiator tRNA) to start translation","Releases the polypeptide","Makes DNA","Carries amino acids","The small subunit finds the start codon; the large subunit catalyzes peptide bonds.");
-Q(75,"What is a peptide bond?","The covalent bond joining amino acids","The bond between DNA bases","A hydrogen bond between strands","A bond between sugar and phosphate","Amino acids are linked by peptide bonds to form a polypeptide.");
-Q(75,"What does a release factor do?","Binds at a stop codon and causes the polypeptide to be released","Brings amino acids","Starts translation","Adds cap","It ends translation.");
-Q(75,"How does a polypeptide become a protein?","It folds into its functional 3D shape","It is converted to RNA","It is spliced","It is copied","Folding (and sometimes joining polypeptides) gives function.");
-Q(76,"Which strand in the Q76 problem is the TEMPLATE strand? (Top: 5'-ATGGATCTGAATTGA-3', Bottom: 3'-TACCTAGACTTAACT-5')","The bottom strand (3'-TACCTAGACTTAACT-5')","The top strand (5'-ATGGATCTGAATTGA-3')","Both strands","Neither strand","The top strand reads ATG...TGA (start to stop), so it is the coding strand. The bottom strand is the template.");
-Q(76,"What is the mRNA made from the template 3'-TACCTAGACTTAACT-5'?","5'-AUGGAUCUGAAUUGA-3'","5'-UACCUAGACUUAACU-3'","5'-ATGGATCTGAATTGA-3'","5'-AGUCCAUGAGUUAAU-3'","Complement each base (A-U, T-A, C-G, G-C) and write 5' to 3': AUG GAU CUG AAU UGA.");
-Q(76,"What are the codons of the Q76 mRNA (5'-AUGGAUCUGAAUUGA-3')?","AUG, GAU, CUG, AAU, UGA","AUG, GAU, CUG, AAU, UAA","AUGG, AUC, UGA, AUU, GA","ATG, GAT, CTG, AAT, TGA","Read in groups of three from the start codon.");
-Q(76,"Which tRNA anticodons pair with the first four codons (AUG, GAU, CUG, AAU)?","3'-UAC-5', 3'-CUA-5', 3'-GAC-5', 3'-UUA-5'","3'-AUG-5', 3'-GAU-5', 3'-CUG-5', 3'-AAU-5'","3'-TAC-5', 3'-CTA-5', 3'-GAC-5', 3'-TTA-5'","3'-UAC-5', 3'-GAU-5', 3'-GAC-5', 3'-AUU-5'","Anticodons are complementary to codons (RNA, so U not T), written 3' to 5'. Reading 5'-to-3' they are CAU, AUC, CAG, AUU.");
-Q(76,"What amino acids does the Q76 mRNA code for, in order?","Met - Asp - Leu - Asn","Met - Glu - Leu - Asn","Met - Asp - Leu - Asn - Stop codon adds an amino acid","Met - Asp - Val - Asn","AUG = Met, GAU = Asp, CUG = Leu, AAU = Asn, UGA = stop.");
-Q(76,"In Q76, the last codon UGA is a...","stop codon; release factor binds and no tRNA or amino acid is added","codon for tryptophan","start codon","codon for leucine","UGA does not code for an amino acid. The polypeptide is Met-Asp-Leu-Asn.");
 C(69,"Purpose of translation","Use the mRNA code to build a polypeptide/protein at the ribosome.");
 C(70,"Where translation takes place","At ribosomes (in the cytoplasm, free or attached to rough ER).");
 C(71,"Codon vs anticodon","CODON: 3 nucleotides on mRNA (codes for an amino acid or stop).\nANTICODON: 3 nucleotides on tRNA, complementary to the codon.");
@@ -576,38 +654,89 @@ C(74,"Initiation, elongation, termination","INITIATION: small subunit + mRNA + i
 C(75,"Translation terms","mRNA: message. Codon: 3-nt code. Anticodon: on tRNA. Ribosome: site of translation. Small subunit: binds mRNA. Large subunit: forms peptide bonds. tRNA: brings amino acid. Start codon: AUG. Amino acid: building block. Peptide bond: links amino acids. Polypeptide: chain. Protein: folded polypeptide. Release factor: ends translation at stop codon.");
 C(76,"Q76: mRNA from template 3'-TACCTAGACTTAACT-5'","The bottom strand is the template; the top strand is the coding strand (ATG...TGA).\nmRNA: 5'-AUG GAU CUG AAU UGA-3'.");
 C(76,"Q76: anticodons and amino acids","Codons: AUG | GAU | CUG | AAU | UGA\nAnticodons (3'→5'): UAC | CUA | GAC | UUA | none\nAmino acids: Met | Asp | Leu | Asn | STOP\nPolypeptide: Met-Asp-Leu-Asn");
-
-/* ===== K. Gene Expression Regulation (77-78) ===== */
-Q(77,"What are activators?","Proteins (transcription factors) that bind enhancer DNA and increase transcription","Enzymes that copy DNA","RNA molecules that make proteins","Sugars","Activators help recruit RNA polymerase to the promoter.");
-Q(77,"What are enhancers?","DNA sequences (often far from the gene) where activators bind to boost transcription","The start codon","The poly-A tail","tRNA","DNA loops so enhancer-bound activators can contact the promoter machinery.");
-Q(77,"How do activators and enhancers control gene expression in eukaryotes?","Activators bind enhancers and help recruit RNA polymerase, increasing transcription","They copy DNA","They splice mRNA","They stop translation","More activator binding gives more transcription.");
-Q(78,"What is the TATA box?","A promoter sequence (about 25-30 bp upstream) where transcription factors and RNA polymerase position to start transcription","The stop codon","A protein","An intron","It helps position RNA polymerase at the start site.");
-Q(78,"What is the CAAT box?","A promoter element (farther upstream than the TATA box) that helps regulate how often/efficiently a gene is transcribed","A stop codon","An amino acid","A splice site","CAAT boxes affect the rate of transcription.");
-Q(78,"TATA and CAAT boxes are found in...","the promoter region of eukaryotic genes","the ribosome","the mRNA poly-A tail","the cell wall","Both are promoter elements bound by transcription factors.");
 C(77,"Activators and enhancers","ACTIVATORS: transcription-factor proteins that bind enhancers to increase transcription.\nENHANCERS: DNA sequences (can be far from the gene) that activators bind; they help recruit RNA polymerase.");
 C(78,"CAAT and TATA boxes","Promoter elements in eukaryotic genes bound by transcription factors.\nTATA box: about 25-30 bp upstream; positions RNA polymerase.\nCAAT box: farther upstream; boosts transcription efficiency.");
-
-/* ===== L. DNA/Chromatin/Chromosomes/Genes & DNA Extraction (79-82) ===== */
-Q(79,"What is chromatin?","DNA wrapped around histones (nucleosomes) in a less condensed form","A single gene","A protein that copies DNA","RNA in the cytoplasm","Chromatin is DNA plus proteins; it condenses further to form chromosomes.");
-Q(79,"What is the relationship among DNA, chromatin, chromosomes, and genes?","DNA is the molecule; chromatin is DNA plus histones; chromosomes are condensed chromatin; genes are DNA segments that code for products","Genes contain chromosomes","DNA is made of genes made of chromatin","Chromosomes are made of RNA","Genes are functional segments of DNA located on chromosomes.");
-Q(79,"A gene is...","a segment of DNA that codes for a protein or functional RNA","a chromosome","a histone","a nucleotide","Genes are the units of heredity.");
-Q(80,"Does a liver cell contain the same chromosomes as a cheek cell?","Yes; both came from the same zygote by mitosis, so they have identical DNA","No; different cells have different chromosomes","No; liver cells have fewer chromosomes","Yes, but only half","Cells differ because of which genes are expressed, not which genes they have.");
-Q(80,"Why do liver and cheek cells look and work differently if their DNA is the same?","They express different sets of genes","They have different chromosomes","They lost genes","They use different DNA","Differential gene expression creates different cell types.");
-Q(81,"In the crude DNA extraction lab, what makes DNA insoluble?","Cold alcohol (ethanol or isopropanol), which makes DNA precipitate","Soap","Water","Protease","DNA is soluble in water but not in cold alcohol; it clumps and becomes visible.");
-Q(81,"What is the role of salt in DNA extraction?","Neutralizes DNA's negative charge so strands clump together in alcohol","Breaks cell walls","Digests proteins","Dissolves DNA","Salt helps DNA precipitate.");
-Q(82,"What is the purpose of the lysis buffer (soap)?","Breaks open the cell and nuclear membranes by dissolving lipids","Digests DNA","Precipitates DNA","Makes DNA glow","Detergent disrupts membranes, releasing DNA.");
-Q(82,"What is the purpose of the protease?","Digests proteins such as histones and cellular enzymes so DNA is freed and purified","Dissolves membranes","Precipitates DNA","Copies DNA","Removing proteins gives cleaner DNA.");
-Q(82,"Which order is correct for the crude DNA extraction?","Lyse cells with buffer, add protease, then add cold alcohol to precipitate DNA","Add alcohol, then lyse, then protease","Add protease, alcohol, then buffer","Precipitate, then lyse","Release the DNA, clean proteins away, then precipitate.");
 C(79,"DNA vs chromatin vs chromosomes vs genes","DNA: the molecule.\nCHROMATIN: DNA wrapped around histones.\nCHROMOSOME: highly condensed chromatin.\nGENE: segment of DNA coding for a protein or RNA.");
 C(80,"Liver cell vs cheek cell DNA","Same chromosomes and DNA (both came from one fertilized egg by mitosis). They differ because different genes are turned on (gene expression).");
 C(81,"What makes DNA insoluble in the extraction lab?","Cold alcohol (ethanol or isopropanol). DNA is soluble in water but precipitates in alcohol (salt helps clump it).");
 C(82,"Lysis buffer and protease (DNA extraction)","LYSIS BUFFER (detergent/soap + salt): breaks cell and nuclear membranes.\nPROTEASE: digests proteins (like histones) so DNA is released and cleaner.");
+/* balance pass: rewrite option sets so correct answers are not distinguishable by length */
+const PATCH={
+q3:["Both use living things or their products for a useful purpose","Both insert chosen genes into the organism that is used","Both depend on knowing the DNA sequence of the organism","Both need equipment such as a thermal cycler to work"],
+q7:["traditional biotechnology","modern biotechnology","genetic engineering of the crop genome","not biotechnology, since no lab is involved"],
+q12:["Principal investigator running an independent research lab","Research associate running experiments for a senior scientist","Quality control analyst testing finished product batches","Manufacturing technician operating production equipment"],
+q14:["Hazards, handling, first aid, and disposal for one chemical","Step-by-step instructions for running one lab procedure","Calibration and maintenance steps for lab instruments","A list of the chemicals in the lab and where they are kept"],
+q19:["1 M NaCl, made 10/3, initials CL","Salt water, made 10/3, Period 3","NaCl solution, made 10/3","1 M solution, initials CL, Period 3"],
+q24:["Gel electrophoresis apparatus","Thermal cycler (PCR machine)","Microcentrifuge spun at high speed","Spectrophotometer with a cuvette"],
+q27:["A small quick-spin unit that gathers liquid at the tube bottom","It reaches much higher speeds to pellet cells and debris","It holds large 15-50 mL tubes instead of microtubes","It chills samples to 4°C throughout a long spin"],
+q38:["Add a balance tube with equal volume of water opposite","Put it in any slot and close the lid before starting","Spin it at lower speed to make up for the imbalance","Place an empty tube directly opposite it in the rotor"],
+q43:["Microbes with the calf chymosin gene make it in fermenters","Calf stomach lining is dried and the enzyme is extracted","Bacteria convert lactose into it during fermentation","Chemists synthesize it from milk sugar and lactic acid"],
+q53:["Water and dissolved lactose","Aggregated casein protein","Clumped milk fat globules","Insoluble starch granules"],
+q57:["Prokaryote","Animal cell","Plant cell","Fungal cell"],
+q58:["Their DNA is inside a membrane-bound nucleus","Their DNA is a single circular chromosome","They lack ribosomes and make protein elsewhere","They are always single-celled organisms"],
+q62:["Golgi apparatus","Smooth endoplasmic reticulum","Central vacuole","Nuclear envelope"],
+q87:["Paired in the middle, backbone on the outside","Stacked on the outside, backbone in the middle","Alternating inside and outside along each strand","Linked end to end as part of the backbone"],
+q88:["Phosphodiester bond","Hydrogen bond (base to base)","Peptide bond (amino acid link)","Glycosidic bond (sugar to base)"],
+q93:["So each new cell gets a complete genome","So the cell can make more mRNA beforehand","So the DNA can exit through nuclear pores","So the chromosomes can be translated first"],
+q99:["A pairs with T and G with C across strands","Both strands have an identical base sequence","Both strands run in the 5' to 3' direction","Each strand contains only purine bases"],
+q101:["Keeps one old strand and one new strand","Is made of two newly built strands","Keeps both of the original strands","Is a hybrid of DNA and RNA strands"],
+q103:["Gyrase (topoisomerase)","Helicase, the unzipping enzyme","Ligase, the sealing enzyme","Primase, the primer enzyme"],
+q104:["The Y-shaped region where strands are separating","The point where replication ends and strands rejoin","The nick left between two Okazaki fragments","The enzyme complex that unwinds the helix"],
+q105:["Single-strand binding proteins","DNA ligase sealing the nicks","Primase laying down primers","Helicase unwinding the DNA"],
+q110:["Short DNA pieces made on the lagging strand","RNA primers laid down by primase","Sections removed from pre-mRNA by splicing","Gaps that helicase leaves behind"],
+q115:["Polymerase builds only 5' to 3', away from the fork on that strand","Helicase can only unwind one of the two parent strands at a time","Only one parent strand carries a usable template for polymerase","Ligase cannot act until the replication fork has fully closed"],
+q116:["Small circular DNA separate from the main chromosome","A circular chromosome found inside a nucleus","A bacterial protein that cuts DNA at specific sites","A short RNA that ferries genes between bacteria"],
+q120:["Be copied inside the host cell","Make GFP in the host cell","Survive on ampicillin plates","Enter the host cell"],
+q122:["A gene that identifies cells that took up the plasmid","A gene that lets the plasmid copy itself in the cell","A gene that switches on the gene you want expressed","A dye added to the plates that stains transformed colonies"],
+q126:["A short electric pulse opens pores in the membrane","Calcium ions neutralize the negative charge on DNA","Lysozyme digests the wall so DNA can slip through","Heat opens pores so plasmids can diffuse inside"],
+q128:["Colonies grow on amp and glow only with arabinose","Colonies glow on plates that have no arabinose","Colonies grow on plain LB but not on LB/amp/ara","Cells turn green in the transformation solution"],
+q130:["Beta-lactamase, which breaks down ampicillin","A protein that makes the cells glow green","A protein that binds arabinose and the promoter","An enzyme that copies the plasmid DNA"],
+q131:["A regulatory protein that binds the promoter region","An enzyme that digests ampicillin in the medium","The green fluorescent protein that glows under UV","The RNA polymerase that transcribes the GFP gene"],
+q133:["The abrupt temperature change helps DNA enter cells","It activates the araC protein inside the cells","It kills only the cells that lack the plasmid","It melts the plasmid DNA into single strands"],
+q134:["Ca2+ shields negative charges on DNA and membrane","Ca2+ ions break down the bacterial cell wall","Ca2+ ions switch on the GFP gene in the cell","Ca2+ ions provide nutrients for recovery growth"],
+q135:["Temperature change makes the membrane permeable","Heat switches on the GFP gene in each cell","Heat selects only ampicillin-resistant cells","Heat makes extra copies of the plasmid DNA"],
+q136:["Cells recover and express bla before amp exposure","It selects for cells that took up the plasmid","It turns on the GFP gene in the cells","It neutralizes the CaCl2 so cells survive"],
+q139:["Blocks RNA polymerase at the promoter, so GFP is OFF","Activates RNA polymerase at the promoter, so GFP is ON","Degrades the GFP mRNA as soon as it is made","Is never made, so GFP is always ON"],
+q141:["Transcribes GFP into mRNA once the promoter is open","Translates GFP mRNA into protein at the ribosome","Binds arabinose to start the signal cascade","Copies the whole plasmid before cell division"],
+q144:["+pGLO on LB/amp/ara","+pGLO on LB/amp","-pGLO on LB/amp/ara","-pGLO on plain LB"],
+q145:["There was no arabinose, so GFP stayed off","The plasmid had been lost from the cells","Ampicillin blocked GFP from being made","The heat shock step was too short"],
+q146:["They lacked bla, so ampicillin killed them","They lacked GFP, so they could not grow","They had no arabinose to use as food","LB/amp has no nutrients for growth"],
+q147:["It shows the cells are alive without selection","It shows that ampicillin kills untransformed cells","It shows that GFP is off without arabinose","It shows the plasmid is replicating normally"],
+q148:["Size, charge, or hydrophobicity","DNA sequence or gene content","Boiling point or melting point","Color or fluorescence alone"],
+q151:["Hydrophobic interaction","Ion exchange (charge)","Size exclusion (gel filtration)","Affinity (antibody-based)"],
+q152:["Peptidoglycan in the bacterial wall","The bacterial DNA inside the cell","GFP protein inside the cells","The hydrophobic column beads"],
+q153:["To break open bacteria so GFP is released","To bind GFP onto the column beads","To make GFP fluoresce more brightly","To wash hydrophilic proteins off the beads"],
+q154:["It strengthens hydrophobic binding so GFP sticks","It lyses the bacteria and frees the GFP inside","It makes GFP glow brighter while on the column","It unfolds every protein in the sample mixture"],
+q155:["Rinses off weakly bound hydrophilic proteins","Releases GFP from the beads into the tube","Breaks open the remaining intact bacteria","Locks GFP onto the beads more tightly"],
+q156:["Weaker hydrophobic binding lets GFP come off","Low salt gives GFP a charge that repels beads","Low salt digests the beads holding the GFP","Low salt denatures GFP so it detaches"],
+q158:["Lyse, spin, bind in high salt, wash, elute","Lyse, bind in low salt, wash, elute, spin","Spin, lyse, elute, bind in high salt, wash","Bind in high salt, lyse, wash, spin, elute"],
+q186:["Free in the cytoplasm or on rough ER","Only inside the nucleus itself","Only on the smooth endoplasmic reticulum","Inside lysosomes and vacuoles"],
+q187:["Three mRNA nucleotides coding for an amino acid or stop","Three tRNA nucleotides that pair with an mRNA codon","Three amino acids joined together by peptide bonds","The start signal at the beginning of every gene"],
+q191:["Finds the first AUG in the mRNA","Reaches the poly-A tail of the mRNA","Binds to the promoter upstream of the gene","Locates the TATA box near the start site"],
+q192:["Codons running from a start codon to a stop codon","The promoter region lying upstream of a gene","A stretch of introns that splicing removes","The gap left between two Okazaki fragments"],
+q194:["Small subunit binds mRNA at AUG; large subunit joins","A release factor binds at the stop codon and ends it","tRNAs add amino acids one after another to the chain","The finished polypeptide folds and leaves the ribosome"],
+q195:["tRNAs deliver amino acids and peptide bonds form","The small subunit scans the mRNA looking for AUG","A release factor enters and frees the polypeptide","The ribosome falls apart into its two subunits"],
+q198:["Binds the mRNA and positions the start codon","Catalyzes peptide bonds between amino acids","Releases the finished polypeptide at a stop","Carries the anticodon for each amino acid"],
+q201:["Folding into its functional 3D shape","Being spliced inside the nucleus","Receiving a 5' cap and poly-A tail","Being transcribed back into mRNA"],
+q207:["A stop codon; a release factor binds, no amino acid added","A tryptophan codon; tRNA-Trp binds and adds Trp to the chain","A second start codon; translation restarts at this point","A leucine codon; tRNA-Leu binds and adds Leu to the chain"],
+q211:["A promoter element about 25-30 bp upstream of the start","A sequence at the end of a gene that stops transcription","A splice site in pre-mRNA where an intron is cut out","A start codon where translation of the protein begins"],
+q212:["A promoter element farther upstream that boosts transcription","A sequence at the end of a gene that stops transcription","A ribosome-binding site found on the mRNA","An mRNA element that directs poly-A tail addition"],
+q213:["The promoter region of eukaryotic genes","The 3' end of finished mRNA molecules","Inside introns that are spliced out","Along the surface of the ribosome"],
+q214:["DNA wrapped around histones in uncondensed form","The coding region of one gene's exons","RNA bound to ribosomes in the cytoplasm","The fully condensed form seen during mitosis"],
+q215:["DNA + histones = chromatin; chromatin condenses to chromosomes; genes are DNA segments","Genes + histones = chromatin; chromatin condenses to chromosomes; DNA is a gene segment","DNA + RNA = chromatin; chromatin condenses to chromosomes; genes are whole chromosomes","Chromosomes pack into chromatin; chromatin is a DNA segment; genes are DNA + histones"],
+q216:["A DNA segment coding for a protein or RNA","A protein that packages DNA into nucleosomes","A fully condensed structure of DNA and protein","One complete set of chromosomes in a cell"],
+q220:["Neutralizes DNA's charge so strands clump in alcohol","Breaks down the lipids in the cell membranes","Digests the histones wrapped around the DNA","Keeps the DNA dissolved so that it pipettes easily"],
+q221:["Breaks down cell and nuclear membranes","Digests the proteins bound to the DNA","Makes the DNA insoluble so it clumps","Neutralizes the charge on the DNA"],
+q222:["Digests proteins like histones so DNA is freed","Dissolves the lipids of the cell membranes","Precipitates the DNA so it can be spooled","Cuts the DNA into much smaller fragments"]
+};
+MCQ.forEach(q=>{if(PATCH[q.id])q.o=PATCH[q.id]});
 
 
 /* ================= state ================= */
 const KEY='biotechMidtermV1';
 let S=loadState();
-function blank(){return {v:1,q:{},f:{},cov:{},notes:{},exams:[],tipDismissed:false}}
+if(S.cv!==CONTENT_V){S.q={};S.cv=CONTENT_V;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function blank(){return {v:1,q:{},f:{},cov:{},notes:{},exams:[],tipDismissed:false,xp:0,streak:0,bestStreak:0,day:'',today:{d:'',n:0},goal:20,goalHit:'',bestCombo:0,badges:{},confXP:{},clXP:{},sound:true,cv:''}}
 function loadState(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return Object.assign(blank(),s)}catch(e){}return blank()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
@@ -639,6 +768,109 @@ function clusterStats(c){
 }
 function status(n){return S.cov[n]||'new'}
 function pct(a,b){return b?Math.round(100*a/b):0}
+
+/* ================= rewards: XP, levels, streaks, badges, effects ================= */
+const LT=['Lab Intern','Pipette Rookie','Bench Scientist','Gel Runner','Plasmid Builder','PCR Specialist','Senior Scientist','Principal Investigator','Lab Director','Nobel Candidate'];
+function levelInfo(xp){
+  const l=Math.max(1,Math.floor((1+Math.sqrt(1+xp/10))/2)),thr=k=>40*k*(k-1),cur=thr(l),nxt=thr(l+1);
+  return {lv:l,title:LT[Math.min(l-1,LT.length-1)],have:xp-cur,need:nxt-cur,frac:Math.round(100*(xp-cur)/(nxt-cur))};
+}
+function dkey(off){const d=new Date();if(off)d.setDate(d.getDate()+off);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function curStreak(){return (S.day===dkey()||S.day===dkey(-1))?(S.streak||0):0}
+function todayCount(){return S.today&&S.today.d===dkey()?S.today.n:0}
+function touchDay(){
+  const t=dkey();
+  if(S.day!==t){S.streak=(S.day===dkey(-1))?(S.streak||0)+1:1;S.day=t;S.bestStreak=Math.max(S.bestStreak||0,S.streak);}
+  if(!S.today||S.today.d!==t)S.today={d:t,n:0};
+}
+function activity(n){
+  touchDay();const g=S.goal||20,b=S.today.n;S.today.n+=n;
+  if(b<g&&S.today.n>=g&&S.goalHit!==dkey()){S.goalHit=dkey();award(50);
+    setTimeout(()=>{toast('<span class="medal sm">&#9733;</span><span><b>Daily goal hit</b><br><span class="small">+50 XP</span></span>');confetti(120);sfx('badge')},500)}
+  save();
+}
+function award(xp){
+  const before=levelInfo(S.xp).lv;S.xp+=xp;const a=levelInfo(S.xp);save();
+  if(a.lv>before){if(run)run.lvUp=a.lv;
+    setTimeout(()=>{toast('<span class="medal sm">'+a.lv+'</span><span><b>Level '+a.lv+': '+a.title+'</b><br><span class="small">Level up</span></span>');sfx('level');confetti(170,1.3)},400)}
+}
+function confCount(){return ALLN.filter(n=>status(n)==='conf').length}
+function totalCorrect(){let c=0;for(const k in S.q)c+=S.q[k].correct;return c}
+function clusterCleared(c){const s=clusterStats(c);return s.total>0&&s.mastered===s.total}
+const BADGES=[
+ {id:'first',t:'First blood',d:'Get a question right',g:'1',ok:()=>totalCorrect()>=1},
+ {id:'c5',t:'Warm-up',d:'5 correct in a row',g:'5x',ok:()=>(S.bestCombo||0)>=5},
+ {id:'c10',t:'On fire',d:'10 correct in a row',g:'10x',ok:()=>(S.bestCombo||0)>=10},
+ {id:'d3',t:'Habit',d:'Study 3 days in a row',g:'3d',ok:()=>(S.bestStreak||0)>=3},
+ {id:'d7',t:'Locked in',d:'Study 7 days in a row',g:'7d',ok:()=>(S.bestStreak||0)>=7},
+ {id:'cl',t:'Cluster cleared',d:'Master every question in a cluster',g:'A+',ok:()=>CLUSTERS.some(clusterCleared)},
+ {id:'all',t:'Full coverage',d:'Touch all 82 topics',g:'82',ok:()=>ALLN.every(n=>drilled(n)||status(n)==='conf')},
+ {id:'e80',t:'Exam ready',d:'Score 80%+ on a full exam',g:'80',ok:()=>S.exams.some(e=>e.total>=60&&e.score/e.total>=.8)},
+ {id:'e95',t:'Near perfect',d:'Score 95%+ on a full exam',g:'95',ok:()=>S.exams.some(e=>e.total>=60&&e.score/e.total>=.95)},
+ {id:'cards',t:'Card shark',d:'Know 50 flashcards',g:'50',ok:()=>CARDS.filter(c=>S.f[c.id]&&S.f[c.id].ok).length>=50},
+ {id:'half',t:'Halfway',d:'Mark 41 topics confident',g:'41',ok:()=>confCount()>=41},
+ {id:'zero',t:'Zero gaps',d:'Mark all 82 topics confident',g:'0',ok:()=>confCount()>=82}
+];
+function checkBadges(){
+  const got=[];BADGES.forEach(b=>{if(!S.badges[b.id]&&b.ok()){S.badges[b.id]=Date.now();got.push(b)}});
+  if(got.length){save();got.forEach((b,i)=>setTimeout(()=>{toast('<span class="medal sm">'+b.g+'</span><span><b>Badge: '+b.t+'</b><br><span class="small">'+b.d+'</span></span>');sfx('badge')},i*900));confetti(80)}
+}
+function checkClusters(){
+  CLUSTERS.forEach(c=>{if(!S.clXP[c.id]&&clusterCleared(c)){S.clXP[c.id]=1;award(100);
+    toast('<span class="medal sm">'+c.id+'</span><span><b>Cluster '+c.id+' cleared</b><br><span class="small">+100 XP</span></span>');confetti(150,1.2);sfx('level')}});
+}
+/* sound */
+let AC=null;
+function tone(f,t0,dur,type,vol){
+  if(!S.sound)return;
+  try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();
+    const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+t0;o.type=type||'sine';o.frequency.value=f;
+    g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(vol||.12,t+.015);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+dur+.05)}catch(e){}
+}
+function sfx(k){
+  if(k==='right'){tone(660,0,.12);tone(880,.09,.2)}
+  else if(k==='wrong'){tone(196,0,.25,'triangle',.1)}
+  else if(k==='combo'){tone(784,0,.1);tone(988,.08,.1);tone(1319,.16,.24)}
+  else if(k==='level'){[523,659,784,1046].forEach((f,i)=>tone(f,i*.1,.28))}
+  else if(k==='badge'){tone(880,0,.12);tone(1175,.1,.28)}
+  else if(k==='tap'){tone(520,0,.05,'sine',.05)}
+}
+/* confetti */
+const fx=$('#fx'),fctx=fx.getContext('2d');let parts=[],raf=0;
+function confetti(n,power){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const d=window.devicePixelRatio||1;fx.width=innerWidth*d;fx.height=innerHeight*d;power=power||1;
+  const cols=['#f2a51a','#ffd166','#ffffff','#4f86f7','#2fbf8f','#8fb4ff'];
+  for(let i=0;i<(n||100);i++)parts.push({x:fx.width/2+(Math.random()-.5)*fx.width*.35,y:fx.height*.38,vx:(Math.random()-.5)*15*d*power,vy:(-Math.random()*15-4)*d*power,g:.42*d,s:(5+Math.random()*6)*d,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%cols.length],life:0});
+  if(!raf)raf=requestAnimationFrame(tickFx);
+}
+function tickFx(){
+  fctx.clearRect(0,0,fx.width,fx.height);parts=parts.filter(p=>p.life<120&&p.y<fx.height+60);
+  parts.forEach(p=>{p.life++;p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.r+=p.vr;
+    fctx.save();fctx.translate(p.x,p.y);fctx.rotate(p.r);fctx.fillStyle=p.c;fctx.globalAlpha=Math.max(0,1-p.life/120);fctx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);fctx.restore()});
+  if(parts.length)raf=requestAnimationFrame(tickFx);else{raf=0;fctx.clearRect(0,0,fx.width,fx.height)}
+}
+let toastQ=[],toastOn=false;
+function toast(html){toastQ.push(html);if(!toastOn)nextToast()}
+function nextToast(){
+  if(!toastQ.length){toastOn=false;return}
+  toastOn=true;const t=document.createElement('div');t.className='toast';t.innerHTML=toastQ.shift();$('#toasts').appendChild(t);
+  setTimeout(()=>{t.remove();nextToast()},2300);
+}
+function floatXP(txt,el){
+  const d=document.createElement('div');d.className='xpfloat';d.textContent=txt;
+  if(el){const r=el.getBoundingClientRect();d.style.left=Math.max(10,r.right-70)+'px';d.style.top=(r.top+r.height/2-14)+'px'}
+  else{d.style.left=(innerWidth/2-30)+'px';d.style.top=(innerHeight*.55)+'px'}
+  document.body.appendChild(d);setTimeout(()=>d.remove(),1000);
+}
+const FLAME='<svg viewBox="0 0 24 24"><path d="M12 2c1.2 4.2-3 5.2-3 9.2a3 3 0 0 0 6 0c0-1.2-.5-2.200-1.100-3.200 3.100 1.100 5.100 4 5.100 7.200a7 7 0 0 1-14 0C5 7.500 10 5.500 12 2z"/></svg>';
+const SPK_ON='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.500 9a4 4 0 0 1 0 6M18.500 6.500a8 8 0 0 1 0 11"/></svg>';
+const SPK_OFF='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9.500l4 5M21 9.500l-4 5"/></svg>';
+const HEX='<svg viewBox="0 0 56 62"><polygon points="28,2 54,16 54,46 28,60 2,46 2,16" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linejoin="round"/></svg>';
+const STAR='<svg viewBox="0 0 24 24"><path d="M12 2.500l2.900 6 6.600.9-4.800 4.600 1.200 6.500L12 17.300l-5.900 3.200 1.200-6.500L2.500 9.400l6.600-.9z"/></svg>';
+const OKS=['Correct','Nailed it','Exactly','Locked in','Clean'],NOS=['Not quite','Close. Here is the key idea','Miss. Learn it now so it sticks','Not this time'];
+
 
 /* ================= navigation ================= */
 let route={name:'home'};
@@ -674,35 +906,47 @@ function ringSVG(){
     const st=status(i+1),d=drilled(i+1);
     let col='var(--tick)';
     if(st==='conf')col='var(--conf)';else if(d||st==='rev')col='var(--amber)';
-    t+=`<line x1="${(cx+r1*ca).toFixed(1)}" y1="${(cy+r1*sa).toFixed(1)}" x2="${(cx+r2*ca).toFixed(1)}" y2="${(cy+r2*sa).toFixed(1)}" stroke="${col}" stroke-width="${(2*Math.PI*r2/n*.58).toFixed(1)}" stroke-linecap="round"/>`;
+    t+=`<line class="tk" style="--i:${i}" x1="${(cx+r1*ca).toFixed(1)}" y1="${(cy+r1*sa).toFixed(1)}" x2="${(cx+r2*ca).toFixed(1)}" y2="${(cy+r2*sa).toFixed(1)}" stroke="${col}" stroke-width="${(2*Math.PI*r2/n*.58).toFixed(1)}" stroke-linecap="round"/>`;
   }
   const done=ALLN.filter(n=>drilled(n)||status(n)==='conf').length;
-  return `<svg class="ring" viewBox="0 0 300 300" role="img" aria-label="${done} of 82 topics drilled">${t}
+  const intro=window._intro?'':' intro';window._intro=true;
+  return `<svg class="ring${intro}" viewBox="0 0 300 300" role="img" aria-label="${done} of 82 topics drilled">${t}
   <text x="150" y="152" text-anchor="middle" font-size="52" font-weight="800" fill="var(--ink)">${done}</text>
   <text x="150" y="178" text-anchor="middle" font-size="15" font-weight="600" fill="var(--mute)">of 82 topics touched</text></svg>`;
 }
 VIEWS.home=function(){
-  const conf=ALLN.filter(n=>status(n)==='conf').length;
-  const rev=ALLN.filter(n=>status(n)==='rev').length;
-  const dr=ALLN.filter(n=>drilled(n)).length;
-  const acc=accuracy();
-  const missed=MCQ.filter(isMissed).length;
+  const conf=confCount(),rev=ALLN.filter(n=>status(n)==='rev').length;
+  const dr=ALLN.filter(n=>drilled(n)).length,acc=accuracy(),missed=MCQ.filter(isMissed).length;
   const best=S.exams.length?Math.max(...S.exams.map(e=>Math.round(100*e.score/e.total))):null;
+  const li=levelInfo(S.xp),st=curStreak(),tc=todayCount(),goal=S.goal||20,gp=Math.min(100,pct(tc,goal));
+  const und=82-ALLN.filter(n=>drilled(n)||status(n)==='conf').length;
+  let nextT,nextS,nextA;
+  if(und>0){nextT='Touch every topic';nextS=und+' of 82 topics have not been drilled yet. The sweep gives you one question on each.';nextA='sweep'}
+  else if(missed>0){nextT='Clear your misses';nextS=missed+' question'+(missed>1?'s are':' is')+' still shaky. Get each right twice in a row.';nextA='misses'}
+  else{nextT='Prove it with a full exam';nextS='Every topic is covered. Run the 70-question simulation.';nextA='exam'}
   const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
   const standalone=window.navigator.standalone||matchMedia('(display-mode: standalone)').matches;
   const tip=(ios&&!standalone&&!S.tipDismissed)?`<div class="tip"><div class="grow">Install it: tap <b>Share</b>, then <b>Add to Home Screen</b> to launch it like an app.</div><button data-act="tip">Got it</button></div>`:'';
-  return `<div class="hdr"><h1>Biotech Midterm Prep</h1><p>70 questions next week. 82 review topics. Zero gaps.</p></div>
+  return `<div class="hdr"><div class="row"><div class="grow"><h1>Biotech Prep</h1><p>Midterm: 70 questions, 82 topics</p></div>
+   <button class="iconbtn" data-act="sound" aria-label="Toggle sound">${S.sound?SPK_ON:SPK_OFF}</button><span class="pill" title="Day streak">${FLAME}${st}</span></div>
+   <div class="lvl"><div class="hex">${HEX}<span>${li.lv}</span></div><div class="grow"><div class="lvlname">${li.title}</div>
+   <div class="xpbar"><i style="width:${li.frac}%"></i></div><div class="small" style="color:#b9c7e3;margin-top:5px">${li.have} / ${li.need} XP to level ${li.lv+1}</div></div></div></div>
   <div class="pad">${tip}
+  <div class="card goal"><div class="row" style="display:flex;justify-content:space-between;align-items:baseline"><b>Today</b><span class="small muted">${tc>=goal?'Goal hit, +50 XP earned':tc+' / '+goal+' answers'}</span></div>
+   <div class="xpbar" style="margin-top:8px"><i style="width:${gp}%;background:${tc>=goal?'var(--ok)':'var(--amber)'}"></i></div>
+   ${st>0?`<div class="small muted" style="margin-top:8px">${st}-day streak${st>=(S.bestStreak||0)&&st>1?', your best so far':''}. Study today to keep it.</div>`:'<div class="small muted" style="margin-top:8px">Answer a question to start a streak.</div>'}</div>
+  <div class="card next"><div class="lbl">${nextT}</div><div class="small muted" style="margin-bottom:12px">${nextS}</div><button class="btn amber" data-act="${nextA}">Go</button></div>
   <div class="card" data-go2="cov" style="cursor:pointer">${ringSVG()}
    <div class="legend"><span><i style="background:var(--tick)"></i>Not yet drilled</span><span><i style="background:var(--amber)"></i>Drilled</span><span><i style="background:var(--conf)"></i>Confident</span></div>
    <div class="stats"><div><b>${dr}/82</b><span>topics drilled</span></div><div><b>${conf}/82</b><span>marked confident</span></div><div><b>${acc===null?'--':acc+'%'}</b><span>quiz accuracy</span></div></div>
   </div>
   <div class="stack">
-   <button class="btn amber" data-act="exam">Full exam simulation (70 Qs)</button>
-   <button class="btn" data-act="sweep">Coverage sweep: one question on every topic</button>
+   <button class="btn" data-act="exam">Full exam simulation (70 Qs)</button>
    <div class="btns"><button class="btn ghost" data-go2="quiz">Practice by topic</button><button class="btn ghost" data-go2="cards">Flashcards</button></div>
-   ${missed?`<button class="btn ghost" data-act="misses">Review ${missed} missed question${missed>1?'s':''}</button>`:''}
+   <div class="btns"><button class="btn ghost" data-act="smart">Smart 20</button>${missed?`<button class="btn ghost" data-act="misses">Misses (${missed})</button>`:`<button class="btn ghost" data-act="sweep">Topic sweep</button>`}</div>
   </div>
+  <h2>Badges <span class="muted small" style="font-weight:500">${Object.keys(S.badges).length} / ${BADGES.length}</span></h2>
+  <div class="badges">${BADGES.map(b=>`<div class="bd ${S.badges[b.id]?'on':''}"><span class="medal">${b.g}</span><b>${b.t}</b><small>${b.d}</small></div>`).join('')}</div>
   <div class="card mt small muted">${rev?rev+' topic'+(rev>1?'s':'')+' marked needs review. ':''}${best!==null?'Best exam score: '+best+'%. ':''}Progress saves on this device. <a href="#" data-go2="data" style="color:var(--ink);font-weight:700">Backup or reset</a></div>
   </div>`;
 };
@@ -710,7 +954,7 @@ VIEWS.home=function(){
 /* ================= QUIZ MENU ================= */
 VIEWS.quiz=function(){
   const rows=CLUSTERS.map(c=>{const s=clusterStats(c);
-    return `<button class="row-item" data-act="cluster" data-id="${c.id}"><span class="badge">${c.id}</span><span class="grow"><b>${esc(c.name)}</b>
+    return `<button class="row-item" data-act="cluster" data-id="${c.id}"><span class="badge">${c.id}</span><span class="grow"><b>${esc(c.name)}${clusterCleared(c)?'<span class="clr">Cleared</span>':''}</b>
     <span class="small muted">Q${c.from}-${c.to} · ${s.total} questions · ${s.acc===null?'not started':s.acc+'% accuracy'}</span>
     <span class="bar" style="margin-top:7px"><i class="m" style="width:${pct(s.mastered,s.total)}%"></i><i class="s" style="width:${pct(s.seen-s.mastered,s.total)}%"></i></span></span></button>`}).join('');
   const missed=MCQ.filter(isMissed).length;
@@ -730,7 +974,7 @@ VIEWS.quiz=function(){
 let run=null;
 function startRun(mode,qs,title){
   if(!qs.length){alert('Nothing to show here yet.');return}
-  run={mode,title,i:0,items:qs.map(q=>({q,ord:shuffle([0,1,2,3]),sel:null,done:false}))};
+  run={mode,title,i:0,combo:0,best:0,xp:0,lvUp:0,items:qs.map(q=>({q,ord:shuffle([0,1,2,3]),sel:null,done:false}))};
   go('run');
 }
 function buildExam(){
@@ -756,7 +1000,7 @@ VIEWS.run=function(){
   const opts=it.ord.map((oi,k)=>{
     let cls='opt';
     if(exam){if(it.sel===k)cls+=' sel'}
-    else if(it.done){if(oi===0)cls+=' right';else if(it.sel===k)cls+=' wrong';else cls+=' dim'}
+    else if(it.done){if(oi===0)cls+=' right'+(it.sel===k?' pop':'');else if(it.sel===k)cls+=' wrong shake';else cls+=' dim'}
     return `<button class="${cls}" data-opt="${k}"><span class="l">${LET[k]}</span><span>${esc(q.o[oi])}</span></button>`}).join('');
   let fb='',dock='';
   if(exam){
@@ -764,38 +1008,47 @@ VIEWS.run=function(){
     dock=`<div class="dock"><div class="btns">${run.i>0?'<button class="btn ghost" data-act="prev">Back</button>':''}<button class="btn ${it.sel===null?'ghost':'amber'}" data-act="${last?'finish':'next'}">${last?'Finish exam':'Next'}</button></div></div>`;
   }else if(it.done){
     const ok=q.o[it.ord[it.sel]]===q.o[0];
-    fb=`<div class="expl ${ok?'ok':'no'}"><b class="v">${ok?'Correct':'Not quite'}</b>${ok?'':'Correct answer: <b>'+esc(q.o[0])+'</b><br>'}${esc(q.e)}</div>`;
+    fb=`<div class="expl ${ok?'ok':'no'}"><b class="v">${ok?(run.combo>=3?run.combo+' in a row':OKS[run.i%OKS.length]):NOS[run.i%NOS.length]}</b>${ok?'':'Correct answer: <b>'+esc(q.o[0])+'</b><br>'}${esc(q.e)}</div>`;
     dock=`<div class="dock"><button class="btn amber" data-act="${run.i===n-1?'finish':'next'}">${run.i===n-1?'See results':'Next question'}</button></div>`;
   }
-  return `<div class="qtop"><button class="btn" data-act="exit">Exit</button><div class="grow">${run.i+1} / ${n}</div><span class="tag" style="background:rgba(255,255,255,.14);color:#fff;border:0">${cl.id} · Q${q.t.join(', ')}</span></div>
+  return `<div class="qtop"><button class="btn" data-act="exit">Exit</button><div class="grow">${run.i+1} / ${n}${run.combo>=2&&run.mode!=='exam'?'<span class="pill combo">'+FLAME+run.combo+'</span>':''}</div><span class="tag" style="background:rgba(255,255,255,.14);color:#fff;border:0">${cl.id} · Q${q.t.join(', ')}</span></div>
   <div class="prog"><i style="width:${Math.round(100*(run.i+(it.done?1:0))/n)}%"></i></div>
   <div class="pad"><div class="qtext">${esc(q.q)}</div>${opts}${fb}${dock}</div>`;
 };
 function finishRun(){
-  const exam=run.mode==='exam';
-  let score=0;
-  run.items.forEach(it=>{
-    const ok=it.sel!==null&&it.ord[it.sel]===0;
-    if(ok)score++;
-    if(exam)record(it.q.id,ok);
-    it.ok=ok;
-  });
-  if(exam){S.exams.push({t:Date.now(),score,total:run.items.length});S.exams=S.exams.slice(-10);save()}
-  run.score=score;go('results');
+  const exam=run.mode==='exam',n=run.items.length;let score=0;
+  run.items.forEach(it=>{const ok=it.sel!==null&&it.ord[it.sel]===0;if(ok)score++;if(exam)record(it.q.id,ok);it.ok=ok});
+  run.score=score;const p=score/n;
+  const prevBest=S.exams.length?Math.max(...S.exams.map(e=>e.score/e.total)):0;
+  if(exam){activity(n);S.exams.push({t:Date.now(),score,total:n});S.exams=S.exams.slice(-10);
+    let g=score*8;if(p>=.8)g+=50;if(p>=.95)g+=100;run.xp+=g;award(g);run.newBest=p>prevBest&&S.exams.length>1;checkClusters()}
+  else if(p===1&&n>=5){run.xp+=25;award(25)}
+  save();checkBadges();go('results');
 }
 VIEWS.results=function(){
-  const n=run.items.length,p=Math.round(100*run.score/n);
+  const n=run.items.length,p=Math.round(100*run.score/n),stars=p>=90?3:p>=70?2:p>=50?1:0,li=levelInfo(S.xp);
   const miss=run.items.filter(it=>!it.ok);
+  const msg=p===100?'Perfect run.':p>=95?'Test-ready.':p>=80?'Strong. Fix the misses below and you are there.':p>=60?'Getting there. The misses show where to focus.':'Good start. Every miss below is something you can fix tonight.';
   const list=miss.map(it=>`<div class="card"><div class="small muted">${qCluster(it.q).id} · Q${it.q.t.join(', ')}${it.sel===null?' · unanswered':''}</div>
     <div style="font-weight:600;margin:4px 0 8px">${esc(it.q.q)}</div>
     ${it.sel!==null?`<div class="small" style="color:var(--bad)">Your answer: ${esc(it.q.o[it.ord[it.sel]])}</div>`:''}
     <div class="small" style="color:var(--ok);font-weight:700">Correct: ${esc(it.q.o[0])}</div>
     <div class="small muted" style="margin-top:6px">${esc(it.q.e)}</div></div>`).join('');
-  return `<div class="hdr center"><p style="margin:0 0 6px">${esc(run.title)}</p><div class="big" style="color:var(--amber)">${run.score}/${n}</div><p style="font-size:17px">${p}% correct</p></div>
-  <div class="pad"><div class="stack">
-  ${miss.length?`<button class="btn amber" data-act="retrymiss">Retry the ${miss.length} I missed</button>`:'<div class="card center"><b>Perfect run.</b><div class="muted small">Every question right. Keep going until every topic is marked confident.</div></div>'}
+  return `<div class="hdr center"><p style="margin:0 0 4px">${esc(run.title)}${run.newBest?' · new best':''}</p><div class="big" style="color:var(--amber)"><span id="cnt" data-to="${run.score}">0</span><span style="font-size:28px;color:#b9c7e3">/${n}</span></div>
+   <div class="stars">${[0,1,2].map(i=>`<span style="display:inline-block">${STAR.replace('<svg','<svg class="'+(i<stars?'on':'')+'" style="animation-delay:'+(0.5+i*0.25)+'s"')}</span>`).join('')}</div>
+   <p style="font-size:17px;margin:0">${p}% correct. ${msg}</p></div>
+  <div class="pad"><div class="card"><div class="rstats"><div><b>+${run.xp}</b><span>XP earned</span></div><div><b>${run.mode==='exam'?run.score:run.best}</b><span>${run.mode==='exam'?'correct':'best combo'}</span></div><div><b>Lv ${li.lv}</b><span>${li.title}</span></div></div>
+   <div class="xpbar" style="margin-top:12px;background:var(--line)"><i style="width:${li.frac}%"></i></div><div class="small muted" style="margin-top:5px">${li.have} / ${li.need} XP to level ${li.lv+1}</div></div>
+  <div class="stack">
+  ${miss.length?`<button class="btn amber" data-act="retrymiss">Retry the ${miss.length} I missed</button>`:'<div class="card center"><b>Every question right.</b><div class="muted small">Keep going until every topic is marked confident.</div></div>'}
   <button class="btn ghost" data-act="home">Back to home</button></div>
   ${miss.length?'<h2>What you missed</h2>'+list:''}</div>`;
+};
+AFTER.results=function(){
+  const el=$('#cnt');if(!el)return;const to=+el.dataset.to,t0=performance.now(),dur=Math.min(1200,300+to*25);
+  (function step(now){const k=Math.min(1,(now-t0)/dur);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)})(t0);
+  const p=100*run.score/run.items.length;
+  if(p>=90){setTimeout(()=>confetti(p===100?170:120,1.2),500);sfx('level')}else if(p>=70)sfx('badge');else sfx('right');
 };
 
 /* ================= FLASHCARDS ================= */
@@ -823,7 +1076,7 @@ VIEWS.cardrun=function(){
   const cn=c.t.map(t=>CHECK_NOTES[t]&&(t===11||t===16||t===5||t===3||t===6)?CHECK_NOTES[t]:null).filter(Boolean)[0];
   return `<div class="qtop"><button class="btn" data-act="exit">Exit</button><div class="grow">${deck.i+1} / ${deck.cards.length}</div><span class="tag" style="background:rgba(255,255,255,.14);color:#fff;border:0">Q${c.t.join(', ')}</span></div>
   <div class="prog"><i style="width:${Math.round(100*deck.i/deck.cards.length)}%"></i></div>
-  <div class="pad"><div class="fc" data-act="flip">${deck.flip?`<div class="face back">${esc(c.b)}<div class="hint">Tap to flip back</div></div>`:`<div class="face front">${esc(c.f)}<div class="hint">Try to answer out loud, then tap to reveal</div></div>`}</div>
+  <div class="pad"><div class="fc" data-act="flip">${deck.flip?`<div class="face back flipin">${esc(c.b)}<div class="hint">Tap to flip back</div></div>`:`<div class="face front flipin">${esc(c.f)}<div class="hint">Try to answer out loud, then tap to reveal</div></div>`}</div>
   ${cn&&deck.flip?`<div class="note">${esc(cn)}</div>`:''}
   ${deck.flip?`<div class="btns"><button class="btn ghost" data-act="cardno">Missed it</button><button class="btn amber" data-act="cardyes">Got it</button></div>`:`<button class="btn" data-act="flip">Show answer</button>`}</div>`;
 };
@@ -880,6 +1133,7 @@ VIEWS.weak=function(){
 /* ================= DATA ================= */
 VIEWS.data=function(){
   return `<div class="hdr"><h1>Backup and reset</h1><p>Progress is stored on this device only.</p></div><div class="pad">
+  <div class="card"><b>Sound effects</b><div class="small muted" style="margin:4px 0 10px">Short tones for right answers, misses, and level-ups.</div><button class="btn small ghost" data-act="sound">${S.sound?'Sound is on. Tap to mute':'Sound is off. Tap to turn on'}</button></div>
   <div class="card"><b>Export</b><div class="small muted" style="margin:4px 0 10px">Copy this text somewhere safe (Notes works), or download it as a file.</div>
   <textarea id="exp" readonly>${esc(JSON.stringify(S))}</textarea>
   <div class="btns mt"><button class="btn small" data-act="copy">Copy</button><button class="btn small ghost" data-act="download">Download file</button></div></div>
@@ -894,7 +1148,9 @@ document.addEventListener('click',e=>{
   const g=e.target.closest('[data-go2]');if(g){e.preventDefault();go(g.dataset.go2);return}
   const f=e.target.closest('[data-filter]');if(f){covFilter=f.dataset.filter;render();return}
   const o=e.target.closest('[data-open]');if(o){const n=+o.dataset.open;covOpen=covOpen===n?null:n;render();return}
-  const st=e.target.closest('[data-set]');if(st){const [n,v]=st.dataset.set.split(':');if(v==='new')delete S.cov[n];else S.cov[n]=v;save();render();return}
+  const st=e.target.closest('[data-set]');if(st){const [n,v]=st.dataset.set.split(':');if(v==='new')delete S.cov[n];else S.cov[n]=v;save();
+    if(v==='conf'&&!S.confXP[n]){S.confXP[n]=1;award(20);sfx('right');confetti(30,.6);render();floatXP('+20 XP',st);checkBadges();return}
+    render();return}
   const op=e.target.closest('[data-opt]');if(op&&run&&route.name==='run'){pick(+op.dataset.opt);return}
   const a=e.target.closest('[data-act]');if(!a)return;
   act(a.dataset.act,a.dataset.id);
@@ -902,13 +1158,23 @@ document.addEventListener('click',e=>{
 document.addEventListener('input',e=>{const t=e.target;if(t.dataset&&t.dataset.note){const n=t.dataset.note;if(t.value.trim())S.notes[n]=t.value;else delete S.notes[n];save()}});
 function pick(k){
   const it=run.items[run.i];
-  if(run.mode==='exam'){it.sel=k;render();return}
+  if(run.mode==='exam'){it.sel=k;sfx('tap');render();return}
   if(it.done)return;
-  it.sel=k;it.done=true;record(it.q.id,it.ord[k]===0);it.ok=it.ord[k]===0;render();
+  const ok=it.ord[k]===0;
+  it.sel=k;it.done=true;it.ok=ok;record(it.q.id,ok);activity(1);
+  if(ok){
+    run.combo++;run.best=Math.max(run.best,run.combo);S.bestCombo=Math.max(S.bestCombo||0,run.combo);
+    const gain=10+2*(Math.min(run.combo,8)-1);run.xp+=gain;award(gain);
+    sfx(run.combo>=3?'combo':'right');if(navigator.vibrate)navigator.vibrate(12);
+    render();floatXP('+'+gain,document.querySelector('[data-opt="'+k+'"]'));
+    if(run.combo%5===0)confetti(60);
+  }else{run.combo=0;sfx('wrong');if(navigator.vibrate)navigator.vibrate([30,40,30]);render()}
+  checkClusters();checkBadges();
 }
 function act(name,id){
   switch(name){
     case 'tip':S.tipDismissed=true;save();render();break;
+    case 'sound':S.sound=!S.sound;save();sfx('tap');render();break;
     case 'exam':startRun('exam',buildExam(),'Full exam simulation');break;
     case 'sweep':startRun('practice',buildSweep(),'Coverage sweep');break;
     case 'smart':startRun('practice',buildSmart(20),'Smart 20');break;
@@ -932,8 +1198,8 @@ function act(name,id){
     case 'cardyes':case 'cardno':{
       const c=deck.cards[deck.i],ok=name==='cardyes';
       S.f[c.id]={ok:ok,seen:((S.f[c.id]||{}).seen||0)+1,last:Date.now()};save();
-      if(ok)deck.got++;else deck.again.push(c);
-      deck.i++;deck.flip=false;render();window.scrollTo(0,0);break}
+      if(ok){deck.got++;award(4);floatXP('+4');sfx('right')}else{deck.again.push(c);award(1);sfx('tap')}activity(1);
+      deck.i++;deck.flip=false;render();window.scrollTo(0,0);if(deck.i>=deck.cards.length&&deck.got===deck.cards.length&&deck.cards.length>=5){award(20);confetti(130);sfx('level')}checkBadges();break}
     case 'deckagain':{const c=deck.again;startDeck(c,'Repeat: missed cards');break}
     case 'copy':{const t=$('#exp');t.select();t.setSelectionRange(0,999999);try{navigator.clipboard.writeText(t.value)}catch(x){document.execCommand('copy')}alert('Copied.');break}
     case 'download':{const b=new Blob([JSON.stringify(S)],{type:'application/json'});const u=URL.createObjectURL(b);const l=document.createElement('a');l.href=u;l.download='biotech-progress.json';document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);break}
