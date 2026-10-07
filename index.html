@@ -147,6 +147,10 @@ textarea{width:100%;font:inherit;font-size:16px;background:var(--bg);color:var(-
 .center{text-align:center}
 .mt{margin-top:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.qrow.cram{padding:14px}
+.cq{display:flex;gap:10px;align-items:flex-start}
+.cqt{font-weight:700;font-size:15.5px;line-height:1.3;padding-top:5px}
+.ca{white-space:pre-line;font-size:15.5px;line-height:1.5;margin:10px 0 2px}
 /* ===== rewards ===== */
 #fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:70}
 #toasts{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:0;right:0;z-index:80;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;padding:0 14px}
@@ -212,7 +216,7 @@ textarea{width:100%;font:inherit;font-size:16px;background:var(--bg);color:var(-
 <canvas id="fx"></canvas>
 <div id="toasts"></div>
 <script>
-const APP_VERSION='20261007-043842';
+const APP_VERSION='20261007-050304';
 const CONTENT_V='3';
 const CLUSTERS=[
 {id:'A',name:'Intro to Biotechnology & Careers',from:1,to:6},
@@ -962,13 +966,171 @@ setQ('q329',{o:["A cluster of related genes under one promoter","A single gene t
 setQ('q334',{o:["binding mRNA to block translation or cause its decay","binding promoters to block RNA polymerase","cutting introns out of pre-mRNA in the nucleus","carrying amino acids to the ribosome for assembly"]});
 setQ('q319',{o:["The ribosome shifts so the growing chain moves to the P site","The mRNA is copied again by RNA polymerase to continue","A release factor enters the A site of the ribosome to start","The large subunit separates from the small subunit to restart"]});
 setQ('q328',{o:["It needs transcription factors at the promoter","It needs the 5' cap to be added to the gene first","It needs an RNA primer to get started on the DNA","It needs ribosomes to be sitting right next to it"]});
+/* ===== scope: the exam is limited to the 82 review questions. Mark extras as bonus. ===== */
+function xQ(p){const m=MCQ.filter(q=>q.q.startsWith(p));if(!m.length)throw new Error('xQ '+p);m.forEach(q=>q.x=1)}
+function xC(p){const m=CARDS.filter(c=>c.f.startsWith(p));if(!m.length)throw new Error('xC '+p);m.forEach(c=>c.x=1)}
+['Per your packet, into how many sections','Which SDS section tells you how to deal with a spill','Which SDS section gives specific PPE','What does a lower LD50 mean',
+ 'On the NFPA diamond','In the uncolored NFPA section','When making a solution with a strong acid','Which chemical and hazard type are correctly paired',
+ 'A box with a motor-driven magnet','Which equipment filters small particles','Which glassware should NOT be relied on','Which glassware measures a specific volume',
+ 'In the cheese lab, how much treatment','About what fraction of the human genome','What is a genome?',
+ 'Which organelle holds oxidase enzymes','Where are ribosome subunits manufactured','Centrioles are involved in',
+ 'Griffith mixed heat-killed','In Griffith\'s experiment, which injection','In Avery, MacLeod','Who purified \'nuclein\'','Chargaff found that','Whose X-ray crystallography data',
+ 'Chromosomes 1 through 22 are called','What are homologous chromosomes?','What is a telomere?','What does a karyotype show?',
+ 'Which process produces up to four daughter cells','Alternative splicing allows','About how long is a tRNA?',
+ 'How does testosterone help regulate genes?','MicroRNAs silence genes by',
+ 'With no lactose present, what does the lac repressor do?','When lactose is present, how is the lac operon turned on?','Which enzyme does the lacZ gene encode?','In the pGLO system, which part plays a role like the lac repressor'
+].forEach(xQ);
+setC(CARDS.find(c=>c.f.startsWith('LD50, NFPA diamond')).id,{f:"Routes of exposure and PPE",b:"4 routes of exposure to hazardous chemicals:\n- inhalation: fume hood or mask\n- skin and eye contact: lab coat, gloves, goggles\n- ingestion: no eating or drinking in the lab, wash hands\n- injection: dispose of broken glass and needles properly"});
+C(8,"LD50 and the NFPA diamond (bonus)","LD50: lethal dose for 50% of test animals; lower = more toxic.\nNFPA diamond: Blue health, Red flammability, Yellow reactivity, uncolored = specific hazards (OX, ACID, ALK, CORR, W = use NO water).");
+CARDS[CARDS.length-1].x=1;
+['Hazard examples from the packet','Human genome facts','Evidence DNA is the genetic material','Chargaff and the double helix history','Alternative splicing','RNA sizes','Operons and the lac operon','Chromosome terms (textbook)'].forEach(xC);
+setC(CARDS.find(c=>c.f.startsWith('Human chromosome numbers')).id,{b:"Somatic cells: diploid 2N = 46 (23 from mom, 23 from dad). Gametes: haploid, 23.\nAfter replication: 46 replicated chromosomes = 92 sister chromatids, joined at the centromere. Short arm = p, long arm = q.\nChromatin (loose, easier to transcribe) becomes chromosomes only after replication during mitosis."});
+setC(CARDS.find(c=>c.f.startsWith('More organelle functions')).id,{b:"Smooth ER: lipid and steroid synthesis, drug detox. Rough ER: proteins, sugar groups added.\nMitochondria: cristae, ATP. Chloroplast: grana (thylakoids) in stroma.\nMitochondria and chloroplasts have small circular DNA."});
+setC(CARDS.find(c=>c.f.startsWith('Mitosis vs meiosis')).id,{b:"MITOSIS: somatic cells; one cell divides into daughter cells with an identical copy of the DNA (46 in humans).\n(Meiosis makes the sex cells with the haploid number, 23.)"});
+/* ===== teacher cross-outs, DNA extraction lab, careers ===== */
+function delQ(id){const i=MCQ.findIndex(q=>q.id===id);if(i<0)throw new Error('delQ '+id);MCQ.splice(i,1)}
+/* crossed out for this exam: gel electrophoresis, gyrase, topoisomerase (next semester) */
+delQ('q24');delQ('q103');
+setQ('q20',{o:["Microcentrifuge","Vortex","Thermal cycler","Spectrophotometer"]});
+setQ('q23',{o:["How much light a sample absorbs or transmits","How fast a sample spins in a rotor","The hydrogen ion concentration of a sample","The mass of a sample per unit volume"]});
+setQ('q26',{o:["Thermal cycler (PCR machine)","Microcentrifuge spun at high speed","Spectrophotometer","Vortex"]});
+setQ('q107',{o:["DNA polymerase","Helicase","Ligase","Primase"],e:"DNA polymerase matches bases to the template and extends the primer 5'→3'."});
+setQ('q150',{o:["Size exclusion, ion exchange, affinity, hydrophobic interaction","Size exclusion, ion exchange, affinity, paper chromatography","Ion exchange, affinity, hydrophobic interaction, PCR","Size exclusion, spectrophotometry, affinity, hydrophobic interaction"],e:"Paper and thin-layer chromatography use a flat sheet, not a column. PCR and spectrophotometry are not chromatography."});
+setQ('q259',{e:"This is also why DNA is attracted to the positively charged histones."});
+setC('c11',{f:"Equipment uses: vortex, thermal cycler",b:"Vortex mixer: rotates the bottom of a tube rapidly, setting up a vortex that mixes the liquid.\nThermal cycler (PCR machine): amplifies a specific section of DNA by PCR.\n(Gel electrophoresis is crossed out: next semester.)"});
+setC('c41',{b:"ORIs: eukaryotes have MULTIPLE origins; prokaryotes have ONE.\nHelicase recognizes the origin and breaks H-bonds between A-T and C-G to unzip the helix.\nDNA binding proteins hold the strands apart and stop H-bonds reforming.\nReplication fork: Y-shaped region of unwinding."});
+Object.assign(CHECK_NOTES,{
+ 10:"Your teacher crossed out (e) gel electrophoresis. It will not be on the exam.",
+ 39:"Your teacher crossed out gyrase and topoisomerase. They will not be on the exam.",
+ 5:"From the textbook's careers profile. Add your teacher's examples if you get any.",
+ 6:"From the textbook's careers profile. Add your teacher's examples if you get any."
+});
+
+/* DNA extraction lab (your lab intro) */
+setQ('q219',{q:"In the cheek-cell DNA extraction, what makes the DNA insoluble so it precipitates?",o:["Cold alcohol added to the high-salt solution","Detergent added to the lysis buffer solution","Protease incubated at its optimum temperature","The buffering agent that holds the pH steady"],e:"DNA is insoluble in high salt plus alcohol. It forms fine white strands at the alcohol layer boundary."});
+setQ('q220',{q:"Why is salt added before the cold alcohol?",o:["Its ions neutralize DNA's charge so molecules clump instead of repel","Its ions break apart the phospholipid cell and nuclear membranes","Its ions digest the proteins that are bound to the DNA","Its ions make the DNA soluble by adding more negative charge"],e:"DNA is negatively charged from its backbone groups, which keeps it soluble and makes molecules repel each other. Salt ions are attracted to it and neutralize the charge."});
+setQ('q221',{q:"What does the lysis buffer do?",o:["Detergent breaks apart cell and nuclear membranes; buffer holds pH steady","Detergent digests proteins bound to DNA; buffer holds pH steady","Detergent neutralizes the DNA's charge; buffer breaks the membranes","Detergent makes the DNA insoluble; buffer digests cellular enzymes"],e:"The detergent breaks the phospholipid cell membrane and nuclear membranes so DNA is released. The buffering agent keeps the pH steady so the DNA stays stable."});
+setQ('q222',{q:"What does the protease do in the extraction?",o:["Removes proteins bound to DNA and destroys enzymes that would digest it","Dissolves the phospholipids of the cell and nuclear membranes","Precipitates the DNA so it can be seen as white strands","Neutralizes the negative charge on the DNA so molecules clump"],e:"This maximizes the amount of intact DNA extracted."});
+setQ('q223',{q:"Which order is correct for the DNA extraction lab?",o:["Rinse cheek cells, add lysis buffer, add protease and incubate, add salt, add cold alcohol","Rinse cheek cells, add salt, add lysis buffer, add protease and incubate, add cold alcohol","Rinse cheek cells, add lysis buffer, add cold alcohol, add protease and incubate, add salt","Add protease, rinse cheek cells, add lysis buffer, add cold alcohol, add salt"],e:"Release the DNA, remove proteins, neutralize the charge, then precipitate with cold alcohol."});
+Q(82,"At what temperature is the cell extract with protease incubated, and why?","50 °C, the optimum temperature for protease activity","37 °C, body temperature, so cells stay alive","95 °C, to denature the DNA before it dissolves","4 °C, to slow the breakdown of the DNA","Protease works fastest at its optimum temperature.");
+Q(82,"Why does the lysis buffer contain a buffering agent?","To keep the pH steady so the DNA stays stable","To break apart the phospholipid membranes","To digest proteins that are bound to the DNA","To make the DNA insoluble in alcohol","The detergent is what breaks the membranes.");
+Q(81,"Why is DNA soluble in the lysis buffer?","The negative charge of its backbone groups makes it soluble","It is hydrophobic, so it mixes with the dissolved fats","Its bases are neutral, so it dissolves like a sugar","It stays attached to proteins that are soluble","Fats, sugars, and proteins also dissolve in the buffer.");
+Q(81,"Where does the DNA first appear after cold alcohol is added?","As fine white strands at the boundary of the alcohol layer","As a blue layer at the bottom of the tube","As bubbles rising through the lysis buffer","As a clear gel in the middle of the tube","The other cellular substances stay in solution.");
+Q(81,"After the cold alcohol is added, what remains dissolved in solution?","Fats, sugars, and proteins","The DNA strands themselves","Only the salt ions that were added","Nothing, everything precipitates","DNA is the only thing that precipitates.");
+Q(82,"Where do the cells for the DNA extraction come from?","Cheek cells, collected by chewing the inside of the cheek and rinsing","Onion cells that are mashed in a bag","White blood cells separated from a blood sample","Bacterial cells grown overnight on LB plates","The rinse collects loosened cells from the inside of the mouth.");
+setC('c85',{f:"What makes DNA insoluble in the extraction lab? (and why is it soluble before)",b:"SOLUBLE: DNA is negatively charged (backbone groups), which makes it dissolve and makes molecules repel each other. Fats, sugars, and proteins also dissolve in the lysis buffer.\nSALT: its ions neutralize the DNA's charge so molecules come together.\nINSOLUBLE: cold alcohol precipitates DNA (insoluble in high salt + alcohol). It forms fine white strands at the alcohol layer boundary; other substances stay dissolved."});
+setC('c86',{f:"Lysis buffer and protease (DNA extraction lab)",b:"CELLS: cheek cells, from chewing the inside of the cheeks and rinsing.\nLYSIS BUFFER: detergent breaks apart the phospholipid cell membrane and nuclear membranes so DNA is released; a buffering agent keeps the pH steady so DNA stays stable.\nPROTEASE: removes proteins bound to the DNA and destroys cellular enzymes that would digest the DNA, so the most intact DNA is extracted. Incubated at 50 °C, the optimum temperature for protease."});
+
+/* careers (textbook careers profile) */
+setC('c5',{b:"Four main career categories: laboratory scientists (bench scientists who run experiments), clinical doctors (M.D.), genetic counselors, and bioinformatics experts.\nAlso: lab/manufacturing technician, QC/QA analyst, forensic scientist, regulatory affairs."});
+setC('c6',{b:"Associate's or bachelor's: entry-level lab scientist or lab technician.\nBachelor's, master's, or PhD: bioinformatics.\nMaster's (M.S.): genetic counselor (with training in psychology, biology, genetics).\nMaster's or PhD: higher-level scientist, lab director.\nM.D.: clinical doctor."});
+Q(5,"Which set lists four main career categories in genomics?","Lab scientists, clinical doctors, genetic counselors, bioinformatics experts","Lab scientists, nurses, pharmacists, bioinformatics experts","Lab scientists, clinical doctors, lawyers, bioinformatics experts","Lab technicians, teachers, genetic counselors, software engineers","Lab scientists are the bench scientists who run experiments.");
+Q(6,"Which career typically requires an M.S. degree with training in psychology, biology, and genetics?","Genetic counselor","Entry-level lab scientist","Bioinformatician","Lab technician","Genetic counselors help people understand how genes affect disease susceptibility.");
+Q(6,"Entry-level lab scientist positions are open to people with...","an associate's or bachelor's degree","only a PhD","only an M.D.","a master's degree at minimum","Lab director positions require a master's or PhD.");
+Q(6,"Most bioinformatics positions require which degrees?","A B.S., M.S., or PhD","Only an M.D.","Only a high school diploma","Only a PhD","Bioinformatics merges biology with computer science.");
+/* balance */
+setQ('q107',{o:["DNA polymerase (extends the strand)","Helicase (unzips the strand)","DNA ligase (seals the strand)","Primase (primes the strand)"]});
+setQ('q222',{o:["Removes proteins bound to DNA and destroys enzymes that digest it","Dissolves the phospholipids of the cell and nuclear membranes at once","Precipitates the DNA so that it appears as visible white strands","Neutralizes the negative charge on the DNA so molecules can clump"]});
+setQ('q336',{o:["As fine white strands at the alcohol layer boundary","As a blue layer settling at the bottom of the tube","As bubbles slowly rising through the lysis buffer","As a clear gel floating in the middle of the tube"]});
+setQ('q338',{o:["Cheek cells, collected by chewing and rinsing","Onion cells that have been mashed up in a bag","White blood cells separated from a blood sample","Bacterial cells that were grown overnight on LB plates"]});
+setQ('q339',{o:["Lab scientists, clinical doctors, genetic counselors, bioinformatics","Lab scientists, nurses, pharmacists, bioinformatics experts","Lab scientists, clinical doctors, lawyers, bioinformatics experts","Lab technicians, teachers, genetic counselors, software engineers"]});
+setQ('q341',{o:["an associate's or bachelor's degree","only a PhD after years of research","only an M.D. from medical school","a master's degree as the minimum"]});
+setQ('q107',{o:["DNA polymerase (extends the new strand)","Helicase (unzips the parent strands)","DNA ligase (seals nicks in the backbone)","Primase (lays down the RNA primer)"]});
+
+/* One-page cram answers, indexed by review question number (1-82) */
+const SUMMARY={
+1:"Using living organisms, cells, or their molecules (DNA, proteins, enzymes) to make products or solve problems, in medicine, food, agriculture, and industry.",
+2:"SIMILAR: both use living things for a useful purpose.\nDIFFERENT: traditional relies on natural processes or breeding and does not directly manipulate genes. Modern directly manipulates DNA/genes (genetic engineering, recombinant DNA).",
+3:"TRADITIONAL: bread, beer, wine, yogurt, cheese (rennet, starter cultures), selective breeding.\nMODERN: genetically engineered insulin, GE chymosin for cheese, pGLO/GFP bacteria, PCR, GMO crops.",
+4:"Directly changing an organism's DNA, often by inserting a gene so it makes a new protein or trait.",
+5:"Four main categories: laboratory scientists (bench scientists), clinical doctors (M.D.), genetic counselors, and bioinformatics experts. Also lab/manufacturing technician, QC/QA analyst, forensic scientist, regulatory affairs.",
+6:"Associate's or bachelor's: entry-level lab scientist or technician. Master's (M.S.): genetic counselor. Master's or PhD: higher-level scientist, lab director. B.S., M.S., or PhD: bioinformatics. M.D.: clinical doctor.",
+7:"A legally required document from the chemical supplier, kept on file in the lab, describing one chemical's properties: hazards, handling, storage, first aid, fire, spills, disposal, and PPE (8 sections).",
+8:"PPE = protective gear worn by you. Splash: goggles. Skin contact: gloves. Body/clothes: lab coat. Hot items: heat-resistant gloves. UV light: UV-blocking goggles. Inhalation: fume hood or mask. Always closed-toe shoes.",
+9:"Label EVERY container with: contents and concentration, your initials, date (and time if applicable), class period. Label glassware with labeling tape, never pen or marker on the white marking area.",
+10:"a) Microcentrifuge: spins 1.5-2 mL tubes at high speed, separating by density.\nb) Micropipette: measures/transfers microliters.\nc) Serological pipette: measures/transfers mL volumes, with a pipette pump.\nd) Spectrophotometer: measures light absorbed at a wavelength (find amount of a substance).\ne) Gel electrophoresis: CROSSED OUT by your teacher (next semester).\nf) Vortex: mixes a tube by rapid rotation.\ng) Thermal cycler (PCR): amplifies a specific section of DNA.",
+11:"Micropipettes: each student station has a set, labeled with colored tape for that workstation (return to the right station). Hazardous chemicals are locked in the prep room. Picofuge, microcentrifuge, tips, microtubes: write your lab's locations in your notes.",
+12:"Set volume within range; firmly attach the right tip; press to FIRST stop; put tip below the liquid surface and release SLOWLY; move to target tube; dispense to first stop, then SECOND stop; eject the tip. New tip each sample; keep upright with liquid in the tip.",
+13:"Read the three digits top to bottom.\nP-10: XX.X µL (last digit = tenths).\nP-100: XXX µL (whole µL).\nP-1000: X.XX mL (each last digit = 10 µL).",
+14:"Dial 089:\nP-10 = 8.9 µL = 0.0089 mL\nP-100 = 89 µL = 0.089 mL\nP-1000 = 890 µL = 0.89 mL\n(1000 µL = 1 mL)",
+15:"Place tubes directly OPPOSITE each other with equal volumes. Odd number of samples: add a balance tube with the same volume of water. Close the lid before spinning.",
+16:"1) CONTROL/no treatment: milk left to age; natural bacteria in the milk act.\n2) STARTER CULTURE/buttermilk: known bacteria (Lactobacillus) make enzymes that curdle milk.\n3) RENNIN (RENNET): protease from calf stomach cells cleaves casein into fragments that settle as curds. Not vegetarian (asiago, most brie, most cheddar).\n4) GE CHYMOSIN: cow rennin gene inserted into fungus cells, which make the enzyme faster and cheaper (Jack, mozzarella, most Swiss).",
+17:"The main protein in milk. It denatures and clumps into curds.",
+18:"Enzymes that cut (cleave) proteins. Rennin/chymosin are proteases that cut casein into fragments that fall out of solution as curds.",
+19:"Bacteria in the milk (or a starter culture) make enzymes that convert lactose to lactic acid. The low pH makes casein denature (unwind) and fall out of solution.",
+20:"CURD: solid lumps of denatured casein (pressed into cheese). WHEY: the liquid left after curdling.",
+21:"pH METER: follow the SOP; calibrate with pH 7 and pH 4 standard buffers, rinsing between. (Accurate for about -5 to 60 °C; not above pH 12; high Na+ gives errors.)\nBALANCE: follow the SOP; calibrate with a standard mass; tare the weighing dish to zero.",
+22:"PROKARYOTE: no nucleus (DNA in nucleoid region, usually one circular chromosome), no true organelles, has ribosomes, plasma membrane, cell wall; about 100 nm-10 µm; bacteria and Archaea.\nEUKARYOTE: DNA in a membrane-bound nucleus, many organelles; about 10-100 µm; protists, fungi, plants, animals.",
+23:"Nucleus: stores DNA, control center. ER: rough makes/folds proteins, smooth makes lipids/detox. Golgi: modifies, sorts, packages proteins. Plasma membrane: controls what enters/leaves. Cell wall: rigid support (cellulose in plants). Vacuole: storage (water, ions, wastes). Mitochondria: makes ATP. Chloroplast: photosynthesis. Lysosome: digests waste.",
+24:"Plant cells have everything animal cells have PLUS 3: chloroplasts (photosynthesis), cell wall (cellulose, support), large central vacuole (storage, mostly water).",
+25:"DNA wrapped around a core of histone proteins (about 147 bp around 8 histones). The first level of DNA packaging ('beads on a string').",
+26:"Positively charged proteins that DNA wraps around. They package DNA and help control access to genes.",
+27:"DNA → RNA → protein. Transcription: DNA to mRNA. Translation: mRNA to protein (at the ribosome). DNA also copies itself (replication). Replication and transcription: nucleus in eukaryotes, cytosol in prokaryotes.",
+28:"REPLICATION: copy DNA before cell division. TRANSCRIPTION: make an RNA copy of a gene. TRANSLATION: build a protein from mRNA.",
+29:"Phosphate group + 5-carbon sugar (deoxyribose in DNA) + nitrogenous base. Base on the 1' carbon, phosphate on the 5' carbon.",
+30:"PURINES: double ring. PYRIMIDINES: single ring.",
+31:"Purines: A and G. Pyrimidines: C, T (and U in RNA).",
+32:"Two antiparallel strands in a double helix. Sugar-phosphate backbone (deoxyribose + phosphate) on the outside, base pairs in the middle (A=T, G≡C). One strand 5'→3', the other 3'→5'. 5' end: free phosphate. 3' end: free OH.",
+33:"Along a strand: phosphodiester bonds (3' carbon of one sugar to the 5' phosphate of the next). Between strands: hydrogen bonds.",
+34:"A pairs with T (2 hydrogen bonds). G pairs with C (3 hydrogen bonds). Always a purine with a pyrimidine. In RNA, A pairs with U.",
+35:"Copy the genome so each new cell gets a complete set of DNA before dividing.",
+36:"Produce two genetically identical daughter cells (growth, repair, replacement). Human somatic cell: 46 chromosomes, 92 sister chromatids after replication.",
+37:"CHROMOSOME: DNA tightly wound with histones (appears after replication). CHROMATIDS: two identical sister copies of a replicated chromosome. CENTROMERE: region joining the sister chromatids. Short arm = p, long arm = q.",
+38:"COMPLEMENTARY: A-T, G-C base pairing. ANTIPARALLEL: strands run in opposite directions (5'→3' and 3'→5'). SEMICONSERVATIVE: each new DNA molecule has one old strand and one new strand.",
+39:"Helicase unzips the helix (breaks H-bonds) at the origin, making the replication FORK. DNA BINDING PROTEINS hold strands apart. PRIMASE lays an RNA primer (gives a free 3' OH). DNA POLYMERASE extends 5'\u21923' and replaces primers with DNA. LEADING strand: continuous, follows the fork. LAGGING strand: discontinuous OKAZAKI FRAGMENTS (waits for the fork to open). LIGASE seals the nicks. (Gyrase and topoisomerase are crossed out.)",
+40:"DNA polymerase reads the template strand 3' to 5'.",
+41:"DNA polymerase builds the new strand 5' to 3' (adds to the 3' end).",
+42:"A small, closed, circular DNA molecule separate from the chromosome that replicates on its own; often carries genes like antibiotic resistance.",
+43:"A vector carries foreign DNA into a host cell; the plasmid carries a gene (like GFP) into bacteria.",
+44:"The ORI (origin of replication) is where DNA polymerase starts copying the plasmid, so it can replicate in the host cell.",
+45:"A gene that lets you select cells that took up the plasmid (usually antibiotic resistance). pGLO: bla gene (beta-lactamase) = ampicillin resistance.",
+46:"COMPETENT = able to take up foreign DNA. Two methods: chemical (CaCl2 + cold shock + heat shock) and electroporation (electric pulse).",
+47:"Uptake and expression of foreign DNA by a cell, changing its traits (pGLO: amp resistance and glowing with arabinose).",
+48:"GFP gene: green fluorescent protein. bla gene: ampicillin resistance. araC gene: regulatory protein that binds the pBAD promoter. Promoter (pBAD): where RNA polymerase binds. ORI: origin of replication. (3 genes + ORI.)",
+49:"1) Suspend E. coli in cold CaCl2 and add pGLO DNA, keep on ice. 2) Heat shock 42 °C (about 50 s). 3) Back on ice. 4) Add LB, recover. 5) Plate on LB, LB/amp, LB/amp/ara. 6) Incubate at 37 °C 24-48 h.",
+50:"CaCl2: Ca2+ shields the negative charges on DNA and the membrane so DNA can approach. HEAT SHOCK: temperature change makes membranes permeable so DNA enters. LB: nutrients so cells recover and express bla (and amplify plasmids) before ampicillin.",
+51:"A sugar that acts as the inducer: it turns the GFP gene ON in pGLO.",
+52:"No arabinose (OFF): araC protein binds the promoter region and blocks RNA polymerase. Arabinose present (ON): arabinose binds araC protein, RNA polymerase binds the promoter and transcribes the GFP gene, mRNA is translated into GFP, cells glow under UV.",
+53:"LB (no antibiotic), LB/amp (ampicillin), LB/amp/ara (ampicillin + arabinose). Used for +pGLO and -pGLO cells.",
+54:"+pGLO LB/amp/ara: growth + glows. +pGLO LB/amp: growth, no glow (GFP off). -pGLO LB/amp: no growth (no resistance). -pGLO LB: lawn, no glow (viability control).",
+55:"Separating and purifying molecules (like proteins) from a mixture based on size, charge, or hydrophobicity.",
+56:"Size exclusion, ion exchange, affinity, hydrophobic interaction. We used HYDROPHOBIC INTERACTION chromatography (phenyl sepharose beads).",
+57:"Lysozyme digests the peptidoglycan cell wall of bacteria, bursting them open so GFP is released.",
+58:"1) Lyse cells with lysozyme; spin, keep supernatant. 2) Equilibration buffer (high salt, 2 M (NH4)2SO4) readies the column. 3) Binding buffer (very high salt, 4 M): hydrophobic regions of proteins move outside, GFP sticks to the hydrophobic beads. 4) Wash buffer (medium salt, 1.3 M): removes less hydrophobic, more hydrophilic proteins. 5) Elution buffer (very low salt, 10 mM Tris/EDTA): hydrophobic regions go back inside, GFP is released. GFP is much more hydrophobic than most bacterial proteins.",
+59:"Make an RNA (mRNA) copy of a gene from DNA, in the nucleus.",
+60:"RNA: single-stranded, ribose, uracil (no thymine), several types (mRNA, tRNA, rRNA). DNA: double-stranded, deoxyribose, thymine.",
+61:"Uracil is a pyrimidine (one ring). It is found in RNA, NOT in DNA (pairs with adenine).",
+62:"Ribose has an OH on the 2' carbon (RNA). Deoxyribose lacks that oxygen (just H) (DNA).",
+63:"Three types of RNA: messenger RNA, transfer RNA, ribosomal RNA.",
+64:"mRNA: carries the gene's message (codons) to the ribosome. tRNA: brings amino acids; anticodon matches codon. rRNA: part of the ribosome; helps form peptide bonds.",
+65:"RNA POLYMERASE unwinds DNA and builds RNA 5'→3'. PROMOTER: where RNA polymerase binds to start. TEMPLATE strand: the strand copied (read 3'→5'). CODING strand: the other strand; same sequence as the mRNA (T for U). Stops at a termination sequence.",
+66:"INTRONS: non-coding intervening sequences, removed. EXONS: coding sequences, kept and joined.",
+67:"Splicing removes introns and joins exons. It happens in the nucleus (spliceosome is the standard answer; check your notes).",
+68:"5' CAP: a guanine with a methyl group; protects the mRNA and helps the ribosome recognize its 5' end. POLY-A TAIL: about 100-300 adenines at the 3' end; protects from degradation, adds stability.",
+69:"Use the mRNA code to build a polypeptide/protein.",
+70:"At ribosomes (in the cytoplasm, free or attached to rough ER).",
+71:"CODON: 3 nucleotides on mRNA (code for an amino acid or stop). ANTICODON: 3 nucleotides on tRNA, complementary to the codon.",
+72:"AUG (start codon); it codes for methionine (Met).",
+73:"A stretch of codons from a start codon (AUG) to a stop codon, with no stop in between, that can be translated.",
+74:"INITIATION: small subunit binds the mRNA (5' cap) and finds AUG; initiator tRNA (Met) pairs; large subunit joins. ELONGATION: tRNAs bring amino acids, peptide bonds form, ribosome moves codon by codon. TERMINATION: stop codon (UAA, UAG, UGA); release factor; polypeptide released and subunits come apart.",
+75:"mRNA: message. Codon: 3-nt code. Anticodon: on tRNA, pairs with codon. Ribosome: site of translation; SMALL subunit binds mRNA, LARGE subunit forms peptide bonds. tRNA: brings the amino acid. Start codon: AUG. Amino acids join by PEPTIDE BONDS into a POLYPEPTIDE, which folds into a PROTEIN. RELEASE FACTOR: ends translation at a stop codon.",
+76:"Bottom strand is the TEMPLATE (top strand reads ATG...TGA = coding strand).\nmRNA: 5'-AUG GAU CUG AAU UGA-3'\ntRNA anticodons (3'→5'): UAC | CUA | GAC | UUA | (none for stop)\nAmino acids: Met - Asp - Leu - Asn - STOP\nPolypeptide: Met-Asp-Leu-Asn",
+77:"ACTIVATORS: regulatory proteins (transcription factors) that bind enhancers and stimulate transcription. ENHANCERS: DNA sequences, usually 50+ bp upstream of the promoter (can be farther or downstream). DNA bends so activators contact the promoter machinery and recruit RNA polymerase, increasing transcription of that gene.",
+78:"Promoter elements in eukaryotes bound by transcription factors. TATA box (TATAAAA): about 30 nucleotides upstream (-30); helps position RNA polymerase. CAAT box (GGCCAATCT): about 80 nucleotides upstream (-80); boosts transcription.",
+79:"DNA: the molecule. CHROMATIN: DNA loosely wrapped on histones (nucleosomes), easier to transcribe. CHROMOSOME: tightly wound DNA + histones (after replication). GENE: a segment of DNA that codes for a protein or functional RNA.",
+80:"Yes. Both came from the same fertilized egg by mitosis, so they have identical chromosomes. They differ because different genes are expressed.",
+81:"DNA is negatively charged (backbone groups), which keeps it soluble in the lysis buffer. Salt ions neutralize that charge so molecules clump. COLD ALCOHOL then precipitates it (insoluble in high salt + alcohol): fine white strands at the alcohol boundary, while fats, sugars, proteins stay dissolved.",
+82:"LYSIS BUFFER: detergent breaks apart the phospholipid cell and nuclear membranes so DNA is released; a buffering agent keeps pH steady so the DNA stays stable. PROTEASE: removes proteins bound to DNA and destroys cellular enzymes that would digest it (incubated at 50 \u00b0C, its optimum). Cells: cheek cells."
+};
 
 
 /* ================= state ================= */
 const KEY='biotechMidtermV1';
 let S=loadState();
 if(S.cv!==CONTENT_V){S.q={};S.cv=CONTENT_V;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function blank(){return {v:1,q:{},f:{},cov:{},notes:{},exams:[],tipDismissed:false,xp:0,streak:0,bestStreak:0,day:'',today:{d:'',n:0},goal:20,goalHit:'',bestCombo:0,badges:{},confXP:{},clXP:{},sound:true,cv:''}}
+const BONUS_COUNT={q:MCQ.filter(q=>q.x).length,c:CARDS.filter(c=>c.x).length};
+if(!S.bonus){MCQ.splice(0,MCQ.length,...MCQ.filter(q=>!q.x));CARDS.splice(0,CARDS.length,...CARDS.filter(c=>!c.x))}
+function blank(){return {v:1,q:{},f:{},cov:{},notes:{},exams:[],tipDismissed:false,bonus:false,xp:0,streak:0,bestStreak:0,day:'',today:{d:'',n:0},goal:20,goalHit:'',bestCombo:0,badges:{},confXP:{},clXP:{},sound:true,cv:''}}
 function loadState(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return Object.assign(blank(),s)}catch(e){}return blank()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
@@ -991,12 +1153,12 @@ function record(id,ok){
 function isMissed(q){const s=S.q[q.id];return !!(s&&s.wrong>0&&s.streak<2)}
 function isMastered(q){const s=S.q[q.id];return !!(s&&s.streak>=2)}
 function drilled(n){return mcqForTopic(n).some(q=>S.q[q.id]&&S.q[q.id].seen>0)}
-function accuracy(){let c=0,w=0;for(const k in S.q){c+=S.q[k].correct;w+=S.q[k].wrong}return c+w?Math.round(100*c/(c+w)):null}
+function accuracy(){let c=0,w=0;for(const k in S.q){c+=S.q[k].correct;w+=S.q[k].wrong}return c+w>=10?Math.round(100*c/(c+w)):null}
 function clusterStats(c){
   const qs=MCQ.filter(q=>qCluster(q).id===c.id);
   let mastered=0,seen=0,cor=0,wr=0;
   qs.forEach(q=>{const s=S.q[q.id];if(s){if(s.seen>0)seen++;if(s.streak>=2)mastered++;cor+=s.correct;wr+=s.wrong}});
-  return {total:qs.length,mastered,seen,acc:cor+wr?Math.round(100*cor/(cor+wr)):null,qs};
+  return {total:qs.length,mastered,seen,acc:cor+wr>=5?Math.round(100*cor/(cor+wr)):null,qs};
 }
 function status(n){return S.cov[n]||'new'}
 function pct(a,b){return b?Math.round(100*a/b):0}
@@ -1117,7 +1279,7 @@ const ICONS={
 function renderTabs(){
   const hide=['run','results','cardrun'].includes(route.name);
   tabs.className=hide?'hide':'';
-  const base={home:'home',quiz:'quiz',cards:'cards',cardmenu:'cards',cov:'cov',weak:'weak',data:'home'}[route.name]||'home';
+  const base={home:'home',quiz:'quiz',cards:'cards',cardmenu:'cards',cov:'cov',cram:'cov',weak:'weak',data:'home'}[route.name]||'home';
   const items=[['home','Home','home'],['quiz','Quiz','quiz'],['cards','Cards','cards'],['cov','Coverage','cov'],['weak','Weak spots','weak']];
   tabs.innerHTML=items.map(([r,l,i])=>`<button class="${base===i?'on':''}" data-go="${r}"><svg viewBox="0 0 24 24">${ICONS[i]}</svg>${l}</button>`).join('');
 }
@@ -1167,10 +1329,11 @@ VIEWS.home=function(){
   <div class="card goal"><div class="row" style="display:flex;justify-content:space-between;align-items:baseline"><b>Today</b><span class="small muted">${tc>=goal?'Goal hit, +50 XP earned':tc+' / '+goal+' answers'}</span></div>
    <div class="xpbar" style="margin-top:8px"><i style="width:${gp}%;background:${tc>=goal?'var(--ok)':'var(--amber)'}"></i></div>
    ${st>0?`<div class="small muted" style="margin-top:8px">${st}-day streak${st>=(S.bestStreak||0)&&st>1?', your best so far':''}. Study today to keep it.</div>`:'<div class="small muted" style="margin-top:8px">Answer a question to start a streak.</div>'}</div>
+  <button class="btn ghost" data-go2="cram" style="margin-bottom:12px">Last-minute cram sheet (all 82 answers)</button>
   <div class="card next"><div class="lbl">${nextT}</div><div class="small muted" style="margin-bottom:12px">${nextS}</div><button class="btn amber" data-act="${nextA}">Go</button></div>
   <div class="card" data-go2="cov" style="cursor:pointer">${ringSVG()}
    <div class="legend"><span><i style="background:var(--tick)"></i>Not yet drilled</span><span><i style="background:var(--amber)"></i>Drilled</span><span><i style="background:var(--conf)"></i>Confident</span></div>
-   <div class="stats"><div><b>${dr}/82</b><span>topics drilled</span></div><div><b>${conf}/82</b><span>marked confident</span></div><div><b>${acc===null?'--':acc+'%'}</b><span>quiz accuracy</span></div></div>
+   <div class="stats"><div><b>${dr}/82</b><span>topics drilled</span></div><div><b>${conf}/82</b><span>marked confident</span></div><div><b>${acc===null?'--':acc+'%'}</b><span>${acc===null?'accuracy after 10 answers':'quiz accuracy'}</span></div></div>
   </div>
   <div class="stack">
    <button class="btn" data-act="exam">Full exam simulation (70 Qs)</button>
@@ -1187,7 +1350,7 @@ VIEWS.home=function(){
 VIEWS.quiz=function(){
   const rows=CLUSTERS.map(c=>{const s=clusterStats(c);
     return `<button class="row-item" data-act="cluster" data-id="${c.id}"><span class="badge">${c.id}</span><span class="grow"><b>${esc(c.name)}${clusterCleared(c)?'<span class="clr">Cleared</span>':''}</b>
-    <span class="small muted">Q${c.from}-${c.to} · ${s.total} questions · ${s.acc===null?'not started':s.acc+'% accuracy'}</span>
+    <span class="small muted">Q${c.from}-${c.to} · ${s.total} questions · ${s.acc===null?(s.seen?'just started':'not started'):s.acc+'% accuracy'}</span>
     <span class="bar" style="margin-top:7px"><i class="m" style="width:${pct(s.mastered,s.total)}%"></i><i class="s" style="width:${pct(s.seen-s.mastered,s.total)}%"></i></span></span></button>`}).join('');
   const missed=MCQ.filter(isMissed).length;
   return `<div class="hdr"><h1>Quiz</h1><p>${MCQ.length} multiple-choice questions across all 82 topics. Answer order is shuffled every time.</p></div>
@@ -1258,21 +1421,21 @@ function finishRun(){
   save();checkBadges();go('results');
 }
 VIEWS.results=function(){
-  const n=run.items.length,p=Math.round(100*run.score/n),stars=p>=90?3:p>=70?2:p>=50?1:0,li=levelInfo(S.xp);
+  const n=run.items.length,small=n<5,p=Math.round(100*run.score/n),stars=small?0:(p>=90?3:p>=70?2:p>=50?1:0),li=levelInfo(S.xp);
   const miss=run.items.filter(it=>!it.ok);
-  const msg=p===100?'Perfect run.':p>=95?'Test-ready.':p>=80?'Strong. Fix the misses below and you are there.':p>=60?'Getting there. The misses show where to focus.':'Good start. Every miss below is something you can fix tonight.';
+  const msg=small?(run.score===n?'Nice.':'Keep going.'):p===100?'Perfect run.':p>=95?'Test-ready.':p>=80?'Strong. Fix the misses below and you are there.':p>=60?'Getting there. The misses show where to focus.':'Good start. Every miss below is something you can fix tonight.';
   const list=miss.map(it=>`<div class="card"><div class="small muted">${qCluster(it.q).id} · Q${it.q.t.join(', ')}${it.sel===null?' · unanswered':''}</div>
     <div style="font-weight:600;margin:4px 0 8px">${esc(it.q.q)}</div>
     ${it.sel!==null?`<div class="small" style="color:var(--bad)">Your answer: ${esc(it.q.o[it.ord[it.sel]])}</div>`:''}
     <div class="small" style="color:var(--ok);font-weight:700">Correct: ${esc(it.q.o[0])}</div>
     <div class="small muted" style="margin-top:6px">${esc(it.q.e)}</div></div>`).join('');
   return `<div class="hdr center"><p style="margin:0 0 4px">${esc(run.title)}${run.newBest?' · new best':''}</p><div class="big" style="color:var(--amber)"><span id="cnt" data-to="${run.score}">0</span><span style="font-size:28px;color:#b9c7e3">/${n}</span></div>
-   <div class="stars">${[0,1,2].map(i=>`<span style="display:inline-block">${STAR.replace('<svg','<svg class="'+(i<stars?'on':'')+'" style="animation-delay:'+(0.5+i*0.25)+'s"')}</span>`).join('')}</div>
-   <p style="font-size:17px;margin:0">${p}% correct. ${msg}</p></div>
+   ${small?'':`<div class="stars">${[0,1,2].map(i=>`<span style="display:inline-block">${STAR.replace('<svg','<svg class="'+(i<stars?'on':'')+'" style="animation-delay:'+(0.5+i*0.25)+'s"')}</span>`).join('')}</div>`}
+   <p style="font-size:17px;margin:0">${small?run.score+' of '+n+' right. '+msg+' (Short set: no rating.)':p+'% correct. '+msg}</p></div>
   <div class="pad"><div class="card"><div class="rstats"><div><b>+${run.xp}</b><span>XP earned</span></div><div><b>${run.mode==='exam'?run.score:run.best}</b><span>${run.mode==='exam'?'correct':'best combo'}</span></div><div><b>Lv ${li.lv}</b><span>${li.title}</span></div></div>
    <div class="xpbar" style="margin-top:12px;background:var(--line)"><i style="width:${li.frac}%"></i></div><div class="small muted" style="margin-top:5px">${li.have} / ${li.need} XP to level ${li.lv+1}</div></div>
   <div class="stack">
-  ${miss.length?`<button class="btn amber" data-act="retrymiss">Retry the ${miss.length} I missed</button>`:'<div class="card center"><b>Every question right.</b><div class="muted small">Keep going until every topic is marked confident.</div></div>'}
+  ${miss.length?`<button class="btn amber" data-act="retrymiss">Retry the ${miss.length} I missed</button>`:`<div class="card center"><b>${small?'All right.':'Every question right.'}</b><div class="muted small">Keep going until every topic is marked confident.</div></div>`}
   <button class="btn ghost" data-act="home">Back to home</button></div>
   ${miss.length?'<h2>What you missed</h2>'+list:''}</div>`;
 };
@@ -1280,6 +1443,7 @@ AFTER.results=function(){
   const el=$('#cnt');if(!el)return;const to=+el.dataset.to,t0=performance.now(),dur=Math.min(1200,300+to*25);
   (function step(now){const k=Math.min(1,(now-t0)/dur);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)})(t0);
   const p=100*run.score/run.items.length;
+  if(run.items.length<5){sfx('right');return}
   if(p>=90){setTimeout(()=>confetti(p===100?170:120,1.2),500);sfx('level')}else if(p>=70)sfx('badge');else sfx('right');
 };
 
@@ -1321,7 +1485,7 @@ VIEWS.cov=function(){
   const chips=[['all','All 82'],['new','Not yet ('+cnt.new+')'],['rev','Needs review ('+cnt.rev+')'],['conf','Confident ('+cnt.conf+')']]
     .map(([k,l])=>`<button class="chip ${covFilter===k?'on':''}" data-filter="${k}">${l}</button>`).join('');
   let html=`<div class="hdr"><h1>Coverage checklist</h1><p>Every question on the review sheet. Nothing is confident until you mark it.</p></div><div class="pad">
-   <div class="card small"><b>${covered}/82</b> review questions have both quiz questions and flashcards in this app.</div><div class="chips">${chips}</div>`;
+   <div class="card small"><b>${covered}/82</b> review questions have both quiz questions and flashcards in this app. <a href="#" data-go2="cram" style="color:var(--ink);font-weight:700">Open the cram sheet</a></div><div class="chips">${chips}</div>`;
   CLUSTERS.forEach(c=>{
     const ns=ALLN.filter(n=>n>=c.from&&n<=c.to&&(covFilter==='all'||status(n)===covFilter));
     if(!ns.length)return;
@@ -1340,7 +1504,7 @@ function covRow(n){
     let c=0,w=0;mq.forEach(q=>{const s=S.q[q.id];if(s){c+=s.correct;w+=s.wrong}});
     body=`<div class="qbody"><div class="full">${esc(SRC[n-1])}</div>
     ${CHECK_NOTES[n]?`<div class="note">${esc(CHECK_NOTES[n])}</div>`:''}
-    <div class="small muted">${mq.length} quiz question${mq.length!==1?'s':''} · ${cd.length} flashcard${cd.length!==1?'s':''} · ${c+w?pct(c,c+w)+'% correct on this topic':'not quizzed yet'}</div>
+    <div class="small muted">${mq.length} quiz question${mq.length!==1?'s':''} · ${cd.length} flashcard${cd.length!==1?'s':''} · ${c+w>=3?pct(c,c+w)+'% correct on this topic':(c+w?(c+w)+' answered so far':'not quizzed yet')}</div>
     <div class="seg"><button class="n ${st==='new'?'on':''}" data-set="${n}:new">Not yet</button><button class="r ${st==='rev'?'on':''}" data-set="${n}:rev">Needs review</button><button class="c ${st==='conf'?'on':''}" data-set="${n}:conf">Confident</button></div>
     <div class="btns"><button class="btn small" data-act="topicquiz" data-id="${n}">Quiz me</button><button class="btn small ghost" data-act="topiccards" data-id="${n}">Flashcards</button></div>
     <div class="small muted" style="margin:12px 0 6px">My notes for this topic</div>
@@ -1348,6 +1512,27 @@ function covRow(n){
   }
   return `<div class="qrow"><button class="qhead" data-open="${n}"><span class="badge">${n}</span><span class="t">${esc(SRC[n-1].split('\n')[0])}</span><span class="dot ${st}" aria-label="${st}"></span></button>${body}</div>`;
 }
+
+/* ================= CRAM SHEET ================= */
+let cramFilter='all';
+VIEWS.cram=function(){
+  const cnt={conf:0,rev:0,new:0};ALLN.forEach(n=>cnt[status(n)]++);
+  const chips=[['all','All 82'],['todo','Not confident yet ('+(cnt.new+cnt.rev)+')'],['rev','Needs review ('+cnt.rev+')']]
+    .map(([k,l])=>`<button class="chip ${cramFilter===k?'on':''}" data-cram="${k}">${l}</button>`).join('');
+  let html=`<div class="hdr"><div class="row"><div class="grow"><h1>Cram sheet</h1><p>Every review question with its answer. Read it top to bottom before the exam.</p></div></div></div><div class="pad"><div class="chips">${chips}</div>`;
+  CLUSTERS.forEach(c=>{
+    const ns=ALLN.filter(n=>n>=c.from&&n<=c.to&&(cramFilter==='all'||(cramFilter==='todo'&&status(n)!=='conf')||(cramFilter==='rev'&&status(n)==='rev')));
+    if(!ns.length)return;
+    html+=`<div class="ctitle"><span class="badge">${c.id}</span><span>${esc(c.name)}</span></div>`;
+    ns.forEach(n=>{const st=status(n);
+      html+=`<div class="qrow cram"><div class="cq"><span class="badge">${n}</span><span class="cqt">${esc(SRC[n-1].split('\n')[0])}</span></div>
+      <div class="ca">${esc(SUMMARY[n]||'')}</div>
+      ${CHECK_NOTES[n]?`<div class="note">${esc(CHECK_NOTES[n])}</div>`:''}
+      <div class="seg" style="margin:8px 0 0"><button class="n ${st==='new'?'on':''}" data-set="${n}:new">Not yet</button><button class="r ${st==='rev'?'on':''}" data-set="${n}:rev">Review</button><button class="c ${st==='conf'?'on':''}" data-set="${n}:conf">Got it</button></div></div>`});
+  });
+  if(!html.includes('qrow'))html+='<div class="card center muted">Nothing here. Everything in this filter is marked confident.</div>';
+  return html+'</div>';
+};
 
 /* ================= WEAK SPOTS ================= */
 VIEWS.weak=function(){
@@ -1358,7 +1543,7 @@ VIEWS.weak=function(){
   return `<div class="hdr"><h1>Weak spots</h1><p>A question stays here until you get it right twice in a row.</p></div><div class="pad">
   <div class="stack"><button class="btn amber" data-act="misses" ${ms.length?'':'disabled'}>Review ${ms.length} missed question${ms.length===1?'':'s'}</button>
   <button class="btn ghost" data-act="unseen" ${unseen?'':'disabled'}>Quiz me on ${unseen} unseen question${unseen===1?'':'s'}</button></div>
-  ${byCl.length?'<h2>Clusters, weakest first</h2>'+byCl.map(x=>`<button class="row-item" data-act="cluster" data-id="${x.c.id}"><span class="badge">${x.c.id}</span><span class="grow"><b>${esc(x.c.name)}</b><span class="small muted">${x.s.acc}% accuracy · ${x.s.mastered}/${x.s.total} mastered</span></span></button>`).join(''):'<div class="card muted mt">Take a quiz first and your weak clusters will show up here.</div>'}
+  ${byCl.length?'<h2>Clusters, weakest first</h2>'+byCl.map(x=>`<button class="row-item" data-act="cluster" data-id="${x.c.id}"><span class="badge">${x.c.id}</span><span class="grow"><b>${esc(x.c.name)}</b><span class="small muted">${x.s.acc===null?'just started':x.s.acc+'% accuracy'} · ${x.s.mastered}/${x.s.total} mastered</span></span></button>`).join(''):'<div class="card muted mt">Take a quiz first and your weak clusters will show up here.</div>'}
   ${ms.length?'<h2>Your misses</h2>'+list+(ms.length>40?'<div class="muted small center">Showing 40 of '+ms.length+'</div>':''):''}</div>`;
 };
 
@@ -1366,6 +1551,7 @@ VIEWS.weak=function(){
 VIEWS.data=function(){
   return `<div class="hdr"><h1>Backup and reset</h1><p>Progress is stored on this device only.</p></div><div class="pad">
   <div class="card"><b>Sound effects</b><div class="small muted" style="margin:4px 0 10px">Short tones for right answers, misses, and level-ups.</div><button class="btn small ghost" data-act="sound">${S.sound?'Sound is on. Tap to mute':'Sound is off. Tap to turn on'}</button></div>
+  <div class="card"><b>Bonus material</b><div class="small muted" style="margin:4px 0 10px">Off by default. The exam sticks to your 82 review questions, so details beyond them (NFPA ratings, Griffith's experiment, the lac operon, and similar) are hidden. ${BONUS_COUNT.q} bonus questions and ${BONUS_COUNT.c} cards are available.</div><button class="btn small ghost" data-act="bonus">${S.bonus?'Bonus is on. Tap to hide it':'Bonus is off. Tap to include it'}</button></div>
   <div class="card"><b>Export</b><div class="small muted" style="margin:4px 0 10px">Copy this text somewhere safe (Notes works), or download it as a file.</div>
   <textarea id="exp" readonly>${esc(JSON.stringify(S))}</textarea>
   <div class="btns mt"><button class="btn small" data-act="copy">Copy</button><button class="btn small ghost" data-act="download">Download file</button></div></div>
@@ -1379,6 +1565,7 @@ VIEWS.data=function(){
 document.addEventListener('click',e=>{
   const g=e.target.closest('[data-go2]');if(g){e.preventDefault();go(g.dataset.go2);return}
   const f=e.target.closest('[data-filter]');if(f){covFilter=f.dataset.filter;render();return}
+  const cf=e.target.closest('[data-cram]');if(cf){cramFilter=cf.dataset.cram;render();return}
   const o=e.target.closest('[data-open]');if(o){const n=+o.dataset.open;covOpen=covOpen===n?null:n;render();return}
   const st=e.target.closest('[data-set]');if(st){const [n,v]=st.dataset.set.split(':');if(v==='new')delete S.cov[n];else S.cov[n]=v;save();
     if(v==='conf'&&!S.confXP[n]){S.confXP[n]=1;award(20);sfx('right');confetti(30,.6);render();floatXP('+20 XP',st);checkBadges();return}
@@ -1406,6 +1593,7 @@ function pick(k){
 function act(name,id){
   switch(name){
     case 'tip':S.tipDismissed=true;save();render();break;
+    case 'bonus':S.bonus=!S.bonus;save();location.reload();break;
     case 'sound':S.sound=!S.sound;save();sfx('tap');render();break;
     case 'exam':startRun('exam',buildExam(),'Full exam simulation');break;
     case 'sweep':startRun('practice',buildSweep(),'Coverage sweep');break;
